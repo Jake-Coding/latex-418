@@ -83,10 +83,10 @@ footskip=.25in}
 
 % Problem Labels
 \newcounter{problem}[section]
-\newenvironment{problem}[1][\theproblem]{\refstepcounter{problem}\noindent \textbf{Problem~#1.\quad}}{\\\vskip\smallskipamount}
+\newenvironment{problem}[1][\theproblem]{\refstepcounter{problem}\noindent \textbf{Problem~#1.\quad}}{\vskip\smallskipamount}
 
 
-\newenvironment{solution}{\noindent \textbf{Solution.\quad}}{\\\vskip\bigskipamount}
+\newenvironment{solution}{\noindent \textbf{Solution.\quad}}{\vskip\bigskipamount}
 
 
 % Special Characters
@@ -95,6 +95,10 @@ footskip=.25in}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\ob}[1]{\text{ob}(#1)}
 
 % Math Operators
 

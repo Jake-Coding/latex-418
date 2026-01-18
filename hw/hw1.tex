@@ -1,0 +1,178 @@
+\documentclass[12pt]{article}
+% -------------------
+% Packages
+% -------------------
+\usepackage{
+	amsmath,			% Math Environments
+	amssymb,			% Extended Symbols
+	amsthm,			    % Theorem Environments
+	cancel,			    % Use Cancels
+	enumerate,		    % Enumerate Environments
+	graphicx,			% Include Images
+	lastpage,			% Reference Lastpage
+	multicol,			% Use Multi-columns
+	multirow,			% Use Multi-rows
+	xcolor,			    % Use Colors
+	float,
+	geometry
+}
+
+% -------------------
+% Header & Footer
+% -------------------
+\usepackage{fancyhdr}
+
+\newcommand{\assignment}[1]{
+	\fancypagestyle{title}{
+		%Headers
+		\fancyhead[L]{Jake Bridge}
+		\fancyhead[C]{MATH 418}
+		\fancyhead[R]{HW #1}
+		\renewcommand{\headrulewidth}{0.2pt}
+		%Footers
+		\fancyfoot[L]{}
+		\fancyfoot[C]{}
+		\fancyfoot[R]{}
+		\renewcommand{\footrulewidth}{0.0pt}
+	}
+	\thispagestyle{title}
+}
+\fancypagestyle{pages}{
+	%Headers
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\renewcommand{\headrulewidth}{0.0pt}
+	%Footers
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{}
+	\renewcommand{\footrulewidth}{0.0pt}
+}
+\headheight=18pt
+\footskip=14pt
+
+\pagestyle{pages}
+
+% ---------------
+% Page Layout
+% ---------------
+\geometry{letterpaper,
+bindingoffset=0.2in,
+left=1in,
+right=1in,
+top=1in,
+bottom=1in,
+footskip=.25in}
+% -------------------
+% Font
+% -------------------
+%\usepackage[T1]{fontenc}
+%\usepackage{charter}
+
+%\usepackage[T1]{fontenc}
+%\usepackage{mathpazo}
+
+%\usepackage[bitstream-charter]{mathdesign}
+%\usepackage[T1]{fontenc}
+
+
+% -------------------
+% Commands
+% -------------------
+
+% Problem Labels
+\newcounter{problem}[section]
+\newenvironment{problem}[1][\theproblem]{\refstepcounter{problem}\noindent \textbf{Problem~#1.\quad}}{\vskip\smallskipamount}
+
+
+\newenvironment{solution}{\noindent \textbf{Solution.\quad}}{\vskip\bigskipamount}
+
+
+% Special Characters
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\ob}[1]{\text{ob}(#1)}
+
+% Math Operators
+
+% Special Commands
+
+
+
+% DOC
+\begin{document}
+	\assignment{1}
+
+\begin{problem}[12]
+
+	\begin{enumerate}
+		\item 	Prove if $\mc{S}_1 \subseteq \mc{C}_1$ and $\mc{S}_2 \subseteq \mc{C}_2$ are subcategories, that $\mc{S}_1 \times \mc{S}_2$ is a subcategory of $\mc{C}_1 \times \mc{C}_2$. 
+		\item Does the same hold for disjoint unions?
+	\end{enumerate}
+\end{problem}
+
+\begin{solution}
+
+We inherit a notion of composition and identity from the ambient categories, so we really just need to check that $\mc{S}_1 \times \mc{S}_2$ is closed under composition and has identities. 
+
+There's a good bit of defining to do...Let $A_1, B_1 \in \mc{S}_1, A_2, B_2 \in \mc{S}_2$ with corresponding identities $1_{A_1}, 1_{A_2}$, etc. and morphisms $f, f' : A_1\to B_1, g, g' : A_2 \to B_2$.  
+
+Let's take care of the identities first. 
+I claim that $1_A = (1_{A_1}, 1_{A_2})$ is an identity for $A = (A_1, A_2)$. and similarly for $B = (B_1, B_2)$. Everything mentioned so far is in $\mc{S}_1 \times \mc{S}_2$ by construction and definition of subcategory. Consider any morphism $h = (f, g)$. Then, $h \circ 1_A = (f \circ 1_{A_1}, g \circ 1_{A_2}) = (f, g)$. The same occurs on the other side with the same logic. 
+
+Now, we ought to check composition. Within $\mc{S}_1 \times \mc{S}_2$, let $h: A\to B$ and $h' : B\to C$ in the product category. $h' \circ h = (f', g') \circ (f, g) = (f' \circ f, g' \circ g)$, which is in $\mc{S}_1 \times \mc{S}_2$. 
+
+Hence, $\mc{S}_1 \times \mc{S}_2$ is a subcategory of $\mc{C}_1 \times \mc{C}_2$. \qed
+
+I also claim that the same holds for disjoint unions, as any subcategory of a single one of the two categories is pretty clearly a subcategory of the disjoint union of the ambient. Given two subcategories, their disjoint union ought to be a subcategory of the disjoint union of the ambient categories. The toughest part ends up being notation, so please pardon the following abomination.
+
+In the disjoint union case, we inherit our objects and morphisms, so composition and identities are well defined. I claim that the identity within $\mc{S}_1 \coprod \mc{S}_2 (A, A)$ is the identity from whichever $\mc{S} A$ was from. WLOG $A$ is in $\mc{S}_1$. Denote $1_A \in \mc{S}_1$ by $1'_A$ and $f : A\to B$, where $B \in \mc{S}_1$. "Tagging" the elements I'll write $(1, f)$ to denote $f$ from $\mc{S}_1$, and similarly for other items. Then, $(1, f) \circ (1, 1'_A = (1, f)$. Then, $1_A \in \mc{S}_1 \coprod \mc{S}_2(A,A) = (1, f)$. Hence, we are good with identities. 
+
+The only time composition of morphisms is sensible is when both objects are from the same category initially. Again, WLOG, suppose we have $A, B, C \in \mc{S}_1$ with morphisms $f : A \to B, g: b \to C$. Then, $(1, g) \circ (1, f) = (1, g \circ f)$, which is in the disjoint union because, again, $\mc{S}_1$ is a subcategory. Hence, composition is taken care of!
+
+Thus, $\mc{S}_1 \coprod \mc{S}_2$ is a subcategory of $\mc{C}_1 \coprod \mc{C}_2$. \qed
+
+
+\end{solution}
+
+
+
+
+
+\begin{problem}[8]
+	Given a set $X$, let $\mc{P}X$ be the power set of $X$. Build a category $\Gamma$ with the following properties:
+	\begin{enumerate}
+		\item $\ob{\Gamma}$ consists of all finite sets
+		\item A morphism $S \rightsquigarrow T$ is a function $f: S \to \mc{P}T$ such that for any $s_1 \neq s_2 \in S, f(s_1) \cap f(s_2) = \emptyset$. 
+	\end{enumerate}
+	
+\end{problem}
+
+\begin{solution}
+	The objects and morphisms of our category have already been defined. So, I  need to define composition and identities and check the axioms. 
+	
+	Given $R \xrightarrow{g} S \xrightarrow{f} T$, I define a function $f \circ g: R \to \mc{P}T$ such that $\forall r \in R, (f \circ g)(r) := \bigcup_{s \in g(r)} f(s)$. We need to check that such a morphism satisfies our rule above. Suppose $r_1 \neq r_2 \in R$. Let $t_1 \in (f \circ g)(r_1), t_2 \in (f \circ g)(r_2)$. If we can show that $t_1$ cannot equal $t_2$, that would mean the two sets they come from are disjoint. By our construction, $t_1$ must have come from one of the sets $f(s_1)$ for some $s_1 \in g(r_1)$. Similarly, $t_2$ comes from some $f(s_2)$ for some $s_2 \in g(r_2)$. But, by definition of $g$, $g(r_2) \cap g(r_1) = \emptyset$, and so $s_1 \neq s_2$. Similarly, by definition of $f$, we conclude that $f(s_1) \cap f(s_2) = \emptyset$, and so $t_1 \neq t_2$. Hence, $(f \circ g)(r_1) \cap (f \circ g)(r_2) = \emptyset$. 
+	
+	With our composition rule established, we'll show associativity first.
+	
+	Given $Q \xrightarrow{h} R \xrightarrow{g} S \xrightarrow{f} T$
+	
+	$(f \circ (g \circ h))(q) = \bigcup_{s \in (g \circ h)(q)} f(s) = \bigcup_{s \in \bigcup_{r \in h(q)}g(r)} f(s)  = \bigcup_{r\in h(q)}\bigcup_{s \in g(r)} f(s) = \bigcup_{r\in h(q)} (f \circ g)(r) = ((f \circ g) \circ h)(q)$, as desired!
+	
+	As identities, we will take the function $1_S: S \to \mc{P}S$ where $s \mapsto \{s\}$. Indeed, given $S \xrightarrow{f} T$, $(1_T \circ f)(s) = \bigcup_{t \in f(s)} 1_T(t) = f(s)$ and $(f \circ 1_S)(s) = \bigcup_{s' \in 1_S(s')} f(s') = f(s)$. Hence, our identities are indeed identities. Thus, $\Gamma$ is a category! Yay! \qed
+	
+\end{solution}
+
+\begin{problem}[5]
+gwuh
+\end{problem}
+
+
+\end{document}
