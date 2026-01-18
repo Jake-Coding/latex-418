@@ -171,8 +171,30 @@ Thus, $\mc{S}_1 \coprod \mc{S}_2$ is a subcategory of $\mc{C}_1 \coprod \mc{C}_2
 \end{solution}
 
 \begin{problem}[5]
-gwuh
+Let $\mc{C}$ be a category and $\simeq$ an equivalence relation on the morphisms of $\mc{C}$ such that
+\begin{enumerate}
+	\item $f\simeq g \implies f, g$ have the same source and target
+	\item Given $f, f', g, g'$ where $f \circ f'$ and $g \circ g'$ are defined, $f \simeq g$ and $f' \simeq g' \implies f \circ f' \simeq g \circ g'$
+\end{enumerate}
+Write a category $\bar{\mc{C}} = \mc{C} / \simeq$. Perform the construction explicitly for $\mc{C} = \textbf{Grp}$ and $\simeq$ equivalence up to conjugation.
 \end{problem}
+
+\begin{solution}
+	For notational convenience, I'll refer to the objects of $\bar{\mc{C}}$ in the same way I do the objects of $\mc{C}$, but the morphisms of $\bar{\mc{C}}$ with a bar above them. 
+	
+	Indeed, the objects of $\bar{\mc{C}}$ are the objects $\ob{\mc{C}}$. The morphisms are $\bar{\mc{C}}(A, B) = \mc{C}(A, B) / \simeq$. The identity morphisms in $\bar{\mc{C}}$ are the conjugacy classes of the identity morphisms in $\mc{C}$. 
+	
+	To show that our identity behaves well, let $1_A, \iota_A$ be representatives of $\bar{1_A}$, where $1_A$ is the actual identity in $\mc{C}$ and $f, f'$ representatives of $\bar{f}: A\to B$ where $f$ is the actual morphism $f$ in $\mc{C}$. Our goal is to show that $\bar{f} \circ \bar{1_A} = \bar{f}$. The other direction of the identity axiom follows similarly. By the first condition on $\simeq$, all of these statements are sensible. By the second condition on $\simeq$, we can conclude $f = 1_A \circ f \simeq \iota_A \circ g$. Hence, $\bar{1_A}$ is indeed the identity on $A$. 
+	
+	Associativity is also sensible, and carries much the same proof as identities: let $A \xrightarrow{\bar{f}} B \xrightarrow{\bar{g}} C$ with representatives as before. Then by the second condition on $\simeq$ and the fact that $\mc{C}$ is a category (and thus $f \circ g$ is defined), $\bar{\mc{C}}$ satisfies the associativity property. 
+	\qed 
+	
+	As an example, in the category \textbf{Grp}, $A \xrightarrow{f, f'} B \xrightarrow{g, g'} C$ are groups and group homomorphisms where $\exists b \in B$ such that $f(a) = bf'(a)b^{-1}$ for all $a \in A$ and similarly $\exists c \in C | g(b) = c g'(b) c^{-1} \forall b \in B$. Let's show that the equivalence preserves associativity with this setup: $(g \circ f)(a) = g(bf'(a)b^{-1}) = c g'(b f'(a) b^{-1})c^{-1} = c g'(b) g'(f'(a)) g'(b^{-1}) c^{-1} =  (cg'(b)) g'(f'(a)) (cg'(b))^{-1} \simeq (g' \circ f')(a)$. 
+	
+	The identity has pretty much the same proof: $1_A \simeq \iota_A \iff 1_A(a) = a' \iota_A(a) a'^{-1} \iff a'^{-1} a a' = \iota_A(a)$. We will consider the left identity this time: let $f \simeq f' : A \to B$ under conjugation by $b$ and $1_B \simeq \iota_B$ under conjugation by $b'$. Then, consider $f(a) = (1_B \circ f)(a) = 1_B(b f'(a) b^{-1}) = b' \iota_B(b f'(a) b^{-1}) b'^{-1} = (b'b) \iota_B(f'(a))  (b'b)^{-1} \simeq (\iota_B \circ f')(a)$. 
+	
+	Indeed, \textbf{Grp} can be taken mod homomorphism conjugation to yield a new category. 
+\end{solution}
 
 
 \end{document}
