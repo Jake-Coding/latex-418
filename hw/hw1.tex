@@ -109,41 +109,32 @@ footskip=.25in}
 % DOC
 \begin{document}
 	\assignment{1}
-
-\begin{problem}[12]
-
-	\begin{enumerate}
-		\item 	Prove if $\mc{S}_1 \subseteq \mc{C}_1$ and $\mc{S}_2 \subseteq \mc{C}_2$ are subcategories, that $\mc{S}_1 \times \mc{S}_2$ is a subcategory of $\mc{C}_1 \times \mc{C}_2$. 
-		\item Does the same hold for disjoint unions?
-	\end{enumerate}
-\end{problem}
-
-\begin{solution}
-
-We inherit a notion of composition and identity from the ambient categories, so we really just need to check that $\mc{S}_1 \times \mc{S}_2$ is closed under composition and has identities. 
-
-There's a good bit of defining to do...Let $A_1, B_1 \in \mc{S}_1, A_2, B_2 \in \mc{S}_2$ with corresponding identities $1_{A_1}, 1_{A_2}$, etc. and morphisms $f, f' : A_1\to B_1, g, g' : A_2 \to B_2$.  
-
-Let's take care of the identities first. 
-I claim that $1_A = (1_{A_1}, 1_{A_2})$ is an identity for $A = (A_1, A_2)$. and similarly for $B = (B_1, B_2)$. Everything mentioned so far is in $\mc{S}_1 \times \mc{S}_2$ by construction and definition of subcategory. Consider any morphism $h = (f, g)$. Then, $h \circ 1_A = (f \circ 1_{A_1}, g \circ 1_{A_2}) = (f, g)$. The same occurs on the other side with the same logic. 
-
-Now, we ought to check composition. Within $\mc{S}_1 \times \mc{S}_2$, let $h: A\to B$ and $h' : B\to C$ in the product category. $h' \circ h = (f', g') \circ (f, g) = (f' \circ f, g' \circ g)$, which is in $\mc{S}_1 \times \mc{S}_2$. 
-
-Hence, $\mc{S}_1 \times \mc{S}_2$ is a subcategory of $\mc{C}_1 \times \mc{C}_2$. \qed
-
-I also claim that the same holds for disjoint unions, as any subcategory of a single one of the two categories is pretty clearly a subcategory of the disjoint union of the ambient. Given two subcategories, their disjoint union ought to be a subcategory of the disjoint union of the ambient categories. The toughest part ends up being notation, so please pardon the following abomination.
-
-In the disjoint union case, we inherit our objects and morphisms, so composition and identities are well defined. I claim that the identity within $\mc{S}_1 \coprod \mc{S}_2 (A, A)$ is the identity from whichever $\mc{S} A$ was from. WLOG $A$ is in $\mc{S}_1$. Denote $1_A \in \mc{S}_1$ by $1'_A$ and $f : A\to B$, where $B \in \mc{S}_1$. "Tagging" the elements I'll write $(1, f)$ to denote $f$ from $\mc{S}_1$, and similarly for other items. Then, $(1, f) \circ (1, 1'_A = (1, f)$. Then, $1_A \in \mc{S}_1 \coprod \mc{S}_2(A,A) = (1, f)$. Hence, we are good with identities. 
-
-The only time composition of morphisms is sensible is when both objects are from the same category initially. Again, WLOG, suppose we have $A, B, C \in \mc{S}_1$ with morphisms $f : A \to B, g: b \to C$. Then, $(1, g) \circ (1, f) = (1, g \circ f)$, which is in the disjoint union because, again, $\mc{S}_1$ is a subcategory. Hence, composition is taken care of!
-
-Thus, $\mc{S}_1 \coprod \mc{S}_2$ is a subcategory of $\mc{C}_1 \coprod \mc{C}_2$. \qed
-
-
-\end{solution}
-
-
-
+	
+	\begin{problem}[5]
+		Let $\mc{C}$ be a category and $\simeq$ an equivalence relation on the morphisms of $\mc{C}$ such that
+		\begin{enumerate}
+			\item $f\simeq g \implies f, g$ have the same source and target
+			\item Given $f, f', g, g'$ where $f \circ f'$ and $g \circ g'$ are defined, $f \simeq g$ and $f' \simeq g' \implies f \circ f' \simeq g \circ g'$
+		\end{enumerate}
+		Write a category $\bar{\mc{C}} = \mc{C} / \simeq$. Perform the construction explicitly for $\mc{C} = \textbf{Grp}$ and $\simeq$ equivalence up to conjugation.
+	\end{problem}
+	
+	\begin{solution}
+		For notational convenience, I'll refer to the objects of $\bar{\mc{C}}$ in the same way I do the objects of $\mc{C}$, but the morphisms of $\bar{\mc{C}}$ with a bar above them. 
+		
+		Indeed, the objects of $\bar{\mc{C}}$ are the objects $\ob{\mc{C}}$. The morphisms are $\bar{\mc{C}}(A, B) = \mc{C}(A, B) / \simeq$. The identity morphisms in $\bar{\mc{C}}$ are the conjugacy classes of the identity morphisms in $\mc{C}$. 
+		
+		To show that our identity behaves well, let $1_A, \iota_A$ be representatives of $\bar{1_A}$, where $1_A$ is the actual identity in $\mc{C}$ and $f, f'$ representatives of $\bar{f}: A\to B$ where $f$ is the actual morphism $f$ in $\mc{C}$. Our goal is to show that $\bar{f} \circ \bar{1_A} = \bar{f}$. The other direction of the identity axiom follows similarly. By the first condition on $\simeq$, all of these statements are sensible. By the second condition on $\simeq$, we can conclude $f = 1_A \circ f \simeq \iota_A \circ g$. Hence, $\bar{1_A}$ is indeed the identity on $A$. 
+		
+		Associativity is also sensible, and carries much the same proof as identities: let $A \xrightarrow{\bar{f}} B \xrightarrow{\bar{g}} C$ with representatives as before. Then by the second condition on $\simeq$ and the fact that $\mc{C}$ is a category (and thus $f \circ g$ is defined), $\bar{\mc{C}}$ satisfies the associativity property. 
+		\qed 
+		
+		As an example, in the category \textbf{Grp}, $A \xrightarrow{f, f'} B \xrightarrow{g, g'} C$ are groups and group homomorphisms where $\exists b \in B$ such that $f(a) = bf'(a)b^{-1}$ for all $a \in A$ and similarly $\exists c \in C$ s.t. $g(b) = c g'(b) c^{-1} \forall b \in B$. Let's show that the equivalence preserves associativity with this setup: $(g \circ f)(a) = g(bf'(a)b^{-1}) = c g'(b f'(a) b^{-1})c^{-1} = c g'(b) g'(f'(a)) g'(b^{-1}) c^{-1} =  (cg'(b)) g'(f'(a)) (cg'(b))^{-1} \simeq (g' \circ f')(a)$. 
+		
+		The identity has pretty much the same proof: $1_A \simeq \iota_A \iff 1_A(a) = a' \iota_A(a) a'^{-1} \iff a'^{-1} a a' = \iota_A(a)$. We will consider the left identity this time: let $f \simeq f' : A \to B$ under conjugation by $b$ and $1_B \simeq \iota_B$ under conjugation by $b'$. Then, consider $f(a) = (1_B \circ f)(a) = 1_B(b f'(a) b^{-1}) = b' \iota_B(b f'(a) b^{-1}) b'^{-1} = (b'b) \iota_B(f'(a))  (b'b)^{-1} \simeq (\iota_B \circ f')(a)$. 
+		
+		Indeed, \textbf{Grp} can be taken mod homomorphism conjugation to yield a new category. 
+	\end{solution}
 
 
 \begin{problem}[8]
@@ -170,31 +161,44 @@ Thus, $\mc{S}_1 \coprod \mc{S}_2$ is a subcategory of $\mc{C}_1 \coprod \mc{C}_2
 	
 \end{solution}
 
-\begin{problem}[5]
-Let $\mc{C}$ be a category and $\simeq$ an equivalence relation on the morphisms of $\mc{C}$ such that
-\begin{enumerate}
-	\item $f\simeq g \implies f, g$ have the same source and target
-	\item Given $f, f', g, g'$ where $f \circ f'$ and $g \circ g'$ are defined, $f \simeq g$ and $f' \simeq g' \implies f \circ f' \simeq g \circ g'$
-\end{enumerate}
-Write a category $\bar{\mc{C}} = \mc{C} / \simeq$. Perform the construction explicitly for $\mc{C} = \textbf{Grp}$ and $\simeq$ equivalence up to conjugation.
+
+
+
+\begin{problem}[12]
+	
+	\begin{enumerate}
+		\item 	Prove if $\mc{S}_1 \subseteq \mc{C}_1$ and $\mc{S}_2 \subseteq \mc{C}_2$ are subcategories, that $\mc{S}_1 \times \mc{S}_2$ is a subcategory of $\mc{C}_1 \times \mc{C}_2$. 
+		\item Does the same hold for disjoint unions?
+	\end{enumerate}
 \end{problem}
 
 \begin{solution}
-	For notational convenience, I'll refer to the objects of $\bar{\mc{C}}$ in the same way I do the objects of $\mc{C}$, but the morphisms of $\bar{\mc{C}}$ with a bar above them. 
 	
-	Indeed, the objects of $\bar{\mc{C}}$ are the objects $\ob{\mc{C}}$. The morphisms are $\bar{\mc{C}}(A, B) = \mc{C}(A, B) / \simeq$. The identity morphisms in $\bar{\mc{C}}$ are the conjugacy classes of the identity morphisms in $\mc{C}$. 
+	We inherit a notion of composition and identity from the ambient categories, so we really just need to check that $\mc{S}_1 \times \mc{S}_2$ is closed under composition and has identities. 
 	
-	To show that our identity behaves well, let $1_A, \iota_A$ be representatives of $\bar{1_A}$, where $1_A$ is the actual identity in $\mc{C}$ and $f, f'$ representatives of $\bar{f}: A\to B$ where $f$ is the actual morphism $f$ in $\mc{C}$. Our goal is to show that $\bar{f} \circ \bar{1_A} = \bar{f}$. The other direction of the identity axiom follows similarly. By the first condition on $\simeq$, all of these statements are sensible. By the second condition on $\simeq$, we can conclude $f = 1_A \circ f \simeq \iota_A \circ g$. Hence, $\bar{1_A}$ is indeed the identity on $A$. 
+	There's a good bit of defining to do...Let $A_1, B_1 \in \mc{S}_1, A_2, B_2 \in \mc{S}_2$ with corresponding identities $1_{A_1}, 1_{A_2}$, etc. and morphisms $f, f' : A_1\to B_1, g, g' : A_2 \to B_2$.  
 	
-	Associativity is also sensible, and carries much the same proof as identities: let $A \xrightarrow{\bar{f}} B \xrightarrow{\bar{g}} C$ with representatives as before. Then by the second condition on $\simeq$ and the fact that $\mc{C}$ is a category (and thus $f \circ g$ is defined), $\bar{\mc{C}}$ satisfies the associativity property. 
-	\qed 
+	Let's take care of the identities first. 
+	I claim that $1_A = (1_{A_1}, 1_{A_2})$ is an identity for $A = (A_1, A_2)$. and similarly for $B = (B_1, B_2)$. Everything mentioned so far is in $\mc{S}_1 \times \mc{S}_2$ by construction and definition of subcategory. Consider any morphism $h = (f, g)$. Then, $h \circ 1_A = (f \circ 1_{A_1}, g \circ 1_{A_2}) = (f, g)$. The same occurs on the other side with the same logic. 
 	
-	As an example, in the category \textbf{Grp}, $A \xrightarrow{f, f'} B \xrightarrow{g, g'} C$ are groups and group homomorphisms where $\exists b \in B$ such that $f(a) = bf'(a)b^{-1}$ for all $a \in A$ and similarly $\exists c \in C | g(b) = c g'(b) c^{-1} \forall b \in B$. Let's show that the equivalence preserves associativity with this setup: $(g \circ f)(a) = g(bf'(a)b^{-1}) = c g'(b f'(a) b^{-1})c^{-1} = c g'(b) g'(f'(a)) g'(b^{-1}) c^{-1} =  (cg'(b)) g'(f'(a)) (cg'(b))^{-1} \simeq (g' \circ f')(a)$. 
+	Now, we ought to check composition. Within $\mc{S}_1 \times \mc{S}_2$, let $h: A\to B$ and $h' : B\to C$ in the product category. $h' \circ h = (f', g') \circ (f, g) = (f' \circ f, g' \circ g)$, which is in $\mc{S}_1 \times \mc{S}_2$. 
 	
-	The identity has pretty much the same proof: $1_A \simeq \iota_A \iff 1_A(a) = a' \iota_A(a) a'^{-1} \iff a'^{-1} a a' = \iota_A(a)$. We will consider the left identity this time: let $f \simeq f' : A \to B$ under conjugation by $b$ and $1_B \simeq \iota_B$ under conjugation by $b'$. Then, consider $f(a) = (1_B \circ f)(a) = 1_B(b f'(a) b^{-1}) = b' \iota_B(b f'(a) b^{-1}) b'^{-1} = (b'b) \iota_B(f'(a))  (b'b)^{-1} \simeq (\iota_B \circ f')(a)$. 
+	Hence, $\mc{S}_1 \times \mc{S}_2$ is a subcategory of $\mc{C}_1 \times \mc{C}_2$. \qed
 	
-	Indeed, \textbf{Grp} can be taken mod homomorphism conjugation to yield a new category. 
+	I also claim that the same holds for disjoint unions, as any subcategory of a single one of the two categories is pretty clearly a subcategory of the disjoint union of the ambient. Given two subcategories, their disjoint union ought to be a subcategory of the disjoint union of the ambient categories. The toughest part ends up being notation, so please pardon the following abomination.
+	
+	In the disjoint union case, we inherit our objects and morphisms, so composition and identities are well defined. I claim that the identity within $\mc{S}_1 \coprod \mc{S}_2 (A, A)$ is the identity from whichever $\mc{S} A$ was from. WLOG $A$ is in $\mc{S}_1$. Denote $1_A \in \mc{S}_1$ by $1'_A$ and $f : A\to B$, where $B \in \mc{S}_1$. "Tagging" the elements I'll write $(1, f)$ to denote $f$ from $\mc{S}_1$, and similarly for other items. Then, $(1, f) \circ (1, 1'_A) = (1, f)$. Then, $1_A \in \mc{S}_1 \coprod \mc{S}_2(A,A) = (1, f)$. Hence, we are good with identities. 
+	
+	The only time composition of morphisms is sensible is when both objects are from the same category initially. Again, WLOG, suppose we have $A, B, C \in \mc{S}_1$ with morphisms $f : A \to B, g: B \to C$. Then, $(1, g) \circ (1, f) = (1, g \circ f)$, which is in the disjoint union because, again, $\mc{S}_1$ is a subcategory. Hence, composition is taken care of!
+	
+	Thus, $\mc{S}_1 \coprod \mc{S}_2$ is a subcategory of $\mc{C}_1 \coprod \mc{C}_2$. \qed
+	
+	
 \end{solution}
+
+
+
+
 
 
 \end{document}
