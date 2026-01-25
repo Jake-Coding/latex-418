@@ -1,0 +1,232 @@
+\documentclass[12pt]{article}
+% -------------------
+% Packages
+% -------------------
+\usepackage{
+	amsmath,			% Math Environments
+	amssymb,			% Extended Symbols
+	amsthm,			    % Theorem Environments
+	cancel,			    % Use Cancels
+	enumerate,		    % Enumerate Environments
+	graphicx,			% Include Images
+	lastpage,			% Reference Lastpage
+	multicol,			% Use Multi-columns
+	multirow,			% Use Multi-rows
+	xcolor,			    % Use Colors
+	float,
+	geometry
+}
+
+% -------------------
+% Header & Footer
+% -------------------
+\usepackage{fancyhdr}
+
+\newcommand{\assignment}[1]{
+	\fancypagestyle{title}{
+		%Headers
+		\fancyhead[L]{Jake Bridge}
+		\fancyhead[C]{MATH 418}
+		\fancyhead[R]{HW #1}
+		\renewcommand{\headrulewidth}{0.2pt}
+		%Footers
+		\fancyfoot[L]{}
+		\fancyfoot[C]{}
+		\fancyfoot[R]{}
+		\renewcommand{\footrulewidth}{0.0pt}
+	}
+	\thispagestyle{title}
+}
+\fancypagestyle{pages}{
+	%Headers
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\renewcommand{\headrulewidth}{0.0pt}
+	%Footers
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{}
+	\renewcommand{\footrulewidth}{0.0pt}
+}
+\headheight=18pt
+\footskip=14pt
+
+\pagestyle{pages}
+
+% ---------------
+% Page Layout
+% ---------------
+\geometry{letterpaper,
+bindingoffset=0.2in,
+left=1in,
+right=1in,
+top=1in,
+bottom=1in,
+footskip=.25in}
+% -------------------
+% Font
+% -------------------
+%\usepackage[T1]{fontenc}
+%\usepackage{charter}
+
+%\usepackage[T1]{fontenc}
+%\usepackage{mathpazo}
+
+%\usepackage[bitstream-charter]{mathdesign}
+%\usepackage[T1]{fontenc}
+
+
+% -------------------
+% Commands
+% -------------------
+
+% Problem Labels
+\newcounter{problem}[section]
+\newenvironment{problem}[1][\theproblem]{\refstepcounter{problem}\noindent \textbf{Problem~#1.\quad}}{\vskip\smallskipamount}
+
+
+\newenvironment{solution}{\noindent \textbf{Solution.\quad}}{\vskip\bigskipamount}
+
+
+% Special Characters
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\ob}[1]{\text{ob}(#1)}
+
+% Math Operators
+
+% Special Commands
+
+
+
+% DOC
+\begin{document}
+	\assignment{2}
+
+\begin{problem}[21]
+Write out the details of the functors $\textbf{Poset}\to\textbf{CAT}$ and $B : \textbf{Grp}\to\textbf{CAT}$ we have discussed in class.
+\end{problem}
+\begin{solution} Please pardon the length of this solution; I tried to be reasonably exact with my language. 
+
+For notational convenience, I will use capital $P_i$ to refer to posets in the category poset, which will each have a corresponding set $p_i$ and relation $\leq_{P_i}$  Between two posets $P_i, P_j$ there can exist morphisms (order-preserving functions), which I'll denote $F_{ij}$ with more indices as needed.
+
+The functor $A: \textbf{Poset}\to\textbf{CAT}$ operates as follows:
+$A$ maps $P_i$ to $P_i$'s corresponding category $\bar{P_i}$: a category with elements $p_i$ and an arbitrary morphism $*_{ab}$ between each $a \leq_{P_i} b \in p_i$. (Composition IN $\bar{P_i}$ is given by $*_{bc} \circ *_{ab} = *_{ac}$, i.e. transitivity of the relation)
+
+
+Given $P_1, P_2$, $A$ maps $\textbf{Poset}(P_1, P_2) \to \textbf{CAT}(\bar{P_1}, \bar{P_2})$ where an order-preserving function $f: P_1 \to P_2$ has $a \leq_{P_1} b \implies f(a) \leq_{P_2} f(b)$ is mapped to a functor $F: \bar{P_1}\to\bar{P_2}$ mapping $a$ to $f(a)$ and $*_{ab}$ to $*_{f(a)f(b)}$. 
+
+We need to first show that $F$ is a functor, then that $A$ is a functor. 
+
+The identities of each category $\bar{P_i}$ are the morphisms $*_{aa}$, which exist by definition of poset. These clearly map to identities $*_{f(a)f(a)}$ under $F$. We also have $F(*_{bc} \circ *_{ab}) = F(*_{ac}) = *_{fa fc} = *_{fb fc} \circ *_{fa fb} = F(*_{bc}) \circ (*_{ab})$, where there only being at most one morphism between any two elements makes all of these statements sensible. Hence, $F$ is a functor. 
+
+Now, we will show that $A$ is a functor. 
+The identities in $\textbf{Poset}$ are the identity functions. The identities in $\textbf{CAT}$ are the identity functors that do nothing to a category. It is hopefully quite obvious that $A(1_{P_i}) = 1_{\bar{P_i}}$. Let $f, g$ be order preserving functions. $A(f \circ g)$ must send $a$ to $f(g(a))$ and $*_{ab}$ to $*_{fga fgb}$, the same action as $F \circ G = A(f) \circ A(g)$. Hence, $A$ respects composition and is a functor!
+
+
+We will perform a similar argument for $B$, but I will omit some of the painful details. $B$ takes a group $G$ to the one-element groupoid $BG$ with element $*$ and morphisms $G$ with composition given by multiplication within $G$. $B$ takes a group homomorphism $\phi: G \to H$ to a functor $F: BG \to BH$ which takes the single element of $BG$ to the single element of $BH$ and takes the morphisms of $BG$, which is to say, $G$, to $B$ via $B(BG(*, *)) = BH(*, *)$. In other words, $F$ acts on the morphisms of $BG$ by group homomorphism: if $g \in G$, $B(\phi)(g) = \phi(g)$, where $\phi(g)$ is understood as a morphism (group element) in the group $BH$. 
+
+$1_G$ is the identity in $\textbf{Grp}$, a function that takes the group $G$ to itself. $B(1_G)(g) = 1_G(g) = g$, so $B$ takes the identity group homomorphism to the identity functor. 
+
+
+Given two group homomorphisms, $\phi: H \to K, \psi: G\to H$, with $B(\phi) = F, B(\psi) = F'$. $B(\phi \circ \psi)$ takes the morphisms of $BG$ to the morphisms of $BK$. The morphisms are just group elements. Let $g \in G$. Then, $B(\phi\circ\psi)(g) = (\phi\circ\psi)(g) =  (F \circ F')(g) = (B(\phi) \circ B(\psi))(g)$. This holds for all $g$, and we conclude $B(\phi \circ \psi) = F \circ F'$. Hence, $B$ is a functor. 
+
+\end{solution}
+
+
+
+
+
+
+\begin{problem}[24]
+A directed graph $X = (X_v, X_e, s, t)$ consists of a vertex set $X_v$, an edge set $X_e$ and two functions $s, t: X_e \to X_v$ the source and target. An edge $f$ from $1$ to $2\in X_v$ can be thought of an arrow from $s(f)$ to $t(f)$
+
+\begin{enumerate}
+	\item Construct a category of directed graphs \textbf{DGraph}
+	\item Let \textbf{Cat} be the category of small categories (objects form a set). Prove that there's a forgetful functor $U: \textbf{Cat} \to \textbf{DGraph}$ sending $\mathcal{C}$ to the directed graph $U\mathcal{C}$ with $U\mathcal{C}_v = ob(\mathcal{C})$ and $U\mathcal{C}_e = \coprod_{a, b \in ob{\mathcal{C}}} \mathcal{C}(a, b)$.
+	\item Construct a functor $P: \textbf{DGraph} \to \textbf{Cat}$ where $PX$ has objects $X_v$ and morphisms directed paths
+\end{enumerate}
+
+
+
+\end{problem}
+
+\newcommand{\dgraph}{\textbf{DGraph}}
+\begin{solution}
+	\begin{enumerate}
+
+	\item The objects of $\dgraph$ are directed graphs, with morphisms $F: D^1 \to D^2$ a pair of functions $F_V: D^1_{v} \to D^2_v, F_E: D^1_e \to D^2_e$ such that $s^2 \circ F_E = F_V \circ s^1$ (the source of the image of any edge is the image of the source of that edge) and $t^2 \circ F_E = F_V \circ t^1$ (the target of the image of any edge is the image of the target of that edge) and composition given by function composition in the vertex part and edge part separately. 
+	
+	We first show that composition is sensible (and associative!). Suppose we have $F: D^1 \to D^2, G: D^2 \to D^3, H: D^3 \to D^4$. Suppose $e_1$ is an edge with source $v_1$ and target $u_1$. $F_E(e_1) = e_2$ with $s^2(e_2) = F_V(v_1)$ and $t^2(e_2) = F_V(u_1)$. We will give these sources and targets the names $v_2$ and $u_2$. Each edge can only have one source and target, so giving those sources and targets names is not an issue. We do the same for $v_i$ and $u_i$ in general. 
+	$G \circ F$ has components $G_E \circ F_E$ and $G_V \circ F_V$. By associativity of function composition, we conclude that if $s^2 \circ F_E = F_V \circ s^1$ and $s^3 \circ G_E = G_V \circ s^2$, then $s^3 \circ G_E \circ F_E = G_V \circ F_V \circ s^1$, then $G \circ F$ obeys our relevant conditions. The same argument gives us associativity of our morphisms $(H \circ G) \circ F = H \circ (G \circ F)$.
+	
+	
+	The identity morphism $1_D$ has functions the identity function. Given $F: D^1 \to D^2$, $F \circ 1_{D^1}$ has its component parts $F_E \circ 1_{D_e} = F_E$ and $F_V \circ 1_{D_v} = F_V$. Hence, the identity is a right identity. The same argument on the left gives us the necessary statement. 
+
+	Yay! Category!
+
+	
+	
+	\item 
+	We take a category and the bones of the functor $U$ as in the question. We need to show how $U$ gives us $s$ and $t$ and show that that construction gives us a directed graph, define what $U$ does to morphisms in $\textbf{Cat}$, and prove that $U$ is a functor by showing it takes identities to identities and respects composition. 
+	
+	Let $a, b \in \ob{\mathcal{C}}$ be fixed. Given an edge $e \in \mathcal{C}(a, b)$, we define $s(e) = a$ and $t(e) = b$. This, gives us a directed graph. Now, we take a morphism $F: \mathcal{B} \to \mathcal{C}$, which is a functor. We will define $UF$ to be the pair $F_E, F_V$ as in part 1. More explicitly, $F_E$ is the morphism part of $F$ and $F_V$ is the object part of $F$. That is to say, $UF = F$.  Notice that  $s(Ff) = F(a), F(s(f)) = F(a)$, where we implicitly use the object part of $F$ as $F_E$. The same argument holds for targets. Hence, $UF$ is indeed a $\dgraph$ morphism. 
+	
+	The identity morphism in $1_{\mathcal{C}} \in \textbf{Cat}$ maps to $F_E: \coprod_{a, b \in ob{\mathcal{C}}}\mathcal{C}(a, b) \to \coprod_{a, b \in ob{\mathcal{C}}}\mathcal{C}(a, b)$ and $F_V: \ob{\mathcal{C}} \to \ob{\mathcal{C}}$ such that $s \circ F_E = F_V \circ s$ and ditto for targets. Given $a, b$ objects in $\mathcal{C}$ and $f$ a morphism between them, we notice $s(F_E(f)) = s(f) = a$ and $F_V(s(f)) = F_V(f)$, and so $F_V(f) = a$. The same holds for targets. Thus, $U1_{\mathcal{C}} = 1_{U\mathcal{C}}$. 
+	
+	Given two morphisms $\mathcal{A} \xrightarrow{F} \mathcal {B} \xrightarrow{G} \mathcal{C}$ in $\textbf{Cat}$, $U(G \circ F)$ is the pair we denote $(G \circ F)_E, (G \circ F)_V$. $G \circ F$ gives us a perfectly sensible function on objects, and similarly on morphisms, as $G$ and $F$ are functors. In particular, $(G \circ F)(a) = G(F(a))$ and $(G \circ F)(f: a \to a') = G(F(f)): GFa \to GFa'$. $U(G \circ F) = G \circ F = U(G) \circ U(F)$. Hence, $U$ is a functor!
+	
+	More explicitly, $U$ is a functor that "forgets" all the details of morphism composition and identities in the underlying category, and just preserves the category written as a diagram. 
+
+
+
+	\item Given a directed graph, most of our work is already done. The issue comes from morphism composition and identities. For instance, we may have edges AB and BC in the dgraph, but no edges AA and AC that we would need for the full categorification of the dgraph. So, $PX$ must have the following:
+	$\ob{PX} = X_v$. 
+	
+
+	\begin{multline}
+PX(v, u) = 
+\bigl\{\text{either } () \text{ or } (v = v_0, f_1, v_1, f_2, v_2, \dots, f_n, u=v_n) : \\ v_i \in X_v, f_i, f \in X_e,
+s(f_i) = v_{i-1} \cap t(f_i) = v_i\}
+	\end{multline}
+
+	
+	In words, we take all possible finite paths from $v_0$ to $u$ so we don't miss any possible compositions. The finitude could maybe be weakened, but I am afraid of what infinite composition might mean. Can there be an infinite path from $A$ to $B$ in our category? I'll just take motivation from group theory and say only finite paths; I understand finite morphism composition. Infinity is a bit too big. 
+	
+	We then define morphism composition as list concatenation. Our lists are finite, and so there are no issues there. We get the bonus, with this notion of composition, to say that the empty list is the identity morphism (trivially). Hence $PX$ is a category.
+	
+	
+	Now, we need to know what $P$ does on morphisms: Given a $\dgraph$ morphism $f = (f_E, f_V): X\to Y$, $Pf = F$ is a pair of functions (which we will later show is a functor) $F_o : \ob{PX} \to \ob{PY}$ and $F_m : PX(a, b) \to PY(F_o(a), F_o(b))$. We can say immediately that $F_o = f_V$. More interestingly, a morphism on dgraphs preserves source and target composition. For any given path, $(a = v_0, f_1, \dots, f_n, b = v_n)$, $F_m$ maps it to $(f_V(a), f_E(f_1), \dots, f_E(f_n), f_V(b))$. We also take the empty list to the empty list. This is sensible, as we know $s_Y \circ f_E = f_V \circ s_X$, and similarly for targets, and so our condition $s_X(f_i) = v_{i-1}$ gives us that $s_Y(f_E(f_i)) = f_V(s_X(f_i)) = f_V(v_{i-1})$, as desired. Hence, $F_m$ seems to do what we want. 
+	
+	Our next step is to show that $F$ is indeed a functor (a morphism in the category $\textbf{Cat}$). $F_m$ clearly takes the identity (empty list) to itself, and also clearly respects composition (concatenation). Hence, $F$ is a functor.
+	
+	Lastly, we want to show that $P$ is a functor between $\dgraph \to \textbf{Cat}$. $P(1_X)$ has components $F_o = f_V$ the identity and $F_m$ the identity as well, just by observing the definition (we know $f_E$ is the identity), and hence $P(1_X) = 1_{PX}$. 
+	
+	This gets a bit weird now, as we need to show that $P$ respects morphism composition from $\dgraph$ to $\textbf{Cat}$-- that it turns dgraph morphisms into functors. Hence, we need to verify what it does on the vertex and edge components OF A DGRAPH MORPHISM. 
+	$P(f \circ g)$ has vertex (and hence object) component $(f \circ g)_V = f_V \circ g_V = P(f) \circ P(g)$ by the argument in part 1.
+	
+	Now, suppose we have $X \xrightarrow{g} Y \xrightarrow{f} Z$ in $\dgraph$. Our composition observations from part 1 tells us that we get a function $f \circ g$ with $s_Z \circ (f \circ g)_E = (f \circ g)_V \circ s_X$. This lets us map a path $(x_0, e_1, x_1, \dots, e_n, x_n)$ under $P$ to $(fg_Vx_0, fg_Ee_1, fg_Vx_1, \dots fg_Ee_n, fg_Vx_n)$ with confidence that the new path has all the proper criteria to be a morphism in $PZ$ by the argument a few paragraphs up from here. We conclude that the morphism component of $P(f \circ g)$ also satisfies $P(f \circ g) = P(f) \circ P(g)$.
+	
+	Thus, $P$ respects composition, and is a functor. \qed
+
+	
+	
+	
+
+	
+	
+	
+	\end{enumerate}
+	
+
+\end{solution}
+
+
+\end{document}
