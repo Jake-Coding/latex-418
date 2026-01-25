@@ -110,7 +110,7 @@ footskip=.25in}
 \begin{document}
 	\assignment{2}
 	
-	Note: my solutions feel abominably long! I am unsure how to rectify this; the solution I want to write is always about two lines and says "this is rather obvious." For instance, problem 21 Grp $\to$ Cat I could answer by saying "we send groups to their one-element groupoids and group homomorphisms to homomorphisms on the morphisms of those one element-groupoids, which we recognize as the group itself." or for 24: "First, we come up with a way to recognize when a directed graph morphism is sensible. Then, we recognize that if you get rid of all the identity and composition information, categories look like directed graphs. Finally, we go the other way and send directed graphs to categories with the same underlying set as the graph, and make sure that we can concatenate paths to not worry about composition. Also notice that functions between directed graphs like we defined in part 1 look pretty much the same as functors."
+	Note: my solutions feel abominably long! I am unsure how to rectify this; the solution I want to write is always about two lines and says "this is rather obvious." For instance, problem 21 Grp $\to$ Cat I could answer by saying "we send groups to their one-element groupoids and group homomorphisms to homomorphisms on the morphisms of those one element-groupoids, which we recognize as the group itself." or for 24: "First, we recognize that a directed graph morphism ought to send sources to sources and targets to targets. Then, we recognize that if you get rid of all the identity and composition information, categories look like directed graphs. Finally, we go the other way and send directed graphs to categories with the same underlying set as the graph, and make sure that we can concatenate paths to not worry about composition. Also notice that functions between directed graphs like we defined in part 1 look pretty much the same as functors."
 	
 	
 	That doesn't feel sufficient though, and in trying to explain the details, it gets terribly bogged down...
@@ -120,7 +120,8 @@ footskip=.25in}
 \begin{problem}[21]
 Write out the details of the functors $\textbf{Poset}\to\textbf{CAT}$ and $B : \textbf{Grp}\to\textbf{CAT}$ we have discussed in class.
 \end{problem}
-\begin{solution} Please pardon the length of this solution; I tried to be reasonably exact with my language. 
+
+\begin{solution}
 
 For notational convenience, I will use capital $P_i$ to refer to posets in the category poset, which will each have a corresponding set $p_i$ and relation $\leq_{P_i}$  Between two posets $P_i, P_j$ there can exist morphisms (order-preserving functions), which I'll denote $F_{ij}$ with more indices as needed.
 
