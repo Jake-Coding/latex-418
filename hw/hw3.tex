@@ -126,7 +126,7 @@ footskip=.25in}
 
 	So, we have that functors between the $B-$ categories are in bijection with group homomorphisms. 
 	
-	Suppose $F, F'$ are functors $BG \to BH$. A natural transformation $\alpha : F \natt F'$ would be a collection of morphisms in $BH$, which is to say, elements of $H$ with a commutative diagram as follows. Notice that because $BG$ only has one element, there is only one component of $\alpha$ and so we need to only consider one commutative diagram and we know its objects. 
+	Suppose $F, F'$ are functors $BG \to BH$. A natural transformation $\alpha : F \natt F'$ would be a collection of morphisms in $BH$, which is to say, elements of $H$ with a commutative diagram as follows. Notice that because $BG$ only has one element, there is only one component of $\alpha$, namely $\alpha_*$ and so we need to only consider one commutative diagram and we know its objects. 
 % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGJveGVke0YqX0cgPSAqX0h9Il0sWzEsMCwiXFxib3hlZHtGKl9HPSpfSH0iXSxbMSwxLCJcXGJveGVke0YnKj0qX0h9Il0sWzAsMSwiXFxib3hlZHtGJypfRyA9ICpfSH0iXSxbMSwyLCJcXGFscGhhXyoiXSxbMywyLCJGJ2ciLDJdLFswLDMsIlxcYWxwaGFfKiIsMl0sWzAsMSwiRmciXV0=
 \[\begin{tikzcd}
 	{\boxed{F*_G = *_H}} & {\boxed{F*_G=*_H}} \\
@@ -137,7 +137,7 @@ footskip=.25in}
 	\arrow["{F'g}"', from=2-1, to=2-2]
 \end{tikzcd}\]
 
-For this to commute, we need that $Fg \circ \alpha_* =\alpha_*\circ F'g $ for all $g$. We also know that $\alpha_*$ is a morphism in $BH$, which we will denote $h$. That is, we need $F(g) h = h F'(g)$ for all $g$. $H$ is a group, though, so we can take the inverse on the left on both sides and conclude that $F(g) = h F'(g) h^{-1}$ for all $g$. We conclude that the natural transformations between homomorphisms are only those given by conjugation by some element of $B$. 
+For this to commute, we need that $Fg \circ \alpha_* =\alpha_*\circ F'g $ for all $g$. We also know that $\alpha_*$ is a morphism in $BH$, which we will denote $h$. That is, we need $F(g) h = h F'(g)$ for all $g$. $H$ is a group, though, so we can take the inverse on the left on both sides and conclude that $F(g) = h F'(g) h^{-1}$ for all $g$. We conclude that the natural transformations between homomorphisms are only those given by conjugation by some element of $H$. 
 
 \end{solution}
 
@@ -148,22 +148,162 @@ For this to commute, we need that $Fg \circ \alpha_* =\alpha_*\circ F'g $ for al
 	Let $\alpha : F \natt G$ be a natural transformation, where $F, G: \mc{A} \to \mc{B}$. Prove that $\alpha$ is an isomorphism in the functor category $[\mc{A}, \mc{B}]$ if and only if every component $\alpha_A : FA \to GA$ is an isomorphism
 \end{problem}
 \begin{solution}
-	and another solution. Hallelujah!
+	
+	($\implies$) Suppose that $\alpha$ is an isomorphism in the functor category. Then, there exists a $\beta : G \natt F$ such that $\beta \circ \alpha = 1_F$ and $\alpha \circ \beta = 1_G$. I will prove that the components of $\beta$ are left inverses of the components of $\alpha$. The proof of right inverses is near-identical, and I will elaborate on the right-inverse argument later. 
+	
+	Given a morphism $f: A\to A'$ in $\mc{A}$, because $\alpha$ and $\beta$ are natural transformations the following diagram commutes (both the top and bottom square commute by definition, and hence the entire thing does). 
+	% https://q.uiver.app/#q=WzAsNixbMCwwLCJGQSJdLFsyLDAsIkZBJyJdLFsyLDEsIkdBJyJdLFsyLDIsIkZBJyJdLFswLDEsIkdBIl0sWzAsMiwiRkEiXSxbMCwxLCJGZiIsMV0sWzEsMiwiXFxhbHBoYV97QSd9Il0sWzIsMywiXFxiZXRhX3tBJ30iXSxbNCw1LCJcXGJldGFfQSIsMl0sWzUsMywiRmYiLDFdLFs0LDIsIkdmIiwxXSxbMCw0LCJcXGFscGhhX0EiLDJdXQ==
+	\[\begin{tikzcd}
+		FA && {FA'} \\
+		GA && {GA'} \\
+		FA && {FA'}
+		\arrow["Ff"{description}, from=1-1, to=1-3]
+		\arrow["{\alpha_A}"', from=1-1, to=2-1]
+		\arrow["{\alpha_{A'}}", from=1-3, to=2-3]
+		\arrow["Gf"{description}, from=2-1, to=2-3]
+		\arrow["{\beta_A}"', from=2-1, to=3-1]
+		\arrow["{\beta_{A'}}", from=2-3, to=3-3]
+		\arrow["Ff"{description}, from=3-1, to=3-3]
+	\end{tikzcd}\]
+	
+	In particular, the outer square commutes. Taking the outer square, we note the existence of one more arrow:
+	% https://q.uiver.app/#q=WzAsNixbMCwwLCJGQSJdLFsyLDAsIkZBJyJdLFsyLDEsIkdBJyJdLFsyLDIsIkZBJyJdLFswLDEsIkdBIl0sWzAsMiwiRkEiXSxbMCwxLCJGZiIsMV0sWzEsMiwiXFxhbHBoYV97QSd9Il0sWzIsMywiXFxiZXRhX3tBJ30iXSxbNCw1LCJcXGJldGFfQSIsMl0sWzUsMywiRmYiLDFdLFswLDQsIlxcYWxwaGFfQSIsMl0sWzAsMywiRmYiLDFdXQ==
+	\[\begin{tikzcd}
+		FA && {FA'} \\
+		GA && {GA'} \\
+		FA && {FA'}
+		\arrow["Ff"{description}, from=1-1, to=1-3]
+		\arrow["{\alpha_A}"', from=1-1, to=2-1]
+		\arrow["Ff"{description}, from=1-1, to=3-3]
+		\arrow["{\alpha_{A'}}", from=1-3, to=2-3]
+		\arrow["{\beta_A}"', from=2-1, to=3-1]
+		\arrow["{\beta_{A'}}", from=2-3, to=3-3]
+		\arrow["Ff"{description}, from=3-1, to=3-3]
+	\end{tikzcd}\]
+	
+	This is precisely the statement that $\beta_A \circ \alpha_A = 1_{FA}$. That is, $\beta_A$ is a left inverse for $\alpha_A$. The exact same argument but with the naturality square having (vertically) $GA, FA, GA$ gives the same statement but for the right inverse. We conclude that $\beta_A$ is the inverse of $\alpha_A$, which is to say, that $\alpha_A$ is an isomorphism. 
+	
+	($\impliedby$) Suppose each component of $\alpha$ is an isomorphism. Let $\beta_A: G \to F$ be the inverse of $\alpha_A: F \to G$ for each $\alpha_A$. We will show that the $\beta_A$'s form a natural transformation, and that the natural transformation in question is an inverse for $\alpha$ under vertical composition. Let $f: A \to A'$ be a morphism. 
+	
+	Our question, then, is if the first square commutes given that the second one does (I've drawn the second one upside down because it makes more sense to me for this problem):
+% https://q.uiver.app/#q=WzAsOCxbMCwwLCJHQSJdLFsyLDAsIkdBJyJdLFsyLDIsIkZBJyJdLFswLDIsIkZBIl0sWzQsMCwiR0EiXSxbNiwwLCJHQSciXSxbNCwyLCJGQSJdLFs2LDIsIkZBJyJdLFswLDEsIkdmIiwxXSxbMSwyLCJcXGJldGFfe0EnfSIsMV0sWzAsMywiXFxiZXRhX0EiLDFdLFszLDIsIkZmIiwxXSxbNCw1LCJHZiIsMV0sWzYsNCwiXFxhbHBoYV9BIiwxXSxbNyw1LCJcXGFscGhhX3tBJ30iLDFdLFs2LDcsIkZmIiwxXV0=
+\[\begin{tikzcd}
+	GA && {GA'} && GA && {GA'} \\
+	\\
+	FA && {FA'} && FA && {FA'}
+	\arrow["Gf"{description}, from=1-1, to=1-3]
+	\arrow["{\beta_A}"{description}, from=1-1, to=3-1]
+	\arrow["{\beta_{A'}}"{description}, from=1-3, to=3-3]
+	\arrow["Gf"{description}, from=1-5, to=1-7]
+	\arrow["Ff"{description}, from=3-1, to=3-3]
+	\arrow["{\alpha_A}"{description}, from=3-5, to=1-5]
+	\arrow["Ff"{description}, from=3-5, to=3-7]
+	\arrow["{\alpha_{A'}}"{description}, from=3-7, to=1-7]
+\end{tikzcd}\]
+
+The second square tells us that $\alpha_{A'} \circ Ff = Gf \circ \alpha_A$. Taking $\beta_{A'}$ on the left, we see $Ff = \beta_{A'} \circ Gf \circ \alpha_A$. Morphisms are associative, so the statement on the right is sensible. We then take $\beta_A$ on the right and see that $Ff \circ \beta_A = \beta_{A'} \circ Gf$. That means that the naturality square for $\beta$ commutes! Hence, $\beta$ is a natural transformation, and obviously, $\beta \circ \alpha = 1_F,  \alpha \circ \beta = 1_G$. So, $\beta$ is the inverse of $\alpha$ as a morphism in the functor category. Hence, $\alpha$ is an isomorphism in the functor category! \qed
+	
+	
+
+
 \end{solution}
 
 
-
-
-\begin{problem}[33]
-	Let $V$ be a vector space over a field $\mathbb{F}$ and define $V^* := [V, \mathbb{F}]$ (the space of linear transformation $V \to \mathbb{F}$). 
+\begin{problem}[32]
+	Let $G$ be a group and define $G^{R}$ to have the same elements but with multiplication given by $g \cdot_R h := hg$. 
 	\begin{enumerate}
-		\item Prove that $V \mapsto V^{**}$ is a functor $(-)^{**}: \textbf{Vect} \to \textbf{Vect}$
-		\item Show that the function $e: V \to V^{**}$ given by $e(v)(f) := f(v)$ defines a natural transformation.
-		\item Show that the natural transformation is an isomorphism if and only if $V$ is finite dimensional
-	\end{enumerate}. Show that 
+			\item Prove that $G \mapsto G^R$ is a functor
+			\item Prove that the function $i: G \to G^R$ given by $i(g) = g^{-1}$ is a natural isomorphism between the identity functor and $(-)^R$. 
+		\end{enumerate}
 \end{problem}
+
 \begin{solution}
-	and another solution. Hallelujah!
+	
+	\begin{enumerate}
+		\item On objects, $(-)^R$ takes the group $G$ to the group $G^R$. That's simple enough.
+		
+		On morphisms $\phi : G \to H$, I define $\phi^R: G^R \to H^R$ given by $\phi^R(g) = \phi(g)$ with composition given by function composition. These are homomorphisms: $\phi^R(g\cdot_R g') = \phi(g'g) = \phi(g')\phi(g) = \phi(g) \cdot_R \phi(g') = \phi^R(g) \cdot_R \phi^R(g')$. 
+		
+		The identity morphisms are simply the identity homomorphisms $1_{G^R} = 1_G^R = 1_G$. 
+		
+		Now, we check the axioms. We know $1_{G}^R(g) = 1_G(g) = g$. So, given $\phi^R : G^R \to H^R$, we can check $(\phi^R \circ 1_{G^R})(g) = (\phi \circ 1_G)(g) = \phi(g) = \phi^R(g)$. The left sided inverse follows identically. 
+		
+		Moreover, $(f \circ g)^R = f \circ g = f^R \circ g^R$ by definition. Hence, $(-)^R$ is a functor. \qed
+		
+		\item 	Now, we need to show that there is a natural isomorphism between $id$ and $(-)^R$ as given. We will first show that there is a natural transformation. That means the following square must commute for every group $G$. 
+		% https://q.uiver.app/#q=WzAsNCxbMCwwLCJpZChHKSJdLFsyLDAsImlkKEgpIl0sWzAsMiwiR15SIl0sWzIsMiwiSF5SIl0sWzAsMSwiaWQoXFxwaGkpIiwxXSxbMCwyLCJpX0ciLDFdLFsxLDMsImlfSCIsMV0sWzIsMywiXFxwaGleUiIsMV1d
+		\[\begin{tikzcd}
+			{id(G)} && {id(H)} \\
+			\\
+			{G^R} && {H^R}
+			\arrow["{id(\phi)}"{description}, from=1-1, to=1-3]
+			\arrow["{i_G}"{description}, from=1-1, to=3-1]
+			\arrow["{i_H}"{description}, from=1-3, to=3-3]
+			\arrow["{\phi^R}"{description}, from=3-1, to=3-3]
+		\end{tikzcd}\]
+		Where $i_G(g) = g^{-1}$ is a morphism in $G^R$. 
+		
+		
+		In symbols, we need $i_H \circ id(\phi) = \phi^R \circ i_G$. 
+		
+		First, we ought to check that $i_G$ is a morphism in $G^R$. $i_G(g \cdot g') = (g 
+		\cdot g')^{-1} = g'^{-1} \cdot g^{-1} = g^{-1} \cdot_R g^{-1} = i_G(g) \cdot_R i_G(g')$. Yep!
+		
+		$i_H \circ id(\phi) = i_H \circ \phi$. Let's apply this to some arbitrary $g \in G$. $i_H(\phi(g)) = \phi(g)^{-1} = \phi(g^{-1}) = \phi(i_G(g)) = \phi^R(i_G(g))$. Hence, the square commutes for every $g$, and thus commutes in general. Hence, the natural transformation $i$ with components $i_G$ is a natural transformation. 
+		
+		To show that $i$ is a natural isomorphism, we can, by problem 30, find morphisms $i_G^{-1}$ for each component $i_G$ of $i$. Luckily, every $i_G$ is its own inverse. $i_G(i_G(g)) = g$, and so $i_G$ is in fact, an isomorphism. Hence, $i$ is a natural isomorphism. \qed
+	\end{enumerate}
+	
+	
+
+	
+	
 \end{solution}
+
+
+%\begin{problem}[33]
+%	Let $V$ be a vector space over a field $\mathbb{F}$ and define $V^* := [V, \mathbb{F}]$ (the space of linear transformations $V \to \mathbb{F}$). 
+%	\begin{enumerate}
+%		\item Prove that $V \mapsto V^{**}$ is a functor $(-)^{**}: \textbf{Vect} \to \textbf{Vect}$
+%		\item Show that the function $e: V \to V^{**}$ given by $e(v)(f) := f(v)$ defines a natural transformation.
+%		\item Show that the natural transformation is an isomorphism if and only if $V$ is finite dimensional
+%	\end{enumerate}
+%\end{problem}
+%
+%\begin{solution}
+%		We know the object part of $(-)^{**}$. I will first define the morphism part one step at a time (as I'm trying to figure this out as I write it...)
+%		
+%		A morphism in $\textbf{Vect}$ is a linear map. 
+%		
+%		A functor $F$ between $\textbf{Vect} \to \textbf{Vect}$ must take linear maps from $V\to V'$ to linear maps between $FV \to FV'$. 
+%		
+%		Let $f$ be one such map. Then, $f^{**}$ should be a linear map between $V^{**}$ and $V'^{**}$. 
+%		
+%		An element of $V^*$ is a linear map $V \to F$. Hence, $f^*$ is a map from $V'^* \to  V^*$ such that  $f^*(\phi : V' \to F) = \phi \circ f$. This is a linear map as a composition of linear maps. 
+%		
+%		We apply this idea again. An element of $V^*$ is a linear map $V^* \to F$. Hence, $f^{**}$ is a map from $V^{**} \to V'^{**}$ such that $f^{**}(\psi : V^* \to F) = \psi \circ f^*$. So, we can then say that $f^{**}(\psi : V^* \to F)(\phi : V' \to F) = \psi \circ (\phi \circ f)$. 
+%		
+%		
+%		Composition is given by composition of linear maps from the underlying space $V$. Hence, the identity on $V^{**}$ ought to be the map $1_V^{**}$. 
+%		
+%		Moreover, notice that $(f \circ g)^{**} = 
+%		
+%		
+%		Now, we check axioms. Let $1_V$ be the identity map on $V$. Let $f^{**}$ be a morphism $V^{**}\to V'^{**}$. $(f \circ 1_V)^{**}(\psi)(\phi) = \psi \circ (\phi \circ f \circ 1_V) = \psi \circ (\phi \circ f)= f^{**}$. The left sided argument follows identically. 
+%		
+%		
+%		
+%		
+%		
+%		$f^{**}$
+%
+%
+%
+%	
+%	
+%	
+%	
+%	
+%\end{solution}
 
 \end{document}
