@@ -1,0 +1,169 @@
+\documentclass[12pt]{article}
+% -------------------
+% Packages
+% -------------------
+\usepackage{
+	amsmath,			% Math Environments
+	amssymb,			% Extended Symbols
+	amsthm,			    % Theorem Environments
+	cancel,			    % Use Cancels
+	enumerate,		    % Enumerate Environments
+	graphicx,			% Include Images
+	lastpage,			% Reference Lastpage
+	multicol,			% Use Multi-columns
+	multirow,			% Use Multi-rows
+	xcolor,			    % Use Colors
+	float,
+	geometry,
+	quiver
+	}
+
+% -------------------
+% Header & Footer
+% -------------------
+\usepackage{fancyhdr}
+
+\newcommand{\assignment}[1]{
+	\fancypagestyle{title}{
+		%Headers
+		\fancyhead[L]{Jake Bridge}
+		\fancyhead[C]{MATH 418}
+		\fancyhead[R]{HW #1}
+		\renewcommand{\headrulewidth}{0.2pt}
+		%Footers
+		\fancyfoot[L]{}
+		\fancyfoot[C]{}
+		\fancyfoot[R]{}
+		\renewcommand{\footrulewidth}{0.0pt}
+	}
+	\thispagestyle{title}
+}
+\fancypagestyle{pages}{
+	%Headers
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\renewcommand{\headrulewidth}{0.0pt}
+	%Footers
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{}
+	\renewcommand{\footrulewidth}{0.0pt}
+}
+\headheight=18pt
+\footskip=14pt
+
+\pagestyle{pages}
+
+% ---------------
+% Page Layout
+% ---------------
+\geometry{letterpaper,
+bindingoffset=0.2in,
+left=1in,
+right=1in,
+top=1in,
+bottom=1in,
+footskip=.25in}
+% -------------------
+% Font
+% -------------------
+%\usepackage[T1]{fontenc}
+%\usepackage{charter}
+
+%\usepackage[T1]{fontenc}
+%\usepackage{mathpazo}
+
+%\usepackage[bitstream-charter]{mathdesign}
+%\usepackage[T1]{fontenc}
+
+
+% -------------------
+% Commands
+% -------------------
+
+% Problem Labels
+\newcounter{problem}[section]
+\newenvironment{problem}[1][\theproblem]{\refstepcounter{problem}\noindent \textbf{Problem~#1.\quad}}{\vskip\smallskipamount}
+
+
+\newenvironment{solution}{\noindent \textbf{Solution.\quad}}{\vskip\bigskipamount}
+
+
+% Special Characters
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\ob}[1]{\text{ob}(#1)}
+\newcommand{\natt}{\Rightarrow}
+
+% Math Operators
+
+% Special Commands
+
+
+
+% DOC
+\begin{document}
+	\assignment{3}
+
+\begin{problem}[27]
+	Let $G, H$ be groups. Prove that the functors $BG \to BH$ are in bijection with group homomorphisms $G\to H$. Build on this to understand the natural transformations between them, and therefore the category $[BG, BH]$.
+\end{problem}
+\begin{solution}
+	
+	Let $\phi$ be a homomorphism from $G\to H$. Then, $\phi$ induces a functor $f_\phi : \textbf{Grp} \to \textbf{Grp}$ taking the one element $*_G$ of $BG$ to the one element $*_H$ of $BH$ and operating on morphisms $g:*_G \to *_G$ via $f_\phi(g) = \phi(g)$ in $BH$. Throughout, I will not explicate any more sources and targets of morphisms, as there is only one object and all morphisms are from that object to itself. That is, there is one hom-set and so I can refer to things like "the" identity morphism, etc. 
+	
+	I will show that $f_\phi$ is a functor. Firstly, it maps identities to identities, as homomorphisms map identity elements to identity elements. To write it in symbols, $f_\phi(e_G) = \phi(e_G) = e_H$ and $e_H$ is the identity morphism in $BH$. It also respects morphism composition. Suppose $g, g'$ are morphisms of $BG$ with $\phi(g) = h, \phi(g') = h'$. Then $f_\phi(gg') = \phi(gg') = \phi(g)\phi(g') = f_\phi(g) f_\phi(g')$. Thus, $f_\phi$ is a functor. 
+	
+	Now, take a functor $F: BG \to BH$. I will show that this induces a group homomorphism from $G\to H$. Given $g, g'$ morphisms in $BH$, $F(gg') = F(g) F(g')$. Interpreting the morphism $g$ in $BG$ as an element of $G$ and the morphism $F(g)$ in $BH$ as an element of $H$, this is precisely what it means to be a group homomorphism. 
+
+
+	So, we have that functors between the $B-$ categories are in bijection with group homomorphisms. 
+	
+	Suppose $F, F'$ are functors $BG \to BH$. A natural transformation $\alpha : F \natt F'$ would be a collection of morphisms in $BH$, which is to say, elements of $H$ with a commutative diagram as follows. Notice that because $BG$ only has one element, there is only one component of $\alpha$ and so we need to only consider one commutative diagram and we know its objects. 
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGJveGVke0YqX0cgPSAqX0h9Il0sWzEsMCwiXFxib3hlZHtGKl9HPSpfSH0iXSxbMSwxLCJcXGJveGVke0YnKj0qX0h9Il0sWzAsMSwiXFxib3hlZHtGJypfRyA9ICpfSH0iXSxbMSwyLCJcXGFscGhhXyoiXSxbMywyLCJGJ2ciLDJdLFswLDMsIlxcYWxwaGFfKiIsMl0sWzAsMSwiRmciXV0=
+\[\begin{tikzcd}
+	{\boxed{F*_G = *_H}} & {\boxed{F*_G=*_H}} \\
+	{\boxed{F'*_G = *_H}} & {\boxed{F'*_G=*_H}}
+	\arrow["Fg", from=1-1, to=1-2]
+	\arrow["{\alpha_*}"', from=1-1, to=2-1]
+	\arrow["{\alpha_*}", from=1-2, to=2-2]
+	\arrow["{F'g}"', from=2-1, to=2-2]
+\end{tikzcd}\]
+
+For this to commute, we need that $Fg \circ \alpha_* =\alpha_*\circ F'g $ for all $g$. We also know that $\alpha_*$ is a morphism in $BH$, which we will denote $h$. That is, we need $F(g) h = h F'(g)$ for all $g$. $H$ is a group, though, so we can take the inverse on the left on both sides and conclude that $F(g) = h F'(g) h^{-1}$ for all $g$. We conclude that the natural transformations between homomorphisms are only those given by conjugation by some element of $B$. 
+
+\end{solution}
+
+
+
+
+\begin{problem}[30]
+	Let $\alpha : F \natt G$ be a natural transformation, where $F, G: \mc{A} \to \mc{B}$. Prove that $\alpha$ is an isomorphism in the functor category $[\mc{A}, \mc{B}]$ if and only if every component $\alpha_A : FA \to GA$ is an isomorphism
+\end{problem}
+\begin{solution}
+	and another solution. Hallelujah!
+\end{solution}
+
+
+
+
+\begin{problem}[33]
+	Let $V$ be a vector space over a field $\mathbb{F}$ and define $V^* := [V, \mathbb{F}]$ (the space of linear transformation $V \to \mathbb{F}$). 
+	\begin{enumerate}
+		\item Prove that $V \mapsto V^{**}$ is a functor $(-)^{**}: \textbf{Vect} \to \textbf{Vect}$
+		\item Show that the function $e: V \to V^{**}$ given by $e(v)(f) := f(v)$ defines a natural transformation.
+		\item Show that the natural transformation is an isomorphism if and only if $V$ is finite dimensional
+	\end{enumerate}. Show that 
+\end{problem}
+\begin{solution}
+	and another solution. Hallelujah!
+\end{solution}
+
+\end{document}
