@@ -1,0 +1,278 @@
+\documentclass[12pt]{article}
+% -------------------
+% Packages
+% -------------------
+\usepackage{
+	amsmath,			% Math Environments
+	amssymb,			% Extended Symbols
+	amsthm,			    % Theorem Environments
+	cancel,			    % Use Cancels
+	enumerate,		    % Enumerate Environments
+	graphicx,			% Include Images
+	lastpage,			% Reference Lastpage
+	multicol,			% Use Multi-columns
+	multirow,			% Use Multi-rows
+	xcolor,			    % Use Colors
+	float,
+	geometry,
+	quiver
+	}
+
+% -------------------
+% Header & Footer
+% -------------------
+\usepackage{fancyhdr}
+
+\newcommand{\assignment}[1]{
+	\fancypagestyle{title}{
+		%Headers
+		\fancyhead[L]{Jake Bridge}
+		\fancyhead[C]{MATH 418}
+		\fancyhead[R]{HW #1}
+		\renewcommand{\headrulewidth}{0.2pt}
+		%Footers
+		\fancyfoot[L]{}
+		\fancyfoot[C]{}
+		\fancyfoot[R]{}
+		\renewcommand{\footrulewidth}{0.0pt}
+	}
+	\thispagestyle{title}
+}
+\fancypagestyle{pages}{
+	%Headers
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\renewcommand{\headrulewidth}{0.0pt}
+	%Footers
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{}
+	\renewcommand{\footrulewidth}{0.0pt}
+}
+\headheight=18pt
+\footskip=14pt
+
+\pagestyle{pages}
+
+% ---------------
+% Page Layout
+% ---------------
+\geometry{letterpaper,
+bindingoffset=0.2in,
+left=1in,
+right=1in,
+top=1in,
+bottom=1in,
+footskip=.25in}
+% -------------------
+% Font
+% -------------------
+%\usepackage[T1]{fontenc}
+%\usepackage{charter}
+
+%\usepackage[T1]{fontenc}
+%\usepackage{mathpazo}
+
+%\usepackage[bitstream-charter]{mathdesign}
+%\usepackage[T1]{fontenc}
+
+
+% -------------------
+% Commands
+% -------------------
+
+% Problem Labels
+\newcounter{problem}[section]
+\newenvironment{problem}[1][\theproblem]{\refstepcounter{problem}\noindent \textbf{Problem~#1.\quad}}{\vskip\smallskipamount}
+
+
+\newenvironment{solution}{\noindent \textbf{Solution.\quad}}{\vskip\bigskipamount}
+
+
+% Special Characters
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\ob}[1]{\text{ob}(#1)}
+\newcommand{\natt}{\Rightarrow}
+
+% Math Operators
+
+% Special Commands
+
+
+
+% DOC
+\begin{document}
+	\assignment{4}
+	
+	\newcommand{\Set}{\textbf{Set}}
+
+\begin{problem}[35]
+	Let $\mc{C}$ be a category, and $X \in \mc{C}$. The slice category $\mc{C} / X$ has objects $(Y, f)$ where $Y \in \mc{C}$ and $f \in \mc{C}(Y, X)$. 
+	\begin{enumerate}
+		\item Construct the rest of the slice category
+		\item For a set $S$ with corresponding discrete category $dS$, $[dS, \Set] \simeq \Set/S$
+	\end{enumerate}
+\end{problem}
+
+
+\begin{solution}
+	The equivalence given in part 2 gives us motivation for the morphisms in the slice category: A Set mod S should look like the functor category between dS and Set, which has morphisms natural transformations between functors from $dS \to \Set$. 
+	
+	\textbf{What are the morphisms of $\mc{C}/X$?}
+	
+	
+	So, given $(Y, f), (Z, g) \in \mc{C}/X$, we can say that a morphism $F$ must take $Y$ to $Z$ (a morphism in $\mc{C}$) and $f: Y \to X$ to $g: Z \to X$. We draw:
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJZIl0sWzIsMCwiWCJdLFsyLDIsIlgiXSxbMCwyLCJaIl0sWzAsMSwiZiJdLFsxLDIsIjFfWCJdLFswLDMsIj8iLDJdLFszLDIsImciLDJdXQ==
+	\[\begin{tikzcd}
+		Y && X \\
+		\\
+		Z && X
+		\arrow["f", from=1-1, to=1-3]
+		\arrow["{?}"', from=1-1, to=3-1]
+		\arrow["{1_X}", from=1-3, to=3-3]
+		\arrow["g"', from=3-1, to=3-3]
+	\end{tikzcd}\]
+	
+	So, our ? ought to be the morphism $h: Y\to Z$ such that $g \circ h = f$. 
+	
+	That is, $F$ is a morphism $F: Y\to Z$ with $g \circ F = f$. Morphism composition is given by morphism composition in $\mc{C}$, and the identity is the identity in the underlying category as well. 
+	
+	\textbf{Showing that $\mc{C}/X$ is actually a category}
+	
+	We must show that $\mc{C} / X$ is a category with this construction. We will first check that morphism composition is sensible, then that identities function how we want. We inherit associativity from the underlying category. 
+	
+	Given % https://q.uiver.app/#q=WzAsMyxbMCwwLCIoWV8xLCBmXzEpIl0sWzEsMCwiKFlfMiwgZl8yKSJdLFsyLDAsIihZXzMsIGZfMykiXSxbMCwxLCJGIl0sWzEsMiwiRyJdXQ==
+	\begin{tikzcd}[cramped]
+		{(Y_1, f_1)} & {(Y_2, f_2)} & {(Y_3, f_3)}
+		\arrow["F", from=1-1, to=1-2]
+		\arrow["G", from=1-2, to=1-3]
+	\end{tikzcd}, $G \circ F$ has the right sources and targets (it maps from $Y_1 \to Y_3$). Then, using associativity of morphisms in the underlying category and the condition on morphisms in the slice category, $f_3 \circ (G \circ F) = f_2 \circ F = f_1$. Hence, the composition of two morphisms is a morphism!
+	
+	Lastly, we check identities. Let \begin{tikzcd}[cramped]
+		{(Y_1, f_1)} & {(Y_2, f_2)} 
+		\arrow["F", from=1-1, to=1-2]
+		\end{tikzcd}. We said that the identity on $(Y_1, f_1)$ ought to be $1_{Y_1}$.  $f_2 \circ (F \circ 1_{Y_1}) = f_2 \circ F = f_1$. This proves right identities. Left identities follow identically. 
+	
+	We conclude that $\mc{C}/X$ is a category. \qed 
+	
+	To show equivalence, we can construct two functors, one from $[dS, \Set]$ to $\Set/S$ and one the other way. To define such a functor, we must first show what it does on objects, then morphisms, check that it respects composition and identities, and lastly we will show that the functors compose in a way that is naturally isomorphic to the identity (both ways).  
+	
+	\textbf{Building the functor} $J: [dS, \Set] \to \Set/s$
+	
+	
+	Given a functor $F: dS \to \Set$, we must send it to a pair $(X, f: X \to S)$ in $\Set/S$. $F$ has two parts: on objects, it maps $s \mapsto Y_s$. On morphisms (of which there are only identities), it maps $1_s \mapsto 1_Y$. We can map $F$ to the pair $(\coprod_S F(s), \pi : \coprod_S F(s) \to S)$ where $\pi(k) = s$ if $k \in F(s)$. This is well defined, because even if $F$ maps two elements $s, s'$ of $dS$ to the same set, we use the disjoint product to identify where each $s, s'$ came from. Let's call the functor performing this operation $J$ for "Jake has no better ideas for notation." 
+	
+We must see what $J$ does on morphisms. Morphisms in the functor category are natural transformations. Given $\alpha: F \natt G$, we define $J(\alpha) = \coprod_S \alpha_s$ where $\alpha_s$ are morphisms $p_s: F(s) \to G(s)$ in $\Set$. This has the proper source and target. $dS$ is discrete, so the only $f: s \to s'$ is the identity on $s$. The naturality square of $\alpha$ just says that % https://q.uiver.app/#q=WzAsNCxbMCwwLCJGcyJdLFsyLDAsIkZzIl0sWzIsMiwiR3MiXSxbMCwyLCJHcyJdLFswLDEsIjFfe0ZzfSJdLFsxLDIsIlxcYWxwaGFfe3N9Il0sWzAsMywiXFxhbHBoYV9zIiwyXSxbMywyLCIxX3tHc30iLDJdLFswLDIsIlxcYWxwaGFfcyIsMV1d
+\[\begin{tikzcd}
+	Fs && Fs \\
+	\\
+	Gs && Gs
+	\arrow["{1_{Fs}}", from=1-1, to=1-3]
+	\arrow["{\alpha_s}"', from=1-1, to=3-1]
+	\arrow["{\alpha_s}"{description}, from=1-1, to=3-3]
+	\arrow["{\alpha_{s}}", from=1-3, to=3-3]
+	\arrow["{1_{Gs}}"', from=3-1, to=3-3]
+\end{tikzcd}\]
+
+This obviously commutes. 
+
+ Let $JF_\pi$ be the projection part of $JF$, and similarly for $JG$. We need to first show that $JG_\pi \circ J\alpha = JF_\pi$. Suppose $k \in F(s_0)$. Then, $p_s(k) \in G(s_0)$
+ 
+ Then $JF_\pi(k) = s_0$, and $JG_\pi \circ \coprod_S p_s(k) = s_0$. 
+ 
+ 
+ \textbf{Showing $J$ is a functor}
+ 
+ 
+	Now, we show $J$ is a functor: The identity natural transformation $1_F$ has components identities ${1_F}_s = 1_{Fs}$. We need that $J(1_F) = 1_{JF}$. So, we write $J(1_F) = \coprod_S 1_{F(s)} = 1_{\coprod_S F(s)} = 1_{JF}$
+	
+	Now, consider $\alpha, \beta: F\natt G$ where $F, G \in [dS, \Set]$ and their vertical composition $\alpha \circ \beta$. $J(\alpha \circ \beta) = \coprod_S \alpha_s \circ \beta_s = \coprod_S \alpha_s \circ \coprod_S \beta_s = J(\alpha) \circ J(\beta)$.
+	
+	Thus, $J$ is a functor.
+	
+\textbf{Building the functor $K: \Set/S \to [dS, \Set]$}
+
+Given $(Y, f: Y \to S)$ in the slice category, we must map it to a functor $F$ from $dS \to \Set$. 
+First, we build the functor $F$, then show that it is a functor. We define $F$ on objects to take $s \mapsto f^{-1}(s)$. On morphisms, the only morphisms of $dS$ are the identities, and so they go to the corresponding identities. The only morphism composition that $F$ needs to respect is repeated identity composition, which it clearly does. Hence, $F$ is a functor. That is, $K(Y, f) = F$. 
+
+Now, $K$ must take morphisms of $\Set/S$ to natural transformations between functors between $dS\to \Set$. Luckily, we had defined our morphisms of the slice category so that this would make sense! Given a morphism $H : (Y, f) \to (Z, g)$, where $K(Y, f) = F$ and $K(Z, g) = G$, we think of $H$ as a morphism $h: Y\to Z$ with $g \circ h = f$. 
+
+So, $K(H)$ must be a natural transformation given by components $KH_s : F(s) \to G(s)$. By the same argument with $J$, the naturality square automatically commutes as there is only the identity morphism from each $s\to s$ in $dS$. We can let $KH_s = h|_{f^{-1}(s)}$. We know that $g\circ h = f$, so if $x \in f^{-1}(s)$, then $g(h(x)) = s$, so $h(x) \in g^{-1}$. Hence $KH_s$ has the proper source ($f^{-1}(s)$) and target ($g^{-1}(s)$). 
+
+\textbf{Showing $K$ is a functor}
+Identities: $K(1_X)_s = 1_X|_{f^{-1}(s)} = 1_{KX}$. 
+
+Composition: $K(X \xrightarrow{F} Y \xrightarrow{G} Z)_S = (g \circ f)_{(g \circ f)^{-1}(s)}$.
+$x \in (f\circ g)^{-1}(s) \iff fx \in g^{-1}(s)$. So, we can split the restriction to $g|_{g^{-1}(s)} \circ f|_{f^{-1}(s)}$. This is $KG \circ KF$. 
+
+\textbf{Proving equivalence}
+We need to show that $KJ$ and $JK$ are both naturally isomorphic to the identity, beginning with JK. 
+\begin{equation*}
+	\begin{split}
+JK((Y, f: Y \to S) \xrightarrow{F} (Z, g: Z\to S)) \\
+= J(f^{-1}(S) \xrightarrow{F|_{f^{-1}(S)}} g^{-1}(S)) \\
+= (\coprod_S f^{-1}(s), \pi_f) \xrightarrow{\coprod_S F|_{f^{-1}(s)}} (\coprod_S g^{-1}(s), \pi_g)
+	\end{split}
+\end{equation*}
+
+We must find an isomorphism $\Phi$ from $\Set / S \natt \Set / S$ taking $(Y, f)$ to $\coprod_S f^{-1}(s)$ such that the following diagram commutes. % https://q.uiver.app/#q=WzAsNCxbMCwwLCIoWSwgZikiXSxbNCwwLCIoWiwgZykiXSxbMCwzLCIoXFxjb3Byb2RfUyBmXnstMX0ocyksIFxccGlfZikiXSxbNCwzLCIoXFxjb3Byb2RfUyBnXnstMX0ocyksIFxccGlfZykiXSxbMCwxLCJoIl0sWzAsMiwiXFxQaGlfe1ksIGZ9IiwyXSxbMSwzLCJcXFBoaV97WiwgZ30iXSxbMiwzLCJcXGNvcHJvZF9TIGh8X3tmXnstMX0ocyl9IiwyXV0=
+\[\begin{tikzcd}
+	{(Y, f)} &&&& {(Z, g)} \\
+	\\
+	\\
+	{(\coprod_S f^{-1}(s), \pi_f)} &&&& {(\coprod_S g^{-1}(s), \pi_g)}
+	\arrow["h", from=1-1, to=1-5]
+	\arrow["{\Phi_{Y, f}}"', from=1-1, to=4-1]
+	\arrow["{\Phi_{Z, g}}", from=1-5, to=4-5]
+	\arrow["{\coprod_S h|_{f^{-1}(s)}}"', from=4-1, to=4-5]
+\end{tikzcd}\]
+
+That is, $\Phi_{Z, g} \circ \coprod_S h|_{f^{-1}(s)}=  h \circ \Phi_{Y, f}$
+%We take the obvious one: $\Phi_{(Y, f)}(h: Y \to Z) = (\coprod_S(g^{-1}(s), \pi))$ where $\pi(k) = s$ if $k \in g(s)$. This is entirely independent of the choice of the $(Y, f)$ index. 
+
+
+
+%This is the same thing as taking the identity in $\Set / S$. 
+%
+%Let $F$ and $G$ be functors from $dS$ to $\Set$. We will have to first show that there is a functor $[dS, \Set] \to [dS, \Set]$ that takes $F$ to $\coprod_S F^{-1}(S)$. 
+%
+%There is a natural isomorphism from $\coprod_SF^{-1}(s)$ to $F$ given by 
+%
+%$KJ(F \xrightarrow{\alpha} G) = K((\coprod_S F(s), \pi_F) \xrightarrow{\coprod_S \alpha_s} (\coprod_S G(s), \pi_G)) = (\coprod_S F^{-1}(s) \xrightarrow{\coprod_S \alpha_s} \coprod_S G^{-1}(s))$
+
+
+
+
+
+%	Similarly, given an element $(X, f: X \to S)$
+	
+	
+	
+	
+%	We take such a morphism to the pair $(F^{-1}(S), h := F^{-1} : F^{-1}(S) \to S )$ where $F^{-1}$ is the inverse image of $F$. 
+	
+%	Now, given a natural transformation $\alpha : F \natt G$ in the functor category, we must take it to a function $H: F^{-1}(S) \to G^{-1}(S)$ such that $G^{-1} \circ H = F^{-1}$. The components of $\alpha$ are indexed by elements of $S$. In particular, the following diagram commutes. 
+	
+	
+\end{solution}
+
+
+
+%
+%\begin{problem}[300000]
+%	This is another problem
+%\end{problem}
+%\begin{solution}
+%	and another solution. Hallelujah!
+%\end{solution}
+
+
+\end{document}
