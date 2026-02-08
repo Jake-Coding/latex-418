@@ -17,7 +17,7 @@
 	geometry,
 	quiver
 	}
-
+\usetikzlibrary{nfold}
 % -------------------
 % Header & Footer
 % -------------------
@@ -247,9 +247,9 @@ Given some $(s, y) \in \coprod_S f^{-1}(s)$ (thinking about the disjoint union a
 
  Then, $(h\circ \Phi_{Y, f})((s, y), \pi_f) = (h(y), g)$ and $( \Phi_{Z, g} \circ \coprod_S h|_{f^{-1}(s)})((s, y), \pi_f) = \Phi_{Z, g}((h(s), h(y)) , \pi_g) = (h(y), g)$, so the square commutes. 
  
- Moreover, $\Phi$ is invertible: we can define $\Phi^{-1}_{Y, f}(y, f) = ((s, y), \pi_f)$ where $s$ is an element (choose one!) such that $y \in f^{-1}(s)$. Then, $\Phi \circ \Phi^{-1}$ is clearly the identity, and $\Phi^{-1} \circ \Phi$ is isomorphic to the identity (by choosing the "right" $s$). We can just redefine $\Phi$ to choose such $s$, and this gives us that the natural transformation $\Phi$ is in fact a natural isomorphism from $JK$ to the identity. Hence, $JK \simeq 1$. 
+ Moreover, $\Phi$ is invertible: we can define $\Phi^{-1}_{Y, f}(y, f) = ((s, y), \pi_f)$ where $s$ is an element (choose one!) such that $y \in f^{-1}(s)$. Then, $\Phi \circ \Phi^{-1}$ is clearly the identity, and $\Phi^{-1} \circ \Phi$ is isomorphic to the identity (by choosing the "right" $s$). We can just redefine $\Phi$ to choose such $s$, and this gives us that the natural transformation $\Phi$ is in fact a natural isomorphism from $JK$ to the identity. Hence, $JK \cong 1$. 
  
- Lastly, we show that $KJ \simeq 1$. 
+ Lastly, we show that $KJ \cong 1$. 
  
  \begin{equation*}
  	\begin{split}
@@ -261,47 +261,81 @@ Given some $(s, y) \in \coprod_S f^{-1}(s)$ (thinking about the disjoint union a
 
 Given (the object part of a) functor: $f : dS \to Y$, we follow it around: $KJ(f) =  K(\coprod_S f(s), \pi_f) = \pi_f^{-1}$. $KJ(f)(s) = \{(s, y) | f(s) = y)\}$. We can call this set $Y_s$ where $Y \cong \coprod_S Y_s$ and the isomorphism is natural in $\Set$. If we show this isomorphism, we will have that $KJ$ takes $F$ to something isomorphic to $F$. I will not go through the details of that-- effectively, the tagged inverse images partition $Y$ and we just take the functor that glues the pieces together. We glue the morphisms together in the same way. That is, that $KJ$ is equivalent to the identity on elements. By the same logic, $KJ$ is equivalent the identity on morphisms (natural transformations). 
 
-Hence, $KJ \simeq 1$, and we are done! \qed
+Hence, $KJ \cong 1$, so $[dS, \Set] \simeq \Set/S$, and we are done! \qed
 
 
-
-%We take the obvious one: $\Phi_{(Y, f)}(h: Y \to Z) = (\coprod_S(g^{-1}(s), \pi))$ where $\pi(k) = s$ if $k \in g(s)$. This is entirely independent of the choice of the $(Y, f)$ index. 
-
-
-
-%This is the same thing as taking the identity in $\Set / S$. 
-%
-%Let $F$ and $G$ be functors from $dS$ to $\Set$. We will have to first show that there is a functor $[dS, \Set] \to [dS, \Set]$ that takes $F$ to $\coprod_S F^{-1}(S)$. 
-%
-%There is a natural isomorphism from $\coprod_SF^{-1}(s)$ to $F$ given by 
-%
-%$KJ(F \xrightarrow{\alpha} G) = K((\coprod_S F(s), \pi_F) \xrightarrow{\coprod_S \alpha_s} (\coprod_S G(s), \pi_G)) = (\coprod_S F^{-1}(s) \xrightarrow{\coprod_S \alpha_s} \coprod_S G^{-1}(s))$
-
-
-
-
-
-%	Similarly, given an element $(X, f: X \to S)$
-	
-	
-	
-	
-%	We take such a morphism to the pair $(F^{-1}(S), h := F^{-1} : F^{-1}(S) \to S )$ where $F^{-1}$ is the inverse image of $F$. 
-	
-%	Now, given a natural transformation $\alpha : F \natt G$ in the functor category, we must take it to a function $H: F^{-1}(S) \to G^{-1}(S)$ such that $G^{-1} \circ H = F^{-1}$. The components of $\alpha$ are indexed by elements of $S$. In particular, the following diagram commutes. 
-	
 	
 \end{solution}
 
 
 
-%
-%\begin{problem}[300000]
-%	This is another problem
-%\end{problem}
-%\begin{solution}
-%	and another solution. Hallelujah!
-%\end{solution}
+
+\begin{problem}[38]
+	Let $\mathcal{K}$ be a 2-category with horizontal composition given by a functor 
+	\[\mathcal{K}(B, C) \times \mathcal{K}(A, B) \to \mathcal{K}(A, C)\]
+	
+	Prove that the composition functor preserving vertical composition of 2-cells is the same equality as in the interchange law. 
+\end{problem}
+\begin{solution}
+	Vertical composition of 2-cells is composition of morphisms in the category of 1 and 2 cells (composing 2-cells along 1-cells). Horizontal composition of 2-cells is like composing 2-cells along 0-cells. 
+	
+	For horizontal composition to be a functor, it must respect identities and composition. In particular, respecting composition means that if $f, f', f''$ are objects (1-cells) in $\mathcal{K}(A, B)$ with morphisms (2-cells) $\alpha: f\natt f'$ and $\alpha': f' \natt f''$ and similarly in $\mathcal{K}(B, C)$ has morphisms $\beta: g \natt g'$ and $\beta' : g' \natt g''$. 
+	
+	The functor $*$ takes objects of the product category (pairs of 1-cells) $(g, f)$ to the object (1-cell) $g \circ f$ in the category $\mathcal{K}(A, C)$. 
+	
+	On morphisms, $*$ takes morphisms in the product category (pairs of 2-cells) $(\beta, \alpha)$ to the 2-cell $\beta * \alpha$ in $\mathcal{K}(A, C)$.
+	
+	For $*$ to respect vertical composition (which is to say, composition in the product and target categories), first notice that $(\beta', \alpha') \circ (\beta, \alpha) = (\beta' \circ \beta, \alpha' \circ \alpha)$. The functor $*(a, b) = a * b$ must have that $*((\beta', \alpha') \circ (\beta, \alpha)) = *((\beta', \alpha')) \circ *((\beta, \alpha))$. This is precisely the interchange law. 
+	
+	We observe the abomination:
+%	% https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzMsMCwiQiJdLFs2LDAsIkMiXSxbMCwxLCJmJyIsMV0sWzAsMSwiZicnIiwxLHsiY3VydmUiOjR9XSxbMCwxLCJmIiwxLHsiY3VydmUiOi00fV0sWzEsMiwiZyciLDFdLFsxLDIsImciLDEseyJjdXJ2ZSI6LTR9XSxbMSwyLCJnJyciLDEseyJjdXJ2ZSI6NH1dLFszLDQsIlxcYWxwaGEnIiwyLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dLFs1LDMsIlxcYWxwaGEiLDIseyJzaG9ydGVuIjp7InNvdXJjZSI6MjAsInRhcmdldCI6MjB9fV0sWzcsNiwiXFxiZXRhIiwwLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dLFs2LDgsIlxcYmV0YSciLDAseyJzaG9ydGVuIjp7InNvdXJjZSI6MjAsInRhcmdldCI6MjB9fV0sWzUsNCwiXFxhbHBoYScgXFxjaXJjIFxcYWxwaGEiLDAseyJsYWJlbF9wb3NpdGlvbiI6NDAsImN1cnZlIjotMiwic2hvcnRlbiI6eyJzb3VyY2UiOjEwLCJ0YXJnZXQiOjEwfX1dLFs3LDgsIlxcYmV0YScgXFxjaXJjIFxcYmV0YSIsMix7ImxhYmVsX3Bvc2l0aW9uIjo0MCwiY3VydmUiOjIsInNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0IjoxMH19XSxbOSwxMiwiXFxiZXRhJyAqIFxcYWxwaGEnIiwyLHsiY3VydmUiOjN9XSxbMTAsMTEsIlxcYmV0YSAqXFxhbHBoYSIsMCx7ImN1cnZlIjotM31dLFsxMywxNCwiKFxcYmV0YScgXFxjaXJjIFxcYmV0YSkqKFxcYWxwaGEnIFxcY2lyYyBcXGFscGhhKSIsMix7Im9mZnNldCI6MywiY3VydmUiOjF9XV0=
+%	\[\begin{tikzcd}[row sep=6em, column sep=large]
+%		A &&& B &&& C
+%		\arrow[""{name=0, anchor=center, inner sep=0}, "{f'}"{description}, from=1-1, to=1-4]
+%		\arrow[""{name=1, anchor=center, inner sep=0}, "{f''}"{description}, curve={height=24pt}, from=1-1, to=1-4]
+%		\arrow[""{name=2, anchor=center, inner sep=0}, "f"{description}, curve={height=-24pt}, from=1-1, to=1-4]
+%		\arrow[""{name=3, anchor=center, inner sep=0}, "{g'}"{description}, from=1-4, to=1-7]
+%		\arrow[""{name=4, anchor=center, inner sep=0}, "g"{description}, curve={height=-24pt}, from=1-4, to=1-7]
+%		\arrow[""{name=5, anchor=center, inner sep=0}, "{g''}"{description}, curve={height=24pt}, from=1-4, to=1-7]
+%		\arrow[""{name=6, anchor=center, inner sep=0}, "{\alpha'}"', between={0.2}{0.8}, Rightarrow, from=0, to=1]
+%		\arrow[""{name=7, anchor=center, inner sep=0}, "\alpha"', between={0.2}{0.8}, Rightarrow, from=2, to=0]
+%		\arrow[""{name=8, anchor=center, inner sep=0}, "{\alpha' \circ \alpha}"{pos=0.47}, curve={height=-12pt}, between={0.1}{0.9}, Rightarrow, from=2, to=1]
+%		\arrow[""{name=9, anchor=center, inner sep=0}, "\beta", between={0.2}{0.8}, Rightarrow, from=4, to=3]
+%		\arrow[""{name=10, anchor=center, inner sep=0}, "{\beta'}", between={0.2}{0.8}, Rightarrow, from=3, to=5]
+%		\arrow[""{name=11, anchor=center, inner sep=0}, "{\beta' \circ \beta}"'{pos=0.47}, curve={height=12pt}, between={0.1}{0.9}, Rightarrow, from=4, to=5]
+%		\arrow["{\beta' * \alpha'}"', curve={height=36pt}, Rightarrow, scaling nfold=3, from=6, to=10]
+%		\arrow["{\beta *\alpha}", curve={height=-18pt}, Rightarrow, scaling nfold=3, from=7, to=9]
+%		\arrow["{(\beta' \circ \beta)*(\alpha' \circ \alpha)}"', shift right=3, curve={height=6pt}, Rightarrow, scaling nfold=3, from=8, to=11]
+%	\end{tikzcd}\]
+%	
+%	That is, the path from $\alpha$ to $\beta$ vertically composed with the path from $\alpha'$ to $\beta'$ should be the same as the path from $\alpha' \circ \alpha$ to $\beta' \circ \beta$. 
+	
+
+	
+
+\end{solution}
+
+
+\begin{problem}[41]
+Write out the details for the 2-category of posets, order-preserving functions, and function domination
+\end{problem}
+\begin{solution}
+	
+\end{solution}
+
+
+\begin{problem}[44]
+	Let $F: \mathcal{A} \to \mathcal{B}$ be a functor and $G_1, G_2 : \mathcal{B} \to \mathcal{C}$ a pair of functors with a natural transformation $\alpha: G_1 \natt G_2$. We will write $\alpha F = \alpha * 1_F$ and call it "the whiskering of $\alpha$ by $F$. 
+	
+	\begin{enumerate}
+		\item Prove that for transformations $\beta, \alpha$ for which $\beta * \alpha$ is defined, this composite can be derived from vertical composition and whiskering (on both sides).
+		
+		\item Rewrite the definition of a 2-category using whiskering instead of a composition functor. 
+	\end{enumerate}
+\end{problem}
+\begin{solution}
+	
+\end{solution}
 
 
 \end{document}
