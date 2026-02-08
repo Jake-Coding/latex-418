@@ -124,6 +124,12 @@ footskip=.25in}
 
 
 \begin{solution}
+	
+	The first part of this problem is relatively straightforward. The second is also straightforward, but takes a lot of checking. I use \textbf{Bold} text to break up the work into steps. 
+	
+	\vspace{1em}
+	
+	
 	The equivalence given in part 2 gives us motivation for the morphisms in the slice category: A Set mod S should look like the functor category between dS and Set, which has morphisms natural transformations between functors from $dS \to \Set$. 
 	
 	\textbf{What are the morphisms of $\mc{C}/X$?}
@@ -162,6 +168,8 @@ footskip=.25in}
 		\end{tikzcd}. We said that the identity on $(Y_1, f_1)$ ought to be $1_{Y_1}$.  $f_2 \circ (F \circ 1_{Y_1}) = f_2 \circ F = f_1$. This proves right identities. Left identities follow identically. 
 	
 	We conclude that $\mc{C}/X$ is a category. \qed 
+	
+	\textbf{Roadmap}
 	
 	To show equivalence, we can construct two functors, one from $[dS, \Set]$ to $\Set/S$ and one the other way. To define such a functor, we must first show what it does on objects, then morphisms, check that it respects composition and identities, and lastly we will show that the functors compose in a way that is naturally isomorphic to the identity (both ways).  
 	
@@ -223,19 +231,40 @@ JK((Y, f: Y \to S) \xrightarrow{F} (Z, g: Z\to S)) \\
 	\end{split}
 \end{equation*}
 
-We must find an isomorphism $\Phi$ from $\Set / S \natt \Set / S$ taking $(Y, f)$ to $\coprod_S f^{-1}(s)$ such that the following diagram commutes. % https://q.uiver.app/#q=WzAsNCxbMCwwLCIoWSwgZikiXSxbNCwwLCIoWiwgZykiXSxbMCwzLCIoXFxjb3Byb2RfUyBmXnstMX0ocyksIFxccGlfZikiXSxbNCwzLCIoXFxjb3Byb2RfUyBnXnstMX0ocyksIFxccGlfZykiXSxbMCwxLCJoIl0sWzAsMiwiXFxQaGlfe1ksIGZ9IiwyXSxbMSwzLCJcXFBoaV97WiwgZ30iXSxbMiwzLCJcXGNvcHJvZF9TIGh8X3tmXnstMX0ocyl9IiwyXV0=
+We must find an isomorphism $\Phi$ from $\Set / S \natt \Set / S$ taking $(Y, f)$ to $\coprod_S f^{-1}(s)$ such that the following diagram commutes. % % https://q.uiver.app/#q=WzAsNCxbMCwzLCIoWSwgZikiXSxbNCwzLCIoWiwgZykiXSxbMCwwLCIoXFxjb3Byb2RfUyBmXnstMX0ocyksIFxccGlfZikiXSxbNCwwLCIoXFxjb3Byb2RfUyBnXnstMX0ocyksIFxccGlfZykiXSxbMCwxLCJoIiwyXSxbMiwwLCJcXFBoaV97WSwgZn0iLDJdLFszLDEsIlxcUGhpX3taLCBnfSJdLFsyLDMsIlxcY29wcm9kX1MgaHxfe2Zeey0xfShzKX0iXV0=
 \[\begin{tikzcd}
-	{(Y, f)} &&&& {(Z, g)} \\
+	{(\coprod_S f^{-1}(s), \pi_f)} &&&& {(\coprod_S g^{-1}(s), \pi_g)} \\
 	\\
 	\\
-	{(\coprod_S f^{-1}(s), \pi_f)} &&&& {(\coprod_S g^{-1}(s), \pi_g)}
-	\arrow["h", from=1-1, to=1-5]
+	{(Y, f)} &&&& {(Z, g)}
+	\arrow["{\coprod_S h|_{f^{-1}(s)}}", from=1-1, to=1-5]
 	\arrow["{\Phi_{Y, f}}"', from=1-1, to=4-1]
 	\arrow["{\Phi_{Z, g}}", from=1-5, to=4-5]
-	\arrow["{\coprod_S h|_{f^{-1}(s)}}"', from=4-1, to=4-5]
+	\arrow["h"', from=4-1, to=4-5]
 \end{tikzcd}\]
 
-That is, $\Phi_{Z, g} \circ \coprod_S h|_{f^{-1}(s)}=  h \circ \Phi_{Y, f}$
+Given some $(s, y) \in \coprod_S f^{-1}(s)$ (thinking about the disjoint union as a tagged union), we take $\Phi_{Y, f}((s, y), \pi_f) = (y, f)$.
+
+ Then, $(h\circ \Phi_{Y, f})((s, y), \pi_f) = (h(y), g)$ and $( \Phi_{Z, g} \circ \coprod_S h|_{f^{-1}(s)})((s, y), \pi_f) = \Phi_{Z, g}((h(s), h(y)) , \pi_g) = (h(y), g)$, so the square commutes. 
+ 
+ Moreover, $\Phi$ is invertible: we can define $\Phi^{-1}_{Y, f}(y, f) = ((s, y), \pi_f)$ where $s$ is an element (choose one!) such that $y \in f^{-1}(s)$. Then, $\Phi \circ \Phi^{-1}$ is clearly the identity, and $\Phi^{-1} \circ \Phi$ is isomorphic to the identity (by choosing the "right" $s$). We can just redefine $\Phi$ to choose such $s$, and this gives us that the natural transformation $\Phi$ is in fact a natural isomorphism from $JK$ to the identity. Hence, $JK \simeq 1$. 
+ 
+ Lastly, we show that $KJ \simeq 1$. 
+ 
+ \begin{equation*}
+ 	\begin{split}
+ 		KJ(F \natt_\alpha G) = \\
+ 		K(   (\coprod_S F(s), \pi_F) \xrightarrow{\coprod_S \alpha_s} (\coprod_S G(s), \pi_G)  ) = \\
+ 		\pi_F^{-1}F(s)      \natt_\alpha          \pi_G^{-1}G(s) = \\
+ 	\end{split}
+ \end{equation*}
+
+Given (the object part of a) functor: $f : dS \to Y$, we follow it around: $KJ(f) =  K(\coprod_S f(s), \pi_f) = \pi_f^{-1}$. $KJ(f)(s) = \{(s, y) | f(s) = y)\}$. We can call this set $Y_s$ where $Y \cong \coprod_S Y_s$ and the isomorphism is natural in $\Set$. If we show this isomorphism, we will have that $KJ$ takes $F$ to something isomorphic to $F$. I will not go through the details of that-- effectively, the tagged inverse images partition $Y$ and we just take the functor that glues the pieces together. We glue the morphisms together in the same way. That is, that $KJ$ is equivalent to the identity on elements. By the same logic, $KJ$ is equivalent the identity on morphisms (natural transformations). 
+
+Hence, $KJ \simeq 1$, and we are done! \qed
+
+
+
 %We take the obvious one: $\Phi_{(Y, f)}(h: Y \to Z) = (\coprod_S(g^{-1}(s), \pi))$ where $\pi(k) = s$ if $k \in g(s)$. This is entirely independent of the choice of the $(Y, f)$ index. 
 
 
