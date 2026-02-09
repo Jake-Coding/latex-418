@@ -130,6 +130,8 @@ footskip=.25in}
 	\vspace{1em}
 	
 	
+	\textbf{Motivating Part 1}
+	
 	The equivalence given in part 2 gives us motivation for the morphisms in the slice category: A Set mod S should look like the functor category between dS and Set, which has morphisms natural transformations between functors from $dS \to \Set$. 
 	
 	\textbf{What are the morphisms of $\mc{C}/X$?}
@@ -169,7 +171,8 @@ footskip=.25in}
 	
 	We conclude that $\mc{C}/X$ is a category. \qed 
 	
-	\textbf{Roadmap}
+	\vspace{1em}
+	\textbf{Part 2 Roadmap}
 	
 	To show equivalence, we can construct two functors, one from $[dS, \Set]$ to $\Set/S$ and one the other way. To define such a functor, we must first show what it does on objects, then morphisms, check that it respects composition and identities, and lastly we will show that the functors compose in a way that is naturally isomorphic to the identity (both ways).  
 	
@@ -285,9 +288,9 @@ Hence, $KJ \cong 1$, so $[dS, \Set] \simeq \Set/S$, and we are done! \qed
 	
 	On morphisms, $*$ takes morphisms in the product category (pairs of 2-cells) $(\beta, \alpha)$ to the 2-cell $\beta * \alpha$ in $\mathcal{K}(A, C)$.
 	
-	For $*$ to respect vertical composition (which is to say, composition in the product and target categories), first notice that $(\beta', \alpha') \circ (\beta, \alpha) = (\beta' \circ \beta, \alpha' \circ \alpha)$. The functor $*(a, b) = a * b$ must have that $*((\beta', \alpha') \circ (\beta, \alpha)) = *((\beta', \alpha')) \circ *((\beta, \alpha))$. This is precisely the interchange law. 
+	For $*$ to respect vertical composition (which is to say, composition in the product and target categories), first notice that $(\beta', \alpha') \circ (\beta, \alpha) = (\beta' \circ \beta, \alpha' \circ \alpha)$. The functor $*(a, b) = a * b$ must have that $*((\beta', \alpha') \circ (\beta, \alpha)) = *((\beta', \alpha')) \circ *((\beta, \alpha))$. This is precisely the interchange law. \qed 
 	
-	We observe the abomination:
+%	We observe the abomination:
 %	% https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzMsMCwiQiJdLFs2LDAsIkMiXSxbMCwxLCJmJyIsMV0sWzAsMSwiZicnIiwxLHsiY3VydmUiOjR9XSxbMCwxLCJmIiwxLHsiY3VydmUiOi00fV0sWzEsMiwiZyciLDFdLFsxLDIsImciLDEseyJjdXJ2ZSI6LTR9XSxbMSwyLCJnJyciLDEseyJjdXJ2ZSI6NH1dLFszLDQsIlxcYWxwaGEnIiwyLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dLFs1LDMsIlxcYWxwaGEiLDIseyJzaG9ydGVuIjp7InNvdXJjZSI6MjAsInRhcmdldCI6MjB9fV0sWzcsNiwiXFxiZXRhIiwwLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dLFs2LDgsIlxcYmV0YSciLDAseyJzaG9ydGVuIjp7InNvdXJjZSI6MjAsInRhcmdldCI6MjB9fV0sWzUsNCwiXFxhbHBoYScgXFxjaXJjIFxcYWxwaGEiLDAseyJsYWJlbF9wb3NpdGlvbiI6NDAsImN1cnZlIjotMiwic2hvcnRlbiI6eyJzb3VyY2UiOjEwLCJ0YXJnZXQiOjEwfX1dLFs3LDgsIlxcYmV0YScgXFxjaXJjIFxcYmV0YSIsMix7ImxhYmVsX3Bvc2l0aW9uIjo0MCwiY3VydmUiOjIsInNob3J0ZW4iOnsic291cmNlIjoxMCwidGFyZ2V0IjoxMH19XSxbOSwxMiwiXFxiZXRhJyAqIFxcYWxwaGEnIiwyLHsiY3VydmUiOjN9XSxbMTAsMTEsIlxcYmV0YSAqXFxhbHBoYSIsMCx7ImN1cnZlIjotM31dLFsxMywxNCwiKFxcYmV0YScgXFxjaXJjIFxcYmV0YSkqKFxcYWxwaGEnIFxcY2lyYyBcXGFscGhhKSIsMix7Im9mZnNldCI6MywiY3VydmUiOjF9XV0=
 %	\[\begin{tikzcd}[row sep=6em, column sep=large]
 %		A &&& B &&& C
@@ -321,21 +324,51 @@ Write out the details for the 2-category of posets, order-preserving functions, 
 \end{problem}
 \begin{solution}
 	
+	The solution is effectively recognizing that order preserving functions are themselves a poset under function domination, and then using uniqueness of 2-cells to verify that all of the 2-category axioms hold. 
+	
+	\newcommand{\Poset}{\textbf{Poset}}
+	The 0-cells of $\Poset$ are posets. Between any two posets $(A, \leq_A)$ and $(B, \leq_B)$, there is a category $\Poset(A, B)$ (I drop the $\leq_A$ and $\leq_B$---they should be clear from here on out.)
+	
+	A 1-cell in $\Poset(A, B)$ is an order preserving function $f: A \to B$ where $a \leq_A a' \implies f(a) \leq_B f(a')$. A 2-cell between $f : A \to B$ and $g: A \to B$ is a unique morphism $\heartsuit_{f, g}$ if $f(a) \leq_B g(a) \forall a \in A$. Composition is given by $\heartsuit_{g, h} \circ \heartsuit_{f, g} = \heartsuit_{f, h}$ and is well-defined by the transitive property of inequalities (if $f(a) \leq_B g(a)$ and $g(a) \leq_B h(a)$ for all $a \in A$, then $f(a) \leq_B h(a)$ and so $\heartsuit_{f, h}$ exists)
+	
+	First, we show that $\Poset(A, B)$ is a category. The identity morphism $\heartsuit_{f, f}$ exists and is clearly an identity. Associativity is also obvious. Hence, $\Poset(A, B)$ is a category. 
+	
+	
+	Next, we will show that there is a functor from the one-object category to the identity 1 and 2-cells of an 0-cell $A$. This is effectively the question if there exists a 1-cell that serves as an identity for each 0-cell. The identity function $1_A$ on $A$ is the relevant 1-cell. Then, the 2-cell in question is $\heartsuit_{1_A, 1_A}$. 
+	
+	Now, we need to define the horizontal composition functor $*$. I'll write $f * g$ for $*(f, g)$. Given posets $A, B, C$ and order preserving functions (1-cells) $f \in \Poset(A, B), g \in \Poset(B, C)$, we define $g * f = g \circ f$. Moreover, given a 2-cell $\heartsuit_{f, f'} \in \Poset(A, B)(f, f')$ and similarly for $g, g'$, we define $\heartsuit_{g, g'} * \heartsuit_{f, f'} = \heartsuit_{g \circ f, g' \circ f'}$. This is well defined by uniqueness of 2-cells and exists by transitivity of the $\leq$ operation.
+	
+	Horizontal composition is associative on objects by associativity of 1-morphisms, and satisfies the identity axioms similarly. 
+	
+	 As there's really only one choice to make at each step of composition, and $\leq$ is a transitive operation, horizontal composition is associative on morphisms. Moreover, horizontally composing identities yields an identity, because the identity on $g * f$ is the unique morphism $\heartsuit_{g \circ f, g \circ f}$, which is $\heartsuit_{g, g} * \heartsuit_{f, f}$. The same logic tells us that $*$ is indeed a functor:
+	 
+	 Let $\beta = \heartsuit_{g, g'}, \beta' = \heartsuit_{g', g''}$ in the category $\Poset(B, C)$ and similarly for $\alpha$. Then
+	 
+	 $(\beta' \circ \beta) * (\alpha' \circ \alpha) = \heartsuit_{g, g''} * \heartsuit_{f, f''} = \heartsuit_{g \circ f, g'' \circ f''} = \heartsuit_{g' \circ f', g'' \circ f''} \circ \heartsuit_{g \circ f, f' \circ g'} = (\beta' * \alpha') \circ (\beta * \alpha)$
+	 
+	 So, horizontal composition is a functor (interchange law). 
+	 
+	 So, the 2-category $\Poset$ as defined is indeed a 2-category. 
+	 Ta-da! \qed
+%	The identity is the identity function, and morphism composition is given by function composition. Associativity follows from function associativity, and identity laws from the definition of an identity function. 
+%	viewed as categories (a unique morphism $f_{A, B}: A \to B$ between any elements where $A \leq B$). 
+	
+	
 \end{solution}
 
-
-\begin{problem}[44]
-	Let $F: \mathcal{A} \to \mathcal{B}$ be a functor and $G_1, G_2 : \mathcal{B} \to \mathcal{C}$ a pair of functors with a natural transformation $\alpha: G_1 \natt G_2$. We will write $\alpha F = \alpha * 1_F$ and call it "the whiskering of $\alpha$ by $F$. 
-	
-	\begin{enumerate}
-		\item Prove that for transformations $\beta, \alpha$ for which $\beta * \alpha$ is defined, this composite can be derived from vertical composition and whiskering (on both sides).
-		
-		\item Rewrite the definition of a 2-category using whiskering instead of a composition functor. 
-	\end{enumerate}
-\end{problem}
-\begin{solution}
-	
-\end{solution}
+%
+%\begin{problem}[44]
+%	Let $F: \mathcal{A} \to \mathcal{B}$ be a functor and $G_1, G_2 : \mathcal{B} \to \mathcal{C}$ a pair of functors with a natural transformation $\alpha: G_1 \natt G_2$. We will write $\alpha F = \alpha * 1_F$ and call it "the whiskering of $\alpha$ by $F$. 
+%	
+%	\begin{enumerate}
+%		\item Prove that for transformations $\beta, \alpha$ for which $\beta * \alpha$ is defined, this composite can be derived from vertical composition and whiskering (on both sides).
+%		
+%		\item Rewrite the definition of a 2-category using whiskering instead of a composition functor. 
+%	\end{enumerate}
+%\end{problem}
+%\begin{solution}
+%	
+%\end{solution}
 
 
 \end{document}
