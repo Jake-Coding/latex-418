@@ -1,0 +1,204 @@
+\documentclass[12pt]{article}
+% -------------------
+% Packages
+% -------------------
+\usepackage{
+	amsmath,			% Math Environments
+	amssymb,			% Extended Symbols
+	amsthm,			    % Theorem Environments
+	cancel,			    % Use Cancels
+	enumerate,		    % Enumerate Environments
+	graphicx,			% Include Images
+	lastpage,			% Reference Lastpage
+	multicol,			% Use Multi-columns
+	multirow,			% Use Multi-rows
+	xcolor,			    % Use Colors
+	float,
+	geometry,
+	quiver
+	}
+
+% -------------------
+% Header & Footer
+% -------------------
+\usepackage{fancyhdr}
+
+\newcommand{\assignment}[1]{
+	\fancypagestyle{title}{
+		%Headers
+		\fancyhead[L]{Jake Bridge}
+		\fancyhead[C]{MATH 418}
+		\fancyhead[R]{HW #1}
+		\renewcommand{\headrulewidth}{0.2pt}
+		%Footers
+		\fancyfoot[L]{}
+		\fancyfoot[C]{}
+		\fancyfoot[R]{}
+		\renewcommand{\footrulewidth}{0.0pt}
+	}
+	\thispagestyle{title}
+}
+\fancypagestyle{pages}{
+	%Headers
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\renewcommand{\headrulewidth}{0.0pt}
+	%Footers
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{}
+	\renewcommand{\footrulewidth}{0.0pt}
+}
+\headheight=18pt
+\footskip=14pt
+
+\pagestyle{pages}
+
+% ---------------
+% Page Layout
+% ---------------
+\geometry{letterpaper,
+bindingoffset=0.2in,
+left=1in,
+right=1in,
+top=1in,
+bottom=1in,
+footskip=.25in}
+% -------------------
+% Font
+% -------------------
+%\usepackage[T1]{fontenc}
+%\usepackage{charter}
+
+%\usepackage[T1]{fontenc}
+%\usepackage{mathpazo}
+
+%\usepackage[bitstream-charter]{mathdesign}
+%\usepackage[T1]{fontenc}
+
+
+% -------------------
+% Commands
+% -------------------
+
+% Problem Labels
+\newcounter{problem}[section]
+\newenvironment{problem}[1][\theproblem]{\refstepcounter{problem}\noindent \textbf{Problem~#1.\quad}}{\vskip\smallskipamount}
+
+
+\newenvironment{solution}{\noindent \textbf{Solution.\quad}}{\vskip\bigskipamount}
+
+
+% Special Characters
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\ob}[1]{\text{ob}(#1)}
+\newcommand{\natt}{\Rightarrow}
+\newcommand{\iso}{\cong}
+\newcommand{\op}{\text{op}}
+
+\newcommand{\Set}{\textbf{Set}}
+
+% Math Operators
+
+% Special Commands
+
+
+
+% DOC
+\begin{document}
+	\assignment{5}
+
+\begin{problem}[46]
+Give a direct proof that $H_A \iso H_{A'} \implies A \iso A'$
+\end{problem}
+\begin{solution}
+	So I don't need to put curly braces around all of my subscripts (thanks \LaTeX), I'll replace $A'$ with $B$.  
+	We know $H_A : \mc{C}^\op \to \Set$ is a functor, and so isomorphisms are given by natural isomorphisms. Suppose we have such a natural isomorphism $\alpha : H_A \natt H_B$ with components $\alpha_C: H_A(C) \to H_B(C)$ for $C \in \mc{C}^\op$. 
+	
+	Then, the following diagram commutes for every $f^\op :C \to D$ derived from a $f: D\to C$
+	
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJIX0EoQykgPSBcXG1je0N9KEMsIEEpIl0sWzMsMCwiSF9BKEQpID0gXFxtY3tDfShELCBBKSJdLFszLDIsIkhfQihEKSA9IFxcbWN7Q30oRCwgQikiXSxbMCwyLCJIX0IoQykgPSBcXG1je0N9KEMsIEIpIl0sWzAsMSwiSF9BKGZeXFxvcCkgOj0gLSBcXGNpcmMgZiJdLFsxLDIsIlxcYWxwaGFfRCJdLFswLDMsIlxcYWxwaGFfQyIsMl0sWzMsMiwiSF9CKGZeXFxvcCkgOj0gLSBcXGNpcmMgZiIsMl1d
+	\[\begin{tikzcd}
+		{H_A(C) = \mc{C}(C, A)} &&& {H_A(D) = \mc{C}(D, A)} \\
+		\\
+		{H_B(C) = \mc{C}(C, B)} &&& {H_B(D) = \mc{C}(D, B)}
+		\arrow["{H_A(f^\op) := - \circ f}", from=1-1, to=1-4]
+		\arrow["{\alpha_C}"', from=1-1, to=3-1]
+		\arrow["{\alpha_D}", from=1-4, to=3-4]
+		\arrow["{H_B(f^\op) := - \circ f}"', from=3-1, to=3-4]
+	\end{tikzcd}\]
+	
+	In particular, for $C=A$, we must have the identity morphism $1_A$. To show that $A\iso B$, we need an invertible morphism $g : A\to B$. 
+	Let's chase $1_A$ around this commuting diagram in the hope of getting one...
+	% https://q.uiver.app/#q=WzAsOCxbMCwwLCJIX0EoQSkgPSBcXG1je0N9KEEsIEEpIl0sWzMsMCwiSF9BKEQpID0gXFxtY3tDfShELCBBKSJdLFszLDMsIkhfQihEKSA9IFxcbWN7Q30oRCwgQikiXSxbMCwzLCJIX0IoQykgPSBcXG1je0N9KEEsIEIpIl0sWzEsMSwiMV9BIl0sWzIsMSwiZiJdLFsyLDIsIlxcYWxwaGFfQSgxX0EpIFxcY2lyYyBmPVxcYWxwaGFfRChmKSJdLFsxLDIsIlxcYWxwaGFfQSgxX0EpIl0sWzAsMSwiSF9BKGZeXFxvcCkgOj0gLSBcXGNpcmMgZiJdLFsxLDIsIlxcYWxwaGFfRCJdLFswLDMsIlxcYWxwaGFfQSIsMl0sWzMsMiwiSF9CKGZeXFxvcCkgOj0gLSBcXGNpcmMgZiIsMl0sWzQsNSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs1LDYsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNCw3LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzcsNiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dXQ==
+	\[\begin{tikzcd}
+		{H_A(A) = \mc{C}(A, A)} &&& {H_A(D) = \mc{C}(D, A)} \\
+		& {1_A} & f \\
+		& {\alpha_A(1_A)} & {\alpha_A(1_A) \circ f=\alpha_D(f)} \\
+		{H_B(C) = \mc{C}(A, B)} &&& {H_B(D) = \mc{C}(D, B)}
+		\arrow["{H_A(f^\op) := - \circ f}", from=1-1, to=1-4]
+		\arrow["{\alpha_A}"', from=1-1, to=4-1]
+		\arrow["{\alpha_D}", from=1-4, to=4-4]
+		\arrow[maps to, from=2-2, to=2-3]
+		\arrow[maps to, from=2-2, to=3-2]
+		\arrow[maps to, from=2-3, to=3-3]
+		\arrow[maps to, from=3-2, to=3-3]
+		\arrow["{H_B(f^\op) := - \circ f}"', from=4-1, to=4-4]
+	\end{tikzcd}\]
+	
+	$\alpha_A$ is a morphism from $H_A(A) \to H_B(A)$, and so $g = \alpha_A(1_A)$ is an element of $\mc{C}(A, B)$. By the invertibility of $\alpha$, we can find $h = \alpha^{-1}_B(1_B)$, a morphism $B\to A$. All that remains is to show that they are inverses. We choose $f = h$, and conclude that the following commutes, which is to say that $gh = 1_B$. Walking backwards along the diagram gives us the statement that $hg = 1_A$. Thus, $A \iso B$. \qed
+	% https://q.uiver.app/#q=WzAsOCxbMCwwLCJIX0EoQSkgPSBcXG1je0N9KEEsIEEpIl0sWzMsMCwiSF9BKEIpID0gXFxtY3tDfShCLCBBKSJdLFszLDMsIkhfQihCKSA9IFxcbWN7Q30oQiwgQikiXSxbMCwzLCJIX0IoQykgPSBcXG1je0N9KEEsIEIpIl0sWzEsMSwiMV9BIl0sWzIsMSwiXFxhbHBoYV9CXnstMX0iXSxbMiwyLCJcXGFscGhhX0EoMV9BKSBcXGNpcmMgXFxhbHBoYV9CKDFfQik9XFxhbHBoYV9CKFxcYWxwaGFfQl57LTF9KSA9IDFfQiJdLFsxLDIsIlxcYWxwaGFfQSgxX0EpIl0sWzAsMSwiSF9BKGZeXFxvcCkgOj0gLSBcXGNpcmMgaCJdLFsxLDIsIlxcYWxwaGFfQiJdLFswLDMsIlxcYWxwaGFfQSIsMl0sWzMsMiwiSF9CKGZeXFxvcCkgOj0gLSBcXGNpcmMgaCIsMl0sWzQsNSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs1LDYsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNCw3LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzcsNiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dXQ==
+	\[\begin{tikzcd}
+		{H_A(A) = \mc{C}(A, A)} &&& {H_A(B) = \mc{C}(B, A)} \\
+		& {1_A} & {\alpha_B^{-1}} \\
+		& {\alpha_A(1_A)} & {\alpha_A(1_A) \circ \alpha_B(1_B)=\alpha_B(\alpha_B^{-1}) = 1_B} \\
+		{H_B(C) = \mc{C}(A, B)} &&& {H_B(B) = \mc{C}(B, B)}
+		\arrow["{H_A(f^\op) := - \circ h}", from=1-1, to=1-4]
+		\arrow["{\alpha_A}"', from=1-1, to=4-1]
+		\arrow["{\alpha_B}", from=1-4, to=4-4]
+		\arrow[maps to, from=2-2, to=2-3]
+		\arrow[maps to, from=2-2, to=3-2]
+		\arrow[maps to, from=2-3, to=3-3]
+		\arrow[maps to, from=3-2, to=3-3]
+		\arrow["{H_B(f^\op) := - \circ h}"', from=4-1, to=4-4]
+	\end{tikzcd}\]
+	
+	
+
+	
+	
+%	Suppose $H_A \iso H_{B}$. That is, there exists a morphism $f : H_A \to H_B$ with an inverse $g : H_B \to H_A$. 
+
+
+
+\end{solution}
+
+
+
+
+\begin{problem}[49]
+	Using the methods in the proof of the Yoneda lemma (NO USING THE ACTUAL STATEMENT OF THE YONEDA LEMMA), prove that the Yoneda embedding is faithful.
+\end{problem}
+\begin{solution}
+	For the Yoneda embedding $H_\bullet: \mc{C} \to [\mc{C}^\op, \Set]$ to be faithful, we need the morphism part of the functor to be injective. That is, $H_f = H_g \implies f = g$. 
+	
+	Let $f, g: A \to B$ in $\mc{C}(A, B)$. We write $H_f: H_A \natt H_B$, where components $(H_f)_{C}: H_A(C) \to H_A(D)$ for $C$ are given by $f \circ -$, and similarly for $g$. 
+	
+	As in the proof of the Yoneda lemma, we abuse that natural transformations of representable functors are defined fully by their action on the identity of their representative. 
+	
+	Suppose that $H_f = H_g$. They must be equal at all components. In particular, for any $C$, $(H_f)_C (h) = f \circ h = (H_g)_C h = g \circ h$. We choose $h = 1_C$. Then, $f = g$.  \qed
+
+
+
+\end{solution}
+
+
+\end{document}
