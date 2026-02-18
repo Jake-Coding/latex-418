@@ -143,7 +143,7 @@ Give a direct proof that $H_A \iso H_{A'} \implies A \iso A'$
 		{H_A(A) = \mc{C}(A, A)} &&& {H_A(D) = \mc{C}(D, A)} \\
 		& {1_A} & f \\
 		& {\alpha_A(1_A)} & {\alpha_A(1_A) \circ f=\alpha_D(f)} \\
-		{H_B(C) = \mc{C}(A, B)} &&& {H_B(D) = \mc{C}(D, B)}
+		{H_B(A) = \mc{C}(A, B)} &&& {H_B(D) = \mc{C}(D, B)}
 		\arrow["{H_A(f^\op) := - \circ f}", from=1-1, to=1-4]
 		\arrow["{\alpha_A}"', from=1-1, to=4-1]
 		\arrow["{\alpha_D}", from=1-4, to=4-4]
@@ -158,17 +158,17 @@ Give a direct proof that $H_A \iso H_{A'} \implies A \iso A'$
 	% https://q.uiver.app/#q=WzAsOCxbMCwwLCJIX0EoQSkgPSBcXG1je0N9KEEsIEEpIl0sWzMsMCwiSF9BKEIpID0gXFxtY3tDfShCLCBBKSJdLFszLDMsIkhfQihCKSA9IFxcbWN7Q30oQiwgQikiXSxbMCwzLCJIX0IoQykgPSBcXG1je0N9KEEsIEIpIl0sWzEsMSwiMV9BIl0sWzIsMSwiXFxhbHBoYV9CXnstMX0iXSxbMiwyLCJcXGFscGhhX0EoMV9BKSBcXGNpcmMgXFxhbHBoYV9CKDFfQik9XFxhbHBoYV9CKFxcYWxwaGFfQl57LTF9KSA9IDFfQiJdLFsxLDIsIlxcYWxwaGFfQSgxX0EpIl0sWzAsMSwiSF9BKGZeXFxvcCkgOj0gLSBcXGNpcmMgaCJdLFsxLDIsIlxcYWxwaGFfQiJdLFswLDMsIlxcYWxwaGFfQSIsMl0sWzMsMiwiSF9CKGZeXFxvcCkgOj0gLSBcXGNpcmMgaCIsMl0sWzQsNSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs1LDYsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNCw3LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzcsNiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dXQ==
 	\[\begin{tikzcd}
 		{H_A(A) = \mc{C}(A, A)} &&& {H_A(B) = \mc{C}(B, A)} \\
-		& {1_A} & {\alpha_B^{-1}} \\
-		& {\alpha_A(1_A)} & {\alpha_A(1_A) \circ \alpha_B(1_B)=\alpha_B(\alpha_B^{-1}) = 1_B} \\
-		{H_B(C) = \mc{C}(A, B)} &&& {H_B(B) = \mc{C}(B, B)}
-		\arrow["{H_A(f^\op) := - \circ h}", from=1-1, to=1-4]
+		& {1_A} & {\alpha_B^{-1}(1_B)} \\
+		& {\alpha_A(1_A)} & {\alpha_A(1_A) \circ \alpha_B(1_B)=\alpha_B(\alpha_B^{-1}(1_B)) = 1_B} \\
+		{H_B(A) = \mc{C}(A, B)} &&& {H_B(B) = \mc{C}(B, B)}
+		\arrow["{H_A(h^\op) := - \circ h}", from=1-1, to=1-4]
 		\arrow["{\alpha_A}"', from=1-1, to=4-1]
 		\arrow["{\alpha_B}", from=1-4, to=4-4]
 		\arrow[maps to, from=2-2, to=2-3]
 		\arrow[maps to, from=2-2, to=3-2]
 		\arrow[maps to, from=2-3, to=3-3]
 		\arrow[maps to, from=3-2, to=3-3]
-		\arrow["{H_B(f^\op) := - \circ h}"', from=4-1, to=4-4]
+		\arrow["{H_B(h^\op) := - \circ h}"', from=4-1, to=4-4]
 	\end{tikzcd}\]
 	
 	
@@ -190,11 +190,11 @@ Give a direct proof that $H_A \iso H_{A'} \implies A \iso A'$
 \begin{solution}
 	For the Yoneda embedding $H_\bullet: \mc{C} \to [\mc{C}^\op, \Set]$ to be faithful, we need the morphism part of the functor to be injective. That is, $H_f = H_g \implies f = g$. 
 	
-	Let $f, g: A \to B$ in $\mc{C}(A, B)$. We write $H_f: H_A \natt H_B$, where components $(H_f)_{C}: H_A(C) \to H_A(D)$ for $C$ are given by $f \circ -$, and similarly for $g$. 
+	Let $f, g: A \to B$ in $\mc{C}(A, B)$. We write $H_f: H_A \natt H_B$, where components $(H_f)_{A}: H_A(A) \to H_B(A)$ for $A$ are given by $- \circ f$, and similarly for $g$. 
 	
 	As in the proof of the Yoneda lemma, we abuse that natural transformations of representable functors are defined fully by their action on the identity of their representative. 
 	
-	Suppose that $H_f = H_g$. They must be equal at all components. In particular, for any $C$, $(H_f)_C (h) = f \circ h = (H_g)_C h = g \circ h$. We choose $h = 1_C$. Then, $f = g$.  \qed
+	Suppose that $H_f = H_g$. They must be equal at all components. In particular, for any $A$, $(H_f)_A (h) = h \circ f  = (H_g)_A h = h \circ g$. We choose $h = 1_A$. Then, $f = g$.  \qed
 
 
 
