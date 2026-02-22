@@ -1,0 +1,255 @@
+\documentclass[12pt]{article}
+% -------------------
+% Packages
+% -------------------
+\usepackage{
+	amsmath,			% Math Environments
+	amssymb,			% Extended Symbols
+	amsthm,			    % Theorem Environments
+	cancel,			    % Use Cancels
+	enumerate,		    % Enumerate Environments
+	graphicx,			% Include Images
+	lastpage,			% Reference Lastpage
+	multicol,			% Use Multi-columns
+	multirow,			% Use Multi-rows
+	xcolor,			    % Use Colors
+	float,
+	geometry,
+	quiver
+	}
+
+% -------------------
+% Header & Footer
+% -------------------
+\usepackage{fancyhdr}
+
+\newcommand{\assignment}[1]{
+	\fancypagestyle{title}{
+		%Headers
+		\fancyhead[L]{Jake Bridge}
+		\fancyhead[C]{MATH 418}
+		\fancyhead[R]{HW #1}
+		\renewcommand{\headrulewidth}{0.2pt}
+		%Footers
+		\fancyfoot[L]{}
+		\fancyfoot[C]{}
+		\fancyfoot[R]{}
+		\renewcommand{\footrulewidth}{0.0pt}
+	}
+	\thispagestyle{title}
+}
+\fancypagestyle{pages}{
+	%Headers
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\renewcommand{\headrulewidth}{0.0pt}
+	%Footers
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{}
+	\renewcommand{\footrulewidth}{0.0pt}
+}
+\headheight=18pt
+\footskip=14pt
+
+\pagestyle{pages}
+
+% ---------------
+% Page Layout
+% ---------------
+\geometry{letterpaper,
+bindingoffset=0.2in,
+left=1in,
+right=1in,
+top=1in,
+bottom=1in,
+footskip=.25in}
+% -------------------
+% Font
+% -------------------
+%\usepackage[T1]{fontenc}
+%\usepackage{charter}
+
+%\usepackage[T1]{fontenc}
+%\usepackage{mathpazo}
+
+%\usepackage[bitstream-charter]{mathdesign}
+%\usepackage[T1]{fontenc}
+
+
+% -------------------
+% Commands
+% -------------------
+
+% Problem Labels
+\newcounter{problem}[section]
+\newenvironment{problem}[1][\theproblem]{\refstepcounter{problem}\noindent \textbf{Problem~#1.\quad}}{\vskip\smallskipamount}
+
+
+\newenvironment{solution}{\noindent \textbf{Solution.\quad}}{\vskip\bigskipamount}
+
+
+% Special Characters
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\ob}[1]{\text{ob}(#1)}
+\newcommand{\natt}{\Rightarrow}
+\newcommand{\iso}{\cong}
+\newcommand{\op}{\text{op}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Hom}{\textbf{Hom}}
+
+\newcommand{\eps}{\varepsilon}
+
+
+% Math Operators
+
+% Special Commands
+
+
+
+% DOC
+\begin{document}
+	\assignment{0}
+
+\begin{problem}[55]
+	Let $S, T$ be posets (as categories). What is an adjunction in these categories?
+\end{problem}
+\begin{solution}
+	
+	Suppose $F: S \to T$ is a functor.  Then, $U: T\to S$ is its right adjoint if and only if
+	$\Hom_T(Fs, t) \iso \Hom_S(s, Ut)$ for all $s \in S, t \in T$.
+	
+	We can think of $F$ as an order preserving function. That is, $\Hom_T(Fs, t)$ is equal to $\{*_{Fs, t}\}$ if $Fs \leq_T t$ and empty otherwise. Similarly, $\Hom_S(s, Ut)$ is $*_{s, Ut}$ iff $s \leq_S Ut$. 
+	
+	So, $\Hom_T(Fs, t) \iso \Hom_S(s, Ut)$ for all $s \in S, t \in T$ if and only if $\forall s, t, Fs \leq_T t \iff s \leq_S Ut$. 
+	
+	For the sake of completeness, we will check that this (trivial) isomorphism is natural. (I will only check naturality in $s$. $t$ is almost identical.)Let the name of the isomorphism be $\alpha$ that sends $*_{Fs, t} \mapsto *_{s, Ut}$. Let $f: 's\to s$ be the statement $s' \leq s$. Then, by transitivity of the poset operation, we conclude that the following commutes (we trace the only possible morphism around the square)
+	
+% https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXEhvbV9UKEZzLCB0KSJdLFszLDAsIlxcSG9tX1QoRnMnLCB0KSJdLFszLDMsIlxcSG9tX1MocycsIFV0KSJdLFswLDMsIlxcSG9tX1MocywgVXQpIl0sWzEsMSwiKl97RnMsIHR9Il0sWzIsMSwiKl97RnMnLCB0fSJdLFsyLDIsIipfe3MnLCBVdH0iXSxbMSwyLCIqX3tzLCBVdH0iXSxbMCwxLCItXFxjaXJjIEZmIl0sWzEsMiwiXFxhbHBoYV97cyd9Il0sWzAsMywiXFxhbHBoYV9zIiwyXSxbMywyLCItIFxcY2lyYyBmIiwyXSxbNCw1XSxbNSw2XSxbNCw3XSxbNyw2XV0=
+\[\begin{tikzcd}[cramped]
+	{\Hom_T(Fs, t)} &&& {\Hom_T(Fs', t)} \\
+	& {*_{Fs, t}} & {*_{Fs', t}} \\
+	& {*_{s, Ut}} & {*_{s', Ut}} \\
+	{\Hom_S(s, Ut)} &&& {\Hom_S(s', Ut)}
+	\arrow["{-\circ Ff}", from=1-1, to=1-4]
+	\arrow["{\alpha_s}"', from=1-1, to=4-1]
+	\arrow["{\alpha_{s'}}", from=1-4, to=4-4]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-2, to=3-2]
+	\arrow[from=2-3, to=3-3]
+	\arrow[from=3-2, to=3-3]
+	\arrow["{- \circ f}"', from=4-1, to=4-4]
+\end{tikzcd}\]
+
+This is a bit overkill, but confirms that $F \dashv U$. \qed
+
+\end{solution}
+
+	\newcommand{\Mon}{\textbf{Mon}}
+\begin{problem}[58]
+
+	Show that the free functor from $\Set$ to $\Mon$ is left adjoint to the underlying set (forgetful) functor from $\Mon$ to $\Set$. 
+	
+	Personal note: do it with hom-set and unit-counit.
+\end{problem}
+\begin{solution}
+	We discussed the functor $F: \Set \to \Mon$ in class and gave its action on monoids. On set functions $f : A \to B$, we define $Ff : FA \to FB$ by $Ff((n; x_1, x_2, \dots, x_n)) = (n; f(x_1), f(x_2), \dots f(x_n))$. This is clearly a monoid homomorphism in $FB$, as $Ff((n; x) \circ (m, y)) = (n+m; f(x), f(y)) = (n; f(x)) \circ (m; f(y))$. It also clearly respects identities and function composition in $\Set$. 
+	
+	We also discussed the function $U: \Mon \to \Set$ and gave its action on monoids. On monoid homomorphisms, $U(\phi : F \to G)$ is just $\phi$ on the underlying set. Every monoid homomorphism is just a set function with some fancy rules. 
+	
+	We'll do the unit-counit proof first. We first need a unit $\eta : 1_\Set \natt UF$ and counit $\eps: FU \natt 1_\Mon$. $\eta$ will have components for every set $\eta_A : A \to UFA$. We define $\eta_A(x) = (1; x)$. We also define $\eps_M: FUM \to M$ with $\eps((n; x_1, x_2, \dots x_n)) = x_1x_2\dots x_n$ where multiplication in the RHS is in $M$. 
+	
+	We'll take it one diagram at a time.
+	% https://q.uiver.app/#q=WzAsMyxbMCwwLCJGIl0sWzIsMCwiRlVGIl0sWzIsMiwiRiJdLFswLDEsIkZcXGV0YSIsMCx7ImxldmVsIjoyfV0sWzEsMiwiXFxlcHMgRiIsMCx7ImxldmVsIjoyfV0sWzAsMiwiMV97W1xcU2V0LCBcXE1vbl19IiwyLHsibGV2ZWwiOjJ9XV0=
+	\[\begin{tikzcd}
+		F && FUF \\
+		\\
+		&& F
+		\arrow["{F\eta}", rightarrow, from=1-1, to=1-3]
+		\arrow["{1_{[\Set, \Mon]}}"', rightarrow, from=1-1, to=3-3]
+		\arrow["{\eps F}", rightarrow, from=1-3, to=3-3]
+	\end{tikzcd}\]
+	 For this to commute, we need that the following commutes: 
+	 % https://q.uiver.app/#q=WzAsMyxbMCwwLCJGQSJdLFsyLDAsIkZVRkEiXSxbMiwyLCJGQSJdLFswLDEsIntGXFxldGF9QSA6PSBGKFxcZXRhX0EpIl0sWzAsMiwiezFfXFxNb259IiwyXSxbMSwyLCJ7XFxlcHMgRn1BID0gXFxlcHNfe0ZBfSJdXQ==
+	 \[\begin{tikzcd}
+	 	FA && FUFA \\
+	 	\\
+	 	&& FA
+	 	\arrow["{{F\eta}A := F(\eta_A)}", from=1-1, to=1-3]
+	 	\arrow["{{1_\Mon}}"', from=1-1, to=3-3]
+	 	\arrow["{{\eps F}A = \eps_{FA}}", from=1-3, to=3-3]
+	 \end{tikzcd}\]
+	 
+	 Let $x \in A$
+	 
+	 $\eps_{FA}\circ F(\eta_A)(Fx) = \eps_{FA}((1; x)) = x$. So, the diagram commutes. 
+	
+	
+	
+%	
+%		\[\begin{tikzcd}
+%		U && UFU \\
+%		\\
+%		&& U
+%		\arrow["{\eta U}", rightarrow, from=1-1, to=1-3]
+%		\arrow["{1_{[\Mon, \Set]}}"', rightarrow, from=1-1, to=3-3]
+%		\arrow["{U\eps}", rightarrow, from=1-3, to=3-3]
+%	\end{tikzcd}\]
+	
+	On an individual element, we get
+	
+
+\end{solution}
+
+\begin{problem}[60]
+	Is there a free-functor-shaped left adjoint to the forgetful functor from $\textbf{Field}_p$ to $\Set$ for a fixed p?
+\end{problem}
+\begin{solution}
+	
+\end{solution}
+
+
+\begin{problem}[62]
+	If $F \dashv U$, show that the counit of the adjunction is invertible iff $U$ is fully faithful. Prove a dual statement about the unit.
+\end{problem}
+\begin{solution}
+	
+\end{solution}
+
+
+\begin{problem}[65]
+	If $F \dashv U$ and $F' \dashv U'$, then $F'F \dashv UU'$.
+\end{problem}
+\begin{solution}
+	
+\end{solution}
+
+
+
+\begin{problem}[67]
+	Construct a 2-category \textbf{Adj} with objects small categories, 1-cells from $\mc{A}\to\mc{B}$ given by pairs of adjunct functors $F: \mc{A}\to\mc{B}, U: \mc{B}\to\mc{A}$ with $F \dashv U$ , and 2-cells $\alpha: F_1 \dashv U_1 \natt F_2 \dashv U_2$ given by $\alpha: F_1 \natt F_2$. 
+\end{problem}
+\begin{solution}
+	
+\end{solution}
+
+
+\begin{problem}[68]
+	Show the functor $(-)^\op$ is self-adjoint.
+\end{problem}
+\begin{solution}
+	
+\end{solution}
+
+
+
+\end{document}
