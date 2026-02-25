@@ -259,7 +259,7 @@ This is a bit overkill, but confirms that $F \dashv U$. \qed
 
 % https://q.uiver.app/#q=WzAsNixbMCwwLCJcXEhvbV9CIChCLCBCJykiXSxbMywwLCJcXEhvbV9BKFVCLCBVQicpIl0sWzMsNCwiXFxIb21fQihGVUIsIEInKSJdLFsxLDEsImY6IEJcXHRvIEInIl0sWzIsMSwiVWY6IFVCXFx0byBVQiciXSxbMiwyLCJcXGFscGhhX3tVQiwgVUInfShVZikiXSxbMCwxLCJVIl0sWzEsMiwiXFxhbHBoYTogXFxIb21fQShVQiwgVUInKSBcXHRvXlxcY29uZyBcXEhvbV9CKEZVQiwgQicpIl0sWzIsMCwiXFxlcHNfQiBcXGNpcmMgLSIsMCx7ImN1cnZlIjotNX1dLFszLDQsIiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNCw1LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzUsMywiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dXQ==
 
-I draw a nice triangle. 
+I draw a nice triangle. I will prove in a moment that it commutes 
 \[\begin{tikzcd}
 	{\Hom_B (B, B')} &&& {\Hom_A(UB, UB')} \\
 	& {f: B\to B'} & {Uf: UB\to UB'} \\
@@ -271,11 +271,12 @@ I draw a nice triangle.
 	\arrow[maps to, from=2-2, to=2-3]
 	\arrow[maps to, from=2-3, to=3-3]
 	\arrow[maps to, from=2-2, to=3-3]
-	\arrow["{- \circ \eps_B}", curve={height=30pt}, from=1-1, to=5-4]
+	\arrow["{- \circ \eps_B}"', curve={height=30pt}, from=1-1, to=5-4]
 \end{tikzcd}\]
 
 %	This diagram commutes because $\eps_{B}\circ \alpha_{UB, B'}(Uf)) = \alpha_{UB, B}^{-1}(1_{UB}) \circ \alpha_{UB, B'}(Uf)$. 
-We know $\alpha^{-1}$ factors uniquely as $\alpha^{-1}_{A, B} = \eps_B \circ F-$. Similarly, $\alpha$ factors uniquely as $U- \circ \eta_A$.
+For our diagram to commute, we need that $\alpha^{-1}_{UB, B'}(Uf) = f \circ \eps_B$. 
+We know $\alpha^{-1}$ factors uniquely as $\alpha^{-1}_{A, B} = \eps_B \circ F-$. %Similarly, $\alpha$ factors uniquely as $U- \circ \eta_A$.
 
 In our case, we have $\alpha^{-1}_{UB, B'}(Uf) = \eps_{B'} \circ FUf$. 
 
@@ -289,7 +290,7 @@ Naturality of $\eps$ gives % https://q.uiver.app/#q=WzAsNCxbMCwwLCJGVUIiXSxbMiww
 	\arrow["f"', from=2-1, to=2-3]
 \end{tikzcd}\]
 
-That is, $\eps_{B'} \circ FUf = f \circ \eps_B$. So, our nice triangle commutes.
+That is, $\eps_{B'} \circ FUf = f \circ \eps_B$. So, $\alpha^{-1}_{UB, B'}(Uf) = f \circ \eps_B$ and our nice triangle commutes.
 
 We know $\alpha$ is an isomorphism in all components. So, if $U$ is fully faithful, that tells us that the Right-Down path is an isomorphism. Hence $-\circ \eps_B$ must be a fully faithful functor. That is, $f \circ \eps_B$ has an inverse for all $f$. Taking $B' = B, f = 1$, we conclude $\eps_B$ is invertible for all $B$. That is, $\eps$ is an isomorphism. Conversely, if $\eps_B$ is invertible for all $B$, the functor $-\circ \eps_B$ has an inverse given by $- \circ \eps_B^{-1}$. Then, we have an isomorphism between the sets $\Hom_B(FUB, B')$ to $\Hom_B(B, B')$. Hence, $U-$ must be an isomorphism on hom sets. This is the same as saying that $U$ is fully faithful. \qed
  %and $\alpha_{UB, B}^{-1}(1_{UB}) = \eps_B 
@@ -380,20 +381,78 @@ We know $\alpha$ is an isomorphism in all components. So, if $U$ is fully faithf
 
 
 
-\begin{problem}[67]
-	Construct a 2-category \textbf{Adj} with objects small categories, 1-cells from $\mc{A}\to\mc{B}$ given by pairs of adjunct functors $F: \mc{A}\to\mc{B}, U: \mc{B}\to\mc{A}$ with $F \dashv U$ , and 2-cells $\alpha: F_1 \dashv U_1 \natt F_2 \dashv U_2$ given by $\alpha: F_1 \natt F_2$. 
-\end{problem}
-\begin{solution}
-	
-	
-	
-\end{solution}
+%\begin{problem}[67]
+%	Construct a 2-category \textbf{Adj} with objects small categories, 1-cells from $\mc{A}\to\mc{B}$ given by pairs of adjunct functors $F: \mc{A}\to\mc{B}, U: \mc{B}\to\mc{A}$ with $F \dashv U$ , and 2-cells $\alpha: F_1 \dashv U_1 \natt F_2 \dashv U_2$ given by $\alpha: F_1 \natt F_2$. 
+%\end{problem}
+%\begin{solution}
+%	\newcommand{\Adj}{\textbf{Adj}}
+%	First, we show that our definitions are sensible. That is, for $ F_1 \dashv U_1, F_2 \dashv U_2$, and $\alpha: F_1 \natt F_2$, we can come up with some $\bar{\alpha} : U_1 \natt U_2$. This is the mates correspondence from problem 66. 
+%	
+%	Now, we show that 1 and 2-cells form a category for fixed 0 cells. 
+%	
+%	Given, $\alpha: (F_1, U_1) \natt (F_2, U_2)$ and $\beta: (F_2, U_2) \natt (F_3, U_3)$, we know that $\beta \circ \alpha$ is a natural transformation from $F_1 \to F_3$. Associativity is obvious. Identities are also obvious. Hence, 1 and 2-cells form a category. 
+%	
+%	We also have an identity-selecting functor. $1: 1 \to \Adj(A, A)$ that selects the identity 1-cell $1_A \dashv 1_A$ and identity 2-cell $1_{(1_A)}: 1_A \natt 1_A$.  
+%	
+%%	$1_A(*) =  1_{(1_A \dashv 1_A)}: 1_A \natt 1_A$.
+%	
+%	Lastly, we will show we have a functor $*: \Adj(B, C) \times \Adj(A, B) \to \Adj(A, C)$. We take
+%	$*(F \dashv U, F' \dashv U') = F'F \dashv UU'$ as in problem 65. We also take $*(\beta: F_1 \dashv U_1 \natt F_2 \dashv U_2, \alpha: G_1 \dashv V_1 \natt G_2 \dashv V_2) = \beta * \alpha: G_1F_1 \dashv U_1V_1 \natt G_2F_2 \dashv U_2V_2$. We can think about our category $\Adj$ as a subcategory of $\textbf{Cat}$, and so the interchange law in $\textbf{Cat}$ gives us composition here. By $*$ being a functor in $\textbf{Cat}$, we get that identities are respected and that $*$ is associative. That is, $*$ is a functor in $\Adj$ as well. 
+%	
+%%	Now, we show that 0 and 1-cells form a category. We define composition as in problem 65. I will abuse notation to write the composition and the statement of adjunction at the same time. I will also not write any sources or targets. When in doubt, $F: A\to B, G: B\to A$, and primes push $F$ and $G$ one to the right (i.e., $F' : B \to C$, etc.). Checking associativity, we have $F \dashv U, F' \dashv U', F'' \dashv U''$, then composing left to right, we get $F'F \dashv UU'\circ F'' \dashv U'' = F''F'F \dashv UU'U''$. Composing right to left we get $F \dashv U \circ F''F' \dashv U'U'' = F''F'F \dashv UU'U''$. Identities are given by $F = U = 1_A$. This works ($1_A \dashv 1_A \circ F \dashv U = F 1_A \dashv 1_A U = F \dashv U$, and the right identity follows similarly). So, 0 and 1-cells form a category. 
+%	
+%	
+%\end{solution}
 
 
 \begin{problem}[68]
-	Show the functor $(-)^\op$ is self-adjoint.
+	Find a non-identity self-adjoint functor.
 \end{problem}
 \begin{solution}
+	\newcommand{\Cat}{\textbf{Cat}}
+	$(-)^\op: \Cat \to \Cat$ where $C^\op = C^\op$, and $(F: C \to D)^\op = F^\op: C^\op \to D^\op$ where $F^\op(c^\op) = (Fc)^\op$ and $F^\op(f^\op: B^\op \to A^\op) = (Ff)^\op: (FB)^\op \to FA^\op$
+	
+	I claim $(-)^\op$ is self-adjoint. That is, $\Cat(A^\op, B) \iso \Cat(A, B^\op)$. Given a functor $F: A^\op \to B$, we can get a functor $F^\op: A \to B^\op$ and vice versa. So, we have that $(-)^\op$ itself is the relevant isomorphism. We now must show that $(-)^\op$ is natural in $A$ and $B$. 
+%	
+%	We know that $(-)^\op$ is self-inverse, describing an isomorphism $\Cat \to \Cat$ and hence an isomorphism of hom sets $\Hom_\Cat(A^\op, B) \iso \Hom_{\Cat^\op}(A, B^\op) := \Hom_{\Cat}(B^\op, A)$. Our hom sets in this case are sets of functors. I would bet this can extend to the 2-categorical version, but I am not about to do that. I also write $\Cat^\op$ to what presumably should be $\Cat^\text{co}$, but 
+%	
+	We first show the isomorphism is natural in $A$. 
+	
+	Let $G: A'\to A$ be a functor.  The following diagram commutes:
+	
+	% https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXEhvbV97XFxDYXR9KEFeXFxvcCwgQikiXSxbMywwLCJcXEhvbV97XFxDYXR9KEEnXlxcb3AsIEIpIl0sWzAsMywiXFxIb21fe1xcQ2F0Xlxcb3B9KEEsIEJeXFxvcCkgPSBcXEhvbV97XFxDYXR9KEJeXFxvcCwgQSkiXSxbMywzLCJcXEhvbV9cXENhdChCXlxcb3AsIEEnKSA9IFxcSG9tX3tcXENhdF5cXG9wfShBJywgQl5cXG9wKSJdLFsxLDEsIkY6IEFeXFxvcCBcXHRvIEIiXSxbMiwxLCJGIFxcY2lyYyBHXlxcb3A6IEEnXlxcb3AgXFx0byBCIl0sWzIsMiwiRyBcXGNpcmMgRl5cXG9wID0gKEYgXFxjaXJjIEdeXFxvcCleXFxvcDogQl5cXG9wIFxcdG8gQSciXSxbMSwyLCJGXlxcb3A6IEJeXFxvcCBcXHRvIEEiXSxbMCwxLCItXFxjaXJjIEdeXFxvcCJdLFswLDIsIigtKV5cXG9wIl0sWzIsMywiRyBcXGNpcmMgLSJdLFsxLDMsIigtKV5cXG9wIl0sWzQsNSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs1LDYsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNCw3LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzcsNiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dXQ==
+	\[\begin{tikzcd}
+		{\Hom_{\Cat}(A^\op, B)} &&& {\Hom_{\Cat}(A'^\op, B)} \\
+		& {F} & {F \circ G^\op} \\
+		& {F^\op} & {F^\op \circ G} \\
+		{\Hom_{\Cat}(A, B^\op)} &&& \Hom_{\Cat}(A', B^\op)
+		\arrow["{-\circ G^\op}", from=1-1, to=1-4]
+		\arrow["{(-)^\op}", from=1-1, to=4-1]
+		\arrow["{(-)^\op}", from=1-4, to=4-4]
+		\arrow[maps to, from=2-2, to=2-3]
+		\arrow[maps to, from=2-2, to=3-2]
+		\arrow[maps to, from=2-3, to=3-3]
+		\arrow[maps to, from=3-2, to=3-3]
+		\arrow["{- \circ G}", from=4-1, to=4-4]
+	\end{tikzcd}\]
+	
+	Moreover, for a functor $F: B \to B'$, we have the following square for naturality in $B$. % % 
+	% https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXEhvbV97XFxDYXR9KEFeXFxvcCwgQikiXSxbMywwLCJcXEhvbV97XFxDYXR9KEFeXFxvcCwgQicpIl0sWzAsMywiXFxIb21fXFxDYXQoQSwgQl5cXG9wKSJdLFszLDMsIlxcSG9tX1xcQ2F0KEEsIEInXlxcb3ApIl0sWzEsMSwiRyJdLFsyLDEsIkZHIl0sWzIsMiwiRl5cXG9wIEdeXFxvcCJdLFsxLDIsIkdeXFxvcCJdLFswLDIsIigtKV5cXG9wIl0sWzEsMywiKC0pXlxcb3AiXSxbMCwxLCJGIFxcY2lyYyAtIl0sWzIsMywiRl5cXG9wIFxcY2lyYyAtIiwyXSxbNCw1LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzUsNiwiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs0LDcsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNyw2LCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV1d
+	\[\begin{tikzcd}
+		{\Hom_{\Cat}(A^\op, B)} &&& {\Hom_{\Cat}(A^\op, B')} \\
+		& G & FG \\
+		& {G^\op} & {F^\op G^\op} \\
+		{\Hom_\Cat(A, B^\op)} &&& {\Hom_\Cat(A, B'^\op)}
+		\arrow["{F \circ -}", from=1-1, to=1-4]
+		\arrow["{(-)^\op}", from=1-1, to=4-1]
+		\arrow["{(-)^\op}", from=1-4, to=4-4]
+		\arrow[maps to, from=2-2, to=2-3]
+		\arrow[maps to, from=2-2, to=3-2]
+		\arrow[maps to, from=2-3, to=3-3]
+		\arrow[maps to, from=3-2, to=3-3]
+		\arrow["{F^\op \circ -}"', from=4-1, to=4-4]
+	\end{tikzcd}\]
+	That is, the isomorphism $\Hom_\Cat(A^\op, B) \iso \Hom_{\Cat}(B^\op, A)$ with components $(-)^\op$ is natural. Hence, $(-)^\op$ is self-adjoint when viewed as a functor $\Cat \to \Cat$. \qed
 	
 \end{solution}
 
