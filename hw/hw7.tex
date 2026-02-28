@@ -212,7 +212,7 @@ footskip=.25in}
 	\arrow["{-\circ f^\op}"', from=4-1, to=4-4]
 	\arrow["{g_B \circ f^\op }"{description}, curve={height=-24pt}, from=6-1, to=5-4]
 	\arrow["{f^\op}"{description}, from=6-1, to=6-2]
-	\arrow["{f^\op \circ g}"{description}, curve={height=-12pt}, dashed, from=6-1, to=6-3]
+	\arrow["{g \circ f^\op}"{description}, curve={height=-12pt}, dashed, from=6-1, to=6-3]
 	\arrow["{g_C \circ f^\op}"{description}, curve={height=18pt}, from=6-1, to=7-4]
 	\arrow["{g_C}"{description}, from=6-2, to=5-4]
 	\arrow["g"{description}, dashed, from=6-2, to=6-3]
@@ -222,9 +222,46 @@ footskip=.25in}
 \end{tikzcd}\]
 	Where the square commutes by uniqueness of morphisms (explained in the lower diagram).
 	
-	Thus, we are done with products.
+	Thus, $\Delta \dashv \times$.
 	
-	For coproducts, I will do the same thing, but show the other naturality square. 
+	For coproducts, I will do the same thing. 
+	
+	In this case, we need $\Hom_\mc{C}(A + B, C) \iso \Hom_{\mc{C\times C}}((A, B), (C, C))$. We define $\alpha_{(A, B), C}(f: A+B \to C) = (f \circ i_A, f \circ i_B)$ and $\alpha^{-1}_{(A, B), C}((f_A, f_B)) = f$ where $f$ is induced by $f_A$ and $f_B$ by the definition of coproduct. As with the product, these operations are inverses. This time, I check naturality in the first slot again, but there's more data to keep track of there. Given $h_1: A'\to A, h_2: B' \to B$, we induce a unique morphism $f \circ h: A' + B' \to C$ which has components $g_A: A' \to C$ and $g_B: B' \to C$ such that $f\circ h \circ i_{A'} = g_A$ and similarly for $B$. We can use this to in turn induce a morphism $h: A' + B' \to A + B$ such that $f \circ h \circ i_{A'} = f \circ i_A \circ h_1 = f_A \circ h_1$. That tells us, though, that $g_A = f_A \circ h_1$.
+	
+	
+	 Then, we have the following, where the top and bottom parallelogram of the second diagram commute by construction (which we could also view as naturality squares with components the inclusion maps), and so $\bullet$ in the naturality square is $(f \circ i_A \circ h_1, f\circ i_B \circ h_2) = (f\circ h \circ i_{A'}, f \circ h \circ i_{B'})$. That is, the square commutes.
+	 
+	 % https://q.uiver.app/#q=WzAsMTUsWzEsNSwiQStCIl0sWzIsNCwiQSJdLFsyLDYsIkIiXSxbMCw1LCJDIl0sWzAsMCwiXFxIb21fe1xcbWN7Q319KEErQiwgQykiXSxbMywwLCJcXEhvbV97XFxtY3tDfX0oQScrQicsIEMpIl0sWzMsMywiXFxIb21fXFx0aW1lcygoQScsIEInKSwgKEMsIEMpIl0sWzAsMywiXFxIb21fXFx0aW1lcygoQSwgQiksIChDLCBDKSJdLFsxLDEsImYiXSxbMiwxLCJmXFxjaXJjIGgiXSxbMyw1LCJBJytCJyJdLFs0LDQsIkEnIl0sWzQsNiwiQiciXSxbMSwyLCIoZiBcXGNpcmMgaV9BLCBmIFxcY2lyYyBpX0IpIl0sWzIsMiwiXFxidWxsZXQiXSxbMSwwLCJpX0EiLDFdLFsyLDAsImlfQiIsMV0sWzAsMywiZiIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsxLDMsImZfQSIsMV0sWzIsMywiZl9CIiwxXSxbNCw1LCItIFxcY2lyYyBoIl0sWzUsNiwiXFxhbHBoYV97KEEnLCBCJyksIEN9IiwxXSxbNyw2LCIoLSBcXGNpcmMgaF8xLCAtIFxcY2lyYyBoXzIpIiwxXSxbNCw3LCJcXGFscGhhX3soQSwgQiksIEN9IiwxXSxbOCw5LCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzEyLDEwLCJpX3tCJ30iLDFdLFsxMSwxMCwiaV97QSd9IiwxXSxbOCwxMywiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFsxMywxNCwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs5LDE0LCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzExLDEsImhfMSIsMV0sWzEyLDIsImhfMiIsMV0sWzEwLDMsImYgXFxjaXJjIGgiLDEseyJsYWJlbF9wb3NpdGlvbiI6MzAsImN1cnZlIjoyLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMTAsMCwiaCIsMV1d
+	 \[\begin{tikzcd}
+	 	{\Hom_{\mc{C}}(A+B, C)} &&& {\Hom_{\mc{C}}(A'+B', C)} & \\
+	 	& f & {f\circ h} \\
+	 	& {(f \circ i_A, f \circ i_B)} & \bullet \\
+	 	{\Hom_\times((A, B), (C, C)} &&& {\Hom_\times((A', B'), (C, C)} \\
+	 	&& A && {A'} \\
+	 	C & {A+B} && {A'+B'} \\
+	 	&& B && {B'}
+	 	\arrow["{- \circ h}", from=1-1, to=1-4]
+	 	\arrow["{\alpha_{(A, B), C}}"{description}, from=1-1, to=4-1]
+	 	\arrow["{\alpha_{(A', B'), C}}"{description}, from=1-4, to=4-4]
+	 	\arrow[maps to, from=2-2, to=2-3]
+	 	\arrow[maps to, from=2-2, to=3-2]
+	 	\arrow[maps to, from=2-3, to=3-3]
+	 	\arrow[maps to, from=3-2, to=3-3]
+	 	\arrow["{(- \circ h_1, - \circ h_2)}"{description}, from=4-1, to=4-4]
+	 	\arrow["{f_A}"{description}, from=5-3, to=6-1]
+	 	\arrow["{i_A}"{description}, from=5-3, to=6-2]
+	 	\arrow["{h_1}"{description}, from=5-5, to=5-3]
+	 	\arrow["{i_{A'}}"{description}, from=5-5, to=6-4]
+	 	\arrow["f"{description}, dashed, from=6-2, to=6-1]
+	 	\arrow["{f \circ h}"{description, pos=0.3}, curve={height=12pt}, dashed, from=6-4, to=6-1]
+	 	\arrow["h"{description}, from=6-4, to=6-2]
+	 	\arrow["{f_B}"{description}, from=7-3, to=6-1]
+	 	\arrow["{i_B}"{description}, from=7-3, to=6-2]
+	 	\arrow["{i_{B'}}"{description}, from=7-5, to=6-4]
+	 	\arrow["{h_2}"{description}, from=7-5, to=7-3]
+	 \end{tikzcd}\]
+	 
+	 Thus, $+ \dashv \Delta$. 
 
 	
 \end{solution}
@@ -239,6 +276,26 @@ footskip=.25in}
 	
 \end{problem}
 \begin{solution}
+	There is only one product we could possibly form: $* \times * = *$. Then, we would need the following.
+	% https://q.uiver.app/#q=WzAsNCxbMSwyLCIqXFx0aW1lcyAqIl0sWzAsNCwiKiJdLFsyLDQsIioiXSxbMSwwLCIqIl0sWzAsMSwiZyIsMV0sWzAsMiwiZyciLDFdLFszLDEsImgiLDFdLFszLDIsImgnIiwxXSxbMywwLCJcXGV4aXN0cyFmIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+	\[\begin{tikzcd}
+		& {*} & \\
+		\\
+		& {*\times *} \\
+		\\
+		{*} && {*}
+		\arrow["{\exists!f}"{description}, dashed, from=1-2, to=3-2]
+		\arrow["h"{description}, from=1-2, to=5-1]
+		\arrow["{h'}"{description}, from=1-2, to=5-3]
+		\arrow["g"{description}, from=3-2, to=5-1]
+		\arrow["{g'}"{description}, from=3-2, to=5-3]
+	\end{tikzcd}\]
+	
+	That is, for any two elements of $G$, $h, h'$, there is a unique element $f$ of $G$ such that $gf = h$ and $g'f = h'$. Choosing $h = g$, we need $f = 1$, which means $h' = g'$. That is, our choice of $h'$ is determined by our choice of $h$. Hence, $G$ must be the one element group. 
+	
+	$BG$ is a groupoid, and so we can do the exact same thing but with $x$ replaced with $x^{-1}$ to conclude that for $BG$ to admit a coproduct, $G$ must be the trivial group as well. 
+	
+	
 	
 \end{solution}
 
