@@ -1,0 +1,246 @@
+\documentclass[12pt]{article}
+% -------------------
+% Packages
+% -------------------
+\usepackage{
+	amsmath,			% Math Environments
+	amssymb,			% Extended Symbols
+	amsthm,			    % Theorem Environments
+	cancel,			    % Use Cancels
+	enumerate,		    % Enumerate Environments
+	graphicx,			% Include Images
+	lastpage,			% Reference Lastpage
+	multicol,			% Use Multi-columns
+	multirow,			% Use Multi-rows
+	xcolor,			    % Use Colors
+	float,
+	geometry,
+	quiver
+	}
+
+% -------------------
+% Header & Footer
+% -------------------
+\usepackage{fancyhdr}
+
+\newcommand{\assignment}[1]{
+	\fancypagestyle{title}{
+		%Headers
+		\fancyhead[L]{Jake Bridge}
+		\fancyhead[C]{MATH 418}
+		\fancyhead[R]{HW #1}
+		\renewcommand{\headrulewidth}{0.2pt}
+		%Footers
+		\fancyfoot[L]{}
+		\fancyfoot[C]{}
+		\fancyfoot[R]{}
+		\renewcommand{\footrulewidth}{0.0pt}
+	}
+	\thispagestyle{title}
+}
+\fancypagestyle{pages}{
+	%Headers
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\renewcommand{\headrulewidth}{0.0pt}
+	%Footers
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{}
+	\renewcommand{\footrulewidth}{0.0pt}
+}
+\headheight=18pt
+\footskip=14pt
+
+\pagestyle{pages}
+
+% ---------------
+% Page Layout
+% ---------------
+\geometry{letterpaper,
+bindingoffset=0.2in,
+left=1in,
+right=1in,
+top=1in,
+bottom=1in,
+footskip=.25in}
+% -------------------
+% Font
+% -------------------
+%\usepackage[T1]{fontenc}
+%\usepackage{charter}
+
+%\usepackage[T1]{fontenc}
+%\usepackage{mathpazo}
+
+%\usepackage[bitstream-charter]{mathdesign}
+%\usepackage[T1]{fontenc}
+
+
+% -------------------
+% Commands
+% -------------------
+
+% Problem Labels
+\newcounter{problem}[section]
+\newenvironment{problem}[1][\theproblem]{\refstepcounter{problem}\noindent \textbf{Problem~#1.\quad}}{\vskip\smallskipamount}
+
+
+\newenvironment{solution}{\noindent \textbf{Solution.\quad}}{\vskip\bigskipamount}
+
+
+% Special Characters
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\ob}[1]{\text{ob}(#1)}
+\newcommand{\natt}{\Rightarrow}
+\newcommand{\iso}{\cong}
+\newcommand{\op}{\text{op}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Hom}{\textbf{Hom}}
+
+\newcommand{\eps}{\varepsilon}
+
+% Math Operators
+
+% Special Commands
+
+
+
+% DOC
+\begin{document}
+	\assignment{7}
+
+\begin{problem}[72]
+	Prove that if $(A \times B, p_A, p_B)$ is a product, then $\mc{C}(-, A\times B) \iso \mc{C}(-, A) \times \mc{C}(-, B)$ via $f \mapsto (p_A \circ f, p_B \circ f)$. 
+
+\end{problem}
+\begin{solution}
+	
+	This is an isomorphisms of functors. Hence, we need a natural isomorphism.  Suppose $X \in \mc{C}$. Define $\alpha_X: \mc{C}(X, A \times B) \to \mc{C}(X, A) \times \mc{C}(X, B)$ via the above definition. We first show that each $\alpha_X$ is a bijection. Given $f: X \to A\times B$, we get $(p_A \circ f, p_B \circ F)$. Given $f_A: X \to A$ and $f_B: X \to B$, we know, by definition of the product, that $\exists! f: X\to A \times B$. Hence, we have an isomorphism of sets. Now, we show that the transformation is natural. Suppose we have $f: X \to Y$. Then, the following diagram commutes by associativity of morphisms.
+	% https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXG1je0N9KFgsIEFcXHRpbWVzIEIpIl0sWzAsMywiXFxtY3tDfShYLCBBKSBcXHRpbWVzIFxcbWN7Q30oWCwgQikiXSxbMywwLCJcXG1je0N9KFksIEFcXHRpbWVzIEIpIl0sWzMsMywiXFxtY3tDfShZLCBBKSBcXHRpbWVzIFxcbWN7Q30oWSwgQikiXSxbMSwxLCJnIl0sWzEsMiwiKHBfQSBcXGNpcmMgZywgcF9iIFxcY2lyYyBmKSJdLFsyLDEsImcgXFxjaXJjIGZeXFxvcCJdLFsyLDIsIihwX0EgXFxjaXJjIGdcXGNpcmMgZl5cXG9wLCBwX2IgXFxjaXJjIGcgXFxjaXJjIGZeXFxvcCkiXSxbMCwxLCJcXGFscGhhX1giLDJdLFsxLDMsIigtXzEgXFxjaXJjIGZeXFxvcCwgLV8yXFxjaXJjIGZeXFxvcCkiXSxbMiwzLCJcXGFscGhhX1kiXSxbMCwyLCItXFxjaXJjIGZeXFxvcCJdLFs0LDUsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNCw2LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzYsNywiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs1LDcsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XV0=
+	\[\begin{tikzcd}
+		{\mc{C}(X, A\times B)} &&& {\mc{C}(Y, A\times B)} \\
+		& g & {g \circ f^\op} \\
+		& {(p_A \circ g, p_b \circ f)} & {(p_A \circ g\circ f^\op, p_b \circ g \circ f^\op)} \\
+		{\mc{C}(X, A) \times \mc{C}(X, B)} &&& {\mc{C}(Y, A) \times \mc{C}(Y, B)}
+		\arrow["{-\circ f^\op}", from=1-1, to=1-4]
+		\arrow["{\alpha_X}"', from=1-1, to=4-1]
+		\arrow["{\alpha_Y}", from=1-4, to=4-4]
+		\arrow[maps to, from=2-2, to=2-3]
+		\arrow[maps to, from=2-2, to=3-2]
+		\arrow[maps to, from=2-3, to=3-3]
+		\arrow[maps to, from=3-2, to=3-3]
+		\arrow["{(-_1 \circ f^\op, -_2\circ f^\op)}", from=4-1, to=4-4]
+	\end{tikzcd}\]
+	
+	Hence, we have the desired isomorphism between functors. \qed
+	
+	
+
+\end{solution}
+
+
+
+\begin{problem}[74]
+	Prove that $A \times B \iso B \times A$ if they exist.
+\end{problem}
+\begin{solution}
+	
+	Consider $A \times B$ with projection maps $p_A, p_B$. Also, consider $B \times A$ in the same category with maps $\pi_A, \pi_B$. By universality, there is a unique map $f$ such that $\pi_A \circ f = p_A$ and $\pi_B \circ f = p_B$. Similarly, there is a unique map $g$ such that $p_A \circ g = \pi_A$ and $p_B \circ g = \pi_B$. 	
+	
+	We show $f = g^{-1}$. $\pi_A \circ f \circ g = p_A \circ g = \pi_A$. Similarly, $\pi_B \circ f \circ g = \pi_B$. That is, $f \circ g: B\times A \to B \times A$ is a morphism for which the product diagram commutes. $1_{B \times A}$ is trivially another such morphism. By uniqueness and symmetry, $f \circ g = 1$ and $g \circ f = 1$. Hence, $f = g^{-1}$, which is to say, $A \times B \iso B \times A$ \qed
+	
+
+%	$p_A = p_A \circ f_2 \circ f_1 = p'_A \circ f_1 = p'_A \circ f_3$. Hence, $f_2 \circ f_1 = 1_{B \times A}$. Similarly, $f_3 \circ f_2 = 1_{A \times B}$. Hence, 
+	
+
+\end{solution}
+
+
+
+
+
+\begin{problem}[75]
+	Prove or disprove a distributive law $A \times (B + C) \iso A \times B + A \times C$ (assuming both sides exist)
+	
+\end{problem}
+\begin{solution}
+	
+	Take $\textbf{Ab}$ as our category. Then, $+ = \times$. Let $A = B = C = \Z/2\Z$. Then, the LHS has three copies of $\Z/2\Z$, but the RHS has four. Hence, the LHS and RHS have different sizes of underlying set, and thus cannot be isomorphic. The distributive law does not hold :( \qed
+	
+	
+	
+\end{solution}
+
+
+
+\begin{problem}[76]
+	Prove that product and coproduct are right and left adjoints (resp) to the diagonal functor $\Delta: \mc{C} \to \mc{C} \times \mc{C}$.
+	
+\end{problem}
+\begin{solution}
+	
+	We want $\Hom_{C\times C}(\Delta A, (B, C)) \iso \Hom_{C}(A, B \times C)$. We define $\alpha_{A, (B, C)}((f_B, f_C): (A, A) \to (B, C))$ to be the unique morphism $f$ induced by $f_B$ and $f_C$. Moreover, given a morphism $f: A \to B \times C$, we can get $(\pi_B \circ f, \pi_C \circ f)$. These are inverse operations by definition of the product. We just need to check naturality. I will check naturality in $A$. naturality in $B$ and $C$ (simultaneously) follows similarly. 
+	
+	Given $f: A \to A'$...
+	
+% https://q.uiver.app/#q=WzAsMTMsWzAsMCwiXFxIb21fXFx0aW1lcygoQSwgQSksIChCLCBDKSkiXSxbMywwLCJcXEhvbV9cXHRpbWVzKChBJywgQScpLCAoQiwgQykpIl0sWzAsMywiXFxIb20oQSwgQiBcXHRpbWVzIEMpIl0sWzMsMywiXFxIb20oQScsIEIgXFx0aW1lcyBDKSJdLFsxLDEsIihnX0IsIGdfQykiXSxbMiwxLCIoZ19CXFxjaXJjIGZeXFxvcCwgZ19DXFxjaXJjIGZeXFxvcCkiXSxbMiwyLCJnXFxjaXJjIGZeXFxvcCJdLFsxLDIsImciXSxbMSw1LCJBIl0sWzIsNSwiQlxcdGltZXMgQyJdLFszLDQsIkIiXSxbMyw2LCJDIl0sWzAsNSwiQSciXSxbMCwxLCIoLVxcY2lyYyBmXlxcb3AsIC1cXGNpcmMgZl5cXG9wKSJdLFswLDIsIlxcYWxwaGFfe0EsIChCLCBDKX0iLDFdLFsyLDMsIi1cXGNpcmMgZl5cXG9wIiwyXSxbMSwzLCJcXGFscGhhX3tBJywgKEIsIEMpfSIsMV0sWzQsNV0sWzUsNiwiISIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs0LDcsIiEiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNyw2XSxbOSwxMCwiXFxwaV9CIiwxXSxbOSwxMSwiXFxwaV9DIiwxXSxbOCw5LCJnIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzgsMTAsImdfQyIsMV0sWzgsMTEsImdfQyIsMV0sWzEyLDgsImZeXFxvcCIsMV0sWzEyLDEwLCJnX0IgXFxjaXJjIGZeXFxvcCAiLDEseyJjdXJ2ZSI6LTR9XSxbMTIsMTEsImdfQyBcXGNpcmMgZl5cXG9wIiwxLHsiY3VydmUiOjN9XSxbMTIsOSwiZl5cXG9wIFxcY2lyYyBnIiwxLHsiY3VydmUiOi0yLCJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+\[\begin{tikzcd}
+	{\Hom_\times((A, A), (B, C))} &&& {\Hom_\times((A', A'), (B, C))} \\
+	& {(g_B, g_C)} & {(g_B\circ f^\op, g_C\circ f^\op)} \\
+	& g & {g\circ f^\op} \\
+	{\Hom(A, B \times C)} &&& {\Hom(A', B \times C)} \\
+	&&& B \\
+	{A'} & A & {B\times C} \\
+	&&& C
+	\arrow["{(-\circ f^\op, -\circ f^\op)}", from=1-1, to=1-4]
+	\arrow["{\alpha_{A, (B, C)}}"{description}, from=1-1, to=4-1]
+	\arrow["{\alpha_{A', (B, C)}}"{description}, from=1-4, to=4-4]
+	\arrow[from=2-2, to=2-3]
+	\arrow["{!}", dashed, from=2-2, to=3-2]
+	\arrow["{!}", dashed, from=2-3, to=3-3]
+	\arrow[from=3-2, to=3-3]
+	\arrow["{-\circ f^\op}"', from=4-1, to=4-4]
+	\arrow["{g_B \circ f^\op }"{description}, curve={height=-24pt}, from=6-1, to=5-4]
+	\arrow["{f^\op}"{description}, from=6-1, to=6-2]
+	\arrow["{f^\op \circ g}"{description}, curve={height=-12pt}, dashed, from=6-1, to=6-3]
+	\arrow["{g_C \circ f^\op}"{description}, curve={height=18pt}, from=6-1, to=7-4]
+	\arrow["{g_C}"{description}, from=6-2, to=5-4]
+	\arrow["g"{description}, dashed, from=6-2, to=6-3]
+	\arrow["{g_C}"{description}, from=6-2, to=7-4]
+	\arrow["{\pi_B}"{description}, from=6-3, to=5-4]
+	\arrow["{\pi_C}"{description}, from=6-3, to=7-4]
+\end{tikzcd}\]
+	Where the square commutes by uniqueness of morphisms (explained in the lower diagram).
+	
+	Thus, we are done with products.
+	
+	For coproducts, I will do the same thing, but show the other naturality square. 
+
+	
+\end{solution}
+
+
+
+
+
+
+\begin{problem}[79]
+	Let $G$ be a group with corresponding 1-object category $BG$. When does $BG$ have products? What about coproducts?
+	
+\end{problem}
+\begin{solution}
+	
+\end{solution}
+
+
+\end{document}
