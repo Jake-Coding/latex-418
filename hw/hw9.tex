@@ -1,0 +1,496 @@
+\documentclass[12pt]{article}
+% -------------------
+% Packages
+% -------------------
+\usepackage{
+	amsmath,			% Math Environments
+	amssymb,			% Extended Symbols
+	amsthm,			    % Theorem Environments
+	cancel,			    % Use Cancels
+	enumerate,		    % Enumerate Environments
+	graphicx,			% Include Images
+	lastpage,			% Reference Lastpage
+	multicol,			% Use Multi-columns
+	multirow,			% Use Multi-rows
+	xcolor,			    % Use Colors
+	float,
+	geometry,
+	quiver
+	}
+
+\usetikzlibrary{nfold}
+
+% -------------------
+% Header & Footer
+% -------------------
+\usepackage{fancyhdr}
+
+\newcommand{\assignment}[1]{
+	\fancypagestyle{title}{
+		%Headers
+		\fancyhead[L]{Jake Bridge}
+		\fancyhead[C]{MATH 418}
+		\fancyhead[R]{HW #1}
+		\renewcommand{\headrulewidth}{0.2pt}
+		%Footers
+		\fancyfoot[L]{}
+		\fancyfoot[C]{}
+		\fancyfoot[R]{}
+		\renewcommand{\footrulewidth}{0.0pt}
+	}
+	\thispagestyle{title}
+}
+\fancypagestyle{pages}{
+	%Headers
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\renewcommand{\headrulewidth}{0.0pt}
+	%Footers
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{}
+	\renewcommand{\footrulewidth}{0.0pt}
+}
+\headheight=18pt
+\footskip=14pt
+
+\pagestyle{pages}
+
+% ---------------
+% Page Layout
+% ---------------
+\geometry{letterpaper,
+bindingoffset=0.2in,
+left=1in,
+right=1in,
+top=1in,
+bottom=1in,
+footskip=.25in}
+% -------------------
+% Font
+% -------------------
+%\usepackage[T1]{fontenc}
+%\usepackage{charter}
+
+%\usepackage[T1]{fontenc}
+%\usepackage{mathpazo}
+
+%\usepackage[bitstream-charter]{mathdesign}
+%\usepackage[T1]{fontenc}
+
+
+% -------------------
+% Commands
+% -------------------
+
+% Problem Labels
+\newcounter{problem}[section]
+\newenvironment{problem}[1][\theproblem]{\refstepcounter{problem}\noindent \textbf{Problem~#1.\quad}}{\vskip\smallskipamount}
+
+
+\newenvironment{solution}{\noindent \textbf{Solution.\quad}}{\vskip\bigskipamount}
+
+
+% Special Characters
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\ob}[1]{\text{ob}(#1)}
+\newcommand{\natt}{\Rightarrow}
+\newcommand{\iso}{\cong}
+\newcommand{\op}{\text{op}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Hom}{\textbf{Hom}}
+\newcommand{\Small}{\mathbb{S}}
+
+\newcommand{\eps}{\varepsilon}
+
+% Math Operators
+
+% Special Commands
+
+
+
+% DOC
+\begin{document}
+	\assignment{9}
+
+\begin{problem}[87]
+	Prove that any equivalence of categories preserves all limits (that exist in the source)
+\end{problem}
+\begin{solution}
+	Let $F: \mc{A} \to \mc{B}$ be an equivalence of categories (in the sense that $F$ is an essentially surjective fully faithful functor). Let $\Small$ be a small category and let $D: \Small \to \mc{A}$ be a diagram. Suppose $(A, f_S: A \to DS)$ is a limit cone of $D$ in $\mc{A}$. 
+	
+	We must show that $(FA, Ff_S : FA \to FDS)$ is a limit cone in $\mc{B}$. It is clearly a cone by functoriality of $F$. Let $(B, g_S: B \to FDS)$ be another cone. $F$ is full, faithful, and essentially surjective. Essential surjectivity tells us that $B$ is isomorphic to some $FA', A' \in \mc{C}$. Call the isomorphism $\alpha: FA' \to B$. Hence, we have a morphism $g_S \circ \alpha: FA' \to FDS$. By full and faithfulness of $F$, we get a corresponding morphism $\widehat{g_S \circ \alpha}: A' \to DS$. But, by $A$ being a cone, we find a unique $\hat{h}: A' \to A$ such that $\widehat{g_S \circ \alpha}$ factors through $\hat{h}$. We can push this through $F$ to get $h: FA' \to FA$ such that $g_S \circ \alpha = Ff_S \circ h$. 
+	
+	% https://q.uiver.app/#q=WzAsNCxbMiwxLCJGQSJdLFswLDEsIkIiXSxbMiwyLCJGRFMiXSxbMCwwLCJGQSciXSxbMSwwLCJoIFxcY2lyYyBcXGFscGhhXnstMX0iLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMCwyLCJGZl9TIl0sWzEsMiwiZ19TIiwxXSxbMywxLCJcXGFscGhhIFxcaXNvICIsMl0sWzMsMCwiXFxleGlzdHMhIGgiLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+	\[\begin{tikzcd}
+		{FA'} && \\
+		B && FA \\
+		&& FDS
+		\arrow["{\alpha \iso }"', from=1-1, to=2-1]
+		\arrow["{\exists! h}"{description}, dashed, from=1-1, to=2-3]
+		\arrow["{h \circ \alpha^{-1}}"{description}, dashed, from=2-1, to=2-3]
+		\arrow["{g_S}"{description}, from=2-1, to=3-3]
+		\arrow["{Ff_S}", from=2-3, to=3-3]
+	\end{tikzcd}\]
+	
+	Then, we get that $g_S$ factors uniquely as $Ff_S \circ (h \circ \alpha^{-1})$. Hence, $(FA, Ff_S)$ is a limit cone in $\mc{B}$. So, $F$ preserves limits! \qed
+\end{solution}
+
+
+
+
+
+\begin{problem}[91]
+	Let $\mc{C}$ be a category with two objects and all products. Does it have an initial object? A terminal object?
+\end{problem}
+\begin{solution}
+	
+	Let $\Small$ be the empty category. Then, the empty product is the limit over $D: \Small \to \mc{C}$, which is a terminal object. 
+	
+	
+	There is another interesting question, though, if we suppose we only have binary products...
+	
+	
+	Suppose WLOG $A \times B = A$. 
+	
+	% https://q.uiver.app/#q=WzAsNCxbMSwwLCJBIl0sWzEsMSwiQSJdLFswLDIsIkEiXSxbMiwyLCJCIl0sWzAsMSwiZiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsxLDIsInBfMSJdLFsxLDMsInBfMiIsMl0sWzAsMiwiMV9BIiwyXSxbMCwzLCJwXzIiXV0=
+	\[\begin{tikzcd}
+		& A & \\
+		& A \\
+		A && B
+		\arrow["f", dashed, from=1-2, to=2-2]
+		\arrow["{1_A}"', from=1-2, to=3-1]
+		\arrow["{p_2}", from=1-2, to=3-3]
+		\arrow["{p_1}", from=2-2, to=3-1]
+		\arrow["{p_2}"', from=2-2, to=3-3]
+	\end{tikzcd}\]
+	
+	If $f \neq 1_A$, then $A$ cannot be initial or terminal. 
+	
+	So, for the sake of argument, suppose $f = 1_A$. Then $p_1 = 1_A$. This forces $p_2$ to be unique. 
+	
+	Let $f: B \to A$ be a morphism.
+	
+	% https://q.uiver.app/#q=WzAsNCxbMSwxLCJBIl0sWzAsMiwiQSJdLFsyLDIsIkIiXSxbMSwwLCJCIl0sWzAsMSwiMV9BIl0sWzAsMiwicF8yIiwyXSxbMywyLCIxX0IiXSxbMywwLCJmIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzMsMSwiZiIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+	\[\begin{tikzcd}
+		& B & \\
+		& A \\
+		A && B
+		\arrow["f", dashed, from=1-2, to=2-2]
+		\arrow["f"', dashed, from=1-2, to=3-1]
+		\arrow["{1_B}", from=1-2, to=3-3]
+		\arrow["{1_A}", from=2-2, to=3-1]
+		\arrow["{p_2}"', from=2-2, to=3-3]
+	\end{tikzcd}\]
+	
+	This tells us that $f$ is unique and a right inverse to $p_2$ ($p_2 \circ f = 1_B$). 
+	
+	Could it be a left inverse please :(
+	
+	
+	
+%	
+%	Then, if $A \times A = A$, we know there is a unique map $g$ such that $\pi_1 \circ g = 1, \pi_2 \circ g = 1$. 
+%	
+%	If $\mc{C}$ only has binary products, we have that $A \times B = A$ (WLOG).
+%	
+%	We will show that $A$ is initial: that there is a unique morphism from $A \to A$ and another unique morphism from $A \to B$. These morphisms will be the identity and projection map, respectively. 
+%	
+%	% https://q.uiver.app/#q=WzAsNCxbMSwwLCJBIl0sWzEsMiwiQSJdLFswLDMsIkEiXSxbMiwzLCJCIl0sWzAsMSwiMV9BIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzAsMywiXFxwaV8yIl0sWzEsMiwiXFxwaV8xIl0sWzEsMywiXFxwaV8yIiwyXSxbMCwyLCIxX0EiLDJdXQ==
+%	\[\begin{tikzcd}
+%		& A & \\
+%		\\
+%		& A \\
+%		A && B
+%		\arrow["{1_A}"{description}, dashed, from=1-2, to=3-2]
+%		\arrow["{1_A}"', from=1-2, to=4-1]
+%		\arrow["{\pi_2}", from=1-2, to=4-3]
+%		\arrow["{\pi_1}", from=3-2, to=4-1]
+%		\arrow["{\pi_2}"', from=3-2, to=4-3]
+%	\end{tikzcd}\]
+%	
+%	This diagram tells us that $\pi_1 = 1_A$. We need to show that $\pi_2$ is the only morphism from $A \to B$ and that there cannot be any more morphisms $A\to A$. Let $f: A \to B$ be another map. Uniqueness of the identity gives that % https://q.uiver.app/#q=WzAsNCxbMSwwLCJBIl0sWzEsMiwiQSJdLFswLDMsIkEiXSxbMiwzLCJCIl0sWzAsMSwiMV9BIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzAsMywiZiJdLFsxLDIsIjFfQSJdLFsxLDMsIlxccGlfMiIsMl0sWzAsMiwiMV9BIiwyXV0=
+%	\[\begin{tikzcd}
+%		& A & \\
+%		\\
+%		& A \\
+%		A && B
+%		\arrow["{1_A}"{description}, dashed, from=1-2, to=3-2]
+%		\arrow["{1_A}"', from=1-2, to=4-1]
+%		\arrow["f", from=1-2, to=4-3]
+%		\arrow["{1_A}", from=3-2, to=4-1]
+%		\arrow["{\pi_2}"', from=3-2, to=4-3]
+%	\end{tikzcd}\]
+%	commutes. Hence, $\pi_2$ is unique. 
+%	
+%	Lastly, if $g: A \to A$ is a morphism, % https://q.uiver.app/#q=WzAsNCxbMSwwLCJBIl0sWzEsMiwiQSJdLFswLDMsIkEiXSxbMiwzLCJCIl0sWzAsMSwiMV9BIiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzAsMywiXFxwaV8yIl0sWzEsMiwiMV9BIl0sWzEsMywiXFxwaV8yIiwyXSxbMCwyLCJnIiwyXV0=
+%	\[\begin{tikzcd}
+%		& A & \\
+%		\\
+%		& A \\
+%		A && B
+%		\arrow["{g}"{description}, dashed, from=1-2, to=3-2]
+%		\arrow["g"', from=1-2, to=4-1]
+%		\arrow["{\pi_2}", from=1-2, to=4-3]
+%		\arrow["{1_A}", from=3-2, to=4-1]
+%		\arrow["{\pi_2}"', from=3-2, to=4-3]
+%	\end{tikzcd}\]
+%	tells us that $\pi_2 \circ g = \pi_2$. 	By uniqueness of morphisms, $g = 1_A$, so there is a unique morphism $1_A: A \to A$ and unique morphism $\pi_2: A\to B$. This is the same as saying that $A \times B = A$ is initial. 
+%	
+%	
+%	
+% We know that $\pi_2 \circ g = 1_B$ by the universal property of the product again: 
+%	% https://q.uiver.app/#q=WzAsNCxbMSwwLCJCIl0sWzEsMSwiQSJdLFswLDIsIkEiXSxbMiwyLCJCIl0sWzEsMiwiMV9BIl0sWzEsMywiXFxwaV8yIiwyXSxbMCwxLCJnIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzAsMywiMV9CIiwxXSxbMCwyLCJnIiwyXV0=
+%	\[\begin{tikzcd}
+%		& B & \\
+%		& A \\
+%		A && B
+%		\arrow["g"', dashed, from=1-2, to=2-2]
+%		\arrow["g"', from=1-2, to=3-1]
+%		\arrow["{1_B}"{description}, from=1-2, to=3-3]
+%		\arrow["{1_A}", from=2-2, to=3-1]
+%		\arrow["{\pi_2}"', from=2-2, to=3-3]
+%	\end{tikzcd}\]
+%	
+%	and so $\pi_2 = 1_B$. 
+	
+	
+
+%	
+%	We will now show that $B$ is terminal. We must show that there is a unique map $A \to B$ and $B \to B$. 
+%	
+%	We know $\pi_2$ is unique. So, we must show that there are no more maps $B \to B$. Suppose there is some $g: B \to B$. If $B \times B = A$, $A$ being initial forces any $f: B \to A$ to be a right inverse for $\pi_2$.
+%	
+%	% https://q.uiver.app/#q=WzAsNCxbMSwwLCJCIl0sWzEsMiwiQSJdLFswLDMsIkEiXSxbMiwzLCJCIl0sWzEsMiwiMV9BIl0sWzEsMywiXFxwaV8yIiwyXSxbMCwxLCI/IiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzAsMywiMV9CIl0sWzAsMiwiPyIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+%	\[\begin{tikzcd}
+%		& B & \\
+%		\\
+%		& A \\
+%		A && B
+%		\arrow["{?}", dashed, from=1-2, to=3-2]
+%		\arrow["{?}"', dashed, from=1-2, to=4-1]
+%		\arrow["{1_B}", from=1-2, to=4-3]
+%		\arrow["{1_A}", from=3-2, to=4-1]
+%		\arrow["{\pi_2}"', from=3-2, to=4-3]
+%	\end{tikzcd}\]
+%	
+%	but similarly,  $g$ must be $1_B$:
+%	% https://q.uiver.app/#q=WzAsNCxbMSwwLCJCIl0sWzEsMiwiQSJdLFswLDMsIkEiXSxbMiwzLCJCIl0sWzEsMiwiMV9BIl0sWzEsMywiXFxwaV8yIiwyXSxbMCwxLCI/IiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzAsMywiZyJdLFswLDIsIj8iLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+%	\[\begin{tikzcd}
+%		& B & \\
+%		\\
+%		& A \\
+%		A && B
+%		\arrow["{?}", dashed, from=1-2, to=3-2]
+%		\arrow["{?}"', dashed, from=1-2, to=4-1]
+%		\arrow["g", from=1-2, to=4-3]
+%		\arrow["{1_A}", from=3-2, to=4-1]
+%		\arrow["{\pi_2}"', from=3-2, to=4-3]
+%	\end{tikzcd}\]
+%	
+%	If instead, $B \times B = B$, the same logic as we've used above shows that $p_2: B \to B$ is $1_B$ (think about the unique morphism induced by the maps $p_1, 1_B$). Also similar to above, $p_1$ is unique. Again similar to above, we conclude $1_B$ is the 
+
+	
+
+%%	Consider the category with two elements and an isomorphism between them. Then, neither obj
+%
+%$p_A \circ f = 1_A. f \circ p_A = p_A \circ g$. 
+%
+%$g \circ f \circ p_A = p_A \circ f \circ g$
+%
+%$g \circ p_A \circ g = g$
+%
+%
+%
+%
+%$f \circ p_A = p_A \circ g$
+%$g \circ p_A = p_A \circ f$
+%
+%$g \circ f \circ p_A = g \circ p_A \circ g = p_A \circ f \circ g = g$
+%
+%$f \circ p_A \circ g = p_A \circ g \circ g$
+
+
+
+\end{solution}
+
+
+
+
+
+\begin{problem}[93]
+	Let $\Small$ be the category with one object $*$ and morphisms $\Small(*, *) = \{1, f\}$ where $f \circ f = f$. Let $D : \Small \to \Set$ be a diagram. Use the method of the "products and equalizers give all limits" proof to compute the limit of $D$ explicitly.
+\end{problem}
+\begin{solution}
+	
+	The aforementioned proof built the product over all objects in $\Small$, then the product over all morphisms in $\Small$, found two morphisms between them (one that bypassed morphisms $f: S \to T$, and one that respected them) then equalized them. The limit cone was then $L \xrightarrow{\lambda} \prod_S DS \xrightarrow{\pi_S} DS$. 
+	
+	We have one object, so the product over all objects in $\Small$ is $A := D*$ with projection $1_*$ (if the projection were $f$, there would be no unique morphism associated to the map $1_*$). 
+	
+	The product over all $g: * \to *$ looks like $A \times A$ with projections $\pi_1$ and $\pi_f$. 
+	
+	Write $g$ to be either $1$ or $f$. 
+	
+	% https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzIsMCwiQVxcdGltZXMgQSJdLFsyLDIsIkEiXSxbMSwyLCJcXHBpXzEgKFxcdGV4dHtXTE9HfSkiXSxbMCwyLCIxX0EiLDJdLFswLDEsIlxcYWxwaGEiXV0=
+	\[\begin{tikzcd}
+		A && {A\times A} \\
+		\\
+		&& A
+		\arrow["\alpha", from=1-1, to=1-3]
+		\arrow["{1_A}"', from=1-1, to=3-3]
+		\arrow["{\pi_g}", from=1-3, to=3-3]
+	\end{tikzcd}\]
+	
+	tells us that $\pi_g \alpha = 1_A$. That is, $\alpha = (1, 1)$.
+	
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzAsMiwiQSJdLFsyLDIsIkEiXSxbMiwwLCJBIFxcdGltZXMgQSJdLFswLDEsIjFfQSJdLFsxLDIsImciXSxbMCwzLCJcXGJldGEiXSxbMywyLCJcXHBpXzEiLDJdXQ==
+	\[\begin{tikzcd}
+		A && {A \times A} \\
+		\\
+		A && A
+		\arrow["\beta", from=1-1, to=1-3]
+		\arrow["{1_A}", from=1-1, to=3-1]
+		\arrow["{\pi_g}", from=1-3, to=3-3]
+		\arrow["Dg", from=3-1, to=3-3]
+	\end{tikzcd}\]
+	
+	tells us that $\pi_g \beta = Dg$. That is, $\beta = (1, Df)$
+		
+	The equalizer in $\Set$ is $\{x : \alpha(x) = \beta(x)\}$ equipped with the inclusion map $\iota$. In this case, we get $L = \{x : (x, x) = (x, Df(x))\}$. Equality in the first  slot is always true, so $L = \{x \in A : x = Df(x)\}$ is the set of fixed points of $Df$. The proof that products and equalizers give all limits proves that $(L, \iota)$ is a limit cone. Hence, $L$ is the limit of $D$.  \qed
+	
+	
+\end{solution}
+
+
+
+
+
+\begin{problem}[96, 97]
+	Prove $\Delta\_ \dashv \lim$ (I want to do this proof in full so that I understand it)
+\end{problem}
+\begin{solution}
+	
+	NB: $\lim: [\Small, \mc{C}] \to \mc{C}, \Delta_\_: \mc{C} \to [\Small, \mc{C}]$
+	
+	We begin by defining $\eta: 1_\mc{C} \natt \lim \circ \Delta_\_$ as our unit such that $\eta_A : A \to \lim \Delta_A$ uniquely induced by choosing the morphisms $1_A$, as in 
+	% https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzAsMSwiXFxsaW0gXFxEZWx0YV9BIl0sWzIsMSwiQSA9IFxcRGVsdGFfQShTKSJdLFswLDEsIlxcZXhpc3RzISIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsxLDIsInBfUyIsMl0sWzAsMiwiMV9BIl1d
+	\[\begin{tikzcd}
+		A && \\
+		{\lim \Delta_A} && {A = \Delta_A(S)}
+		\arrow["{\exists!}"', dashed, from=1-1, to=2-1]
+		\arrow["{1_A}", from=1-1, to=2-3]
+		\arrow["{p_S}"', from=2-1, to=2-3]
+	\end{tikzcd}\]
+	
+	(where there are as many $S$'s as objects in $\Small$ and so we trivially have a cone). That is, $p_S \circ \eta_A = 1_A$ for every projection $p_S$. 
+	
+	For $\eta$ to be natural, the following must commute for each $f: A \to B$ in $\mc{C}$. 
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJBIl0sWzEsMCwiQiJdLFsxLDEsIlxcbGltIFxcRGVsdGFfQiJdLFswLDEsIlxcbGltIFxcRGVsdGFfQSJdLFswLDMsIlxcZXRhX0EiLDJdLFswLDEsImYiXSxbMSwyLCJcXGV0YV9CIl0sWzMsMiwiXFxsaW0gXFxEZWx0YV9mIiwyXV0=
+	\[\begin{tikzcd}
+		A & B \\
+		{\lim \Delta_A} & {\lim \Delta_B}
+		\arrow["f", from=1-1, to=1-2]
+		\arrow["{\eta_A}"', from=1-1, to=2-1]
+		\arrow["{\eta_B}", from=1-2, to=2-2]
+		\arrow["{\lim \Delta_f}"', from=2-1, to=2-2]
+	\end{tikzcd}\]
+	
+	Let the $B$ limit have projections $\pi_S$. Then, $\pi_S \circ \eta_B \circ f = f$, and $\pi_S \circ \lim \Delta_f \circ \eta_A = (\Delta_f)_S \circ p_S \circ \eta_A$ by the commutative square from the lemma. This  $= (\Delta_f)_S = f$. Then, because the projections all agree, by uniqueness of morphisms, $\eta_B \circ f = \lim \Delta_f \circ \eta_A$ and so $\eta$ is natural!
+	
+	We now define $\eps: \Delta\_ \circ \lim \natt 1_{[\Small, \mc{C}]}$ with components $\eps_F : \Delta_{\lim F} \to F$. $\Delta_{\lim F}$ itself has components given by $\lim F$ for each component. We define \[\eps_F((\Delta_{\lim F})_S) = \lambda_S: \lim F \to FS\] the projections from the definition of the limit. 
+	
+	Then, for $\eps$ to be natural, the following must commute:
+	
+	% https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXGxpbSBGIl0sWzMsMCwiXFxsaW0gRyJdLFswLDMsIkYiXSxbMywzLCJHIl0sWzEsMSwiXFxsaW0gRiJdLFsxLDIsIkZTIl0sWzIsMiwiR1MiXSxbMiwxLCJcXGxpbSBHIl0sWzAsMiwiXFxlcHNfRiIsMix7ImxldmVsIjoyfV0sWzIsMywiXFxhbHBoYSIsMix7ImxldmVsIjoyfV0sWzAsMSwiXFxsaW0gXFxhbHBoYSIsMCx7ImxldmVsIjoyfV0sWzEsMywiXFxlcHNfRyIsMCx7ImxldmVsIjoyfV0sWzQsNSwicF9TIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs1LDYsIlxcYWxwaGFfUyIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNCw3LCJcXGxpbSBcXGFscGhhIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs3LDYsIlxccGlfUyIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XV0=
+	\[\begin{tikzcd}
+		{\lim F} &&& {\lim G} \\
+		& {\lim F} & {\lim G} \\
+		& FS & GS \\
+		F &&& G
+		\arrow["{\lim \alpha}", Rightarrow, from=1-1, to=1-4, nfold]
+		\arrow["{\eps_F}"', Rightarrow, from=1-1, to=4-1, nfold]
+		\arrow["{\eps_G}", Rightarrow, from=1-4, to=4-4, nfold]
+		\arrow["{\lim \alpha}", maps to, from=2-2, to=2-3]
+		\arrow["{\lambda_S}", maps to, from=2-2, to=3-2]
+		\arrow["{\pi_S}"', maps to, from=2-3, to=3-3]
+		\arrow["{\alpha_S}", maps to, from=3-2, to=3-3]
+		\arrow["\alpha"', Rightarrow, from=4-1, to=4-4, nfold]
+	\end{tikzcd}\]
+	
+	However, the lemma tells us that tracing any component of $\lim F$ around the diagram works! Hence, $\eps$ is natural. 
+	
+	Now, we prove the triangle identities. 
+	
+	We know that $\lambda_S \circ \lim(\eps_F) \circ \eta_{\lim F} = (\eps_F)_S \circ p_S \circ \eta_{\lim F} = \lambda_S \circ p_S \circ \eta_{\lim F} = \lambda_S \circ 1_{\lim F} = \lambda_S$. 
+	
+	So, the outer part of the following diagram commutes. By uniqueness and the fact that $1$ works, we get that the upper triangle commutes. The upper triangle is the $U$ triangle identity
+% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXGxpbSBGIl0sWzQsMCwiXFxsaW0gXFxEZWx0YV97XFxsaW0gRn0iXSxbNCw0LCJcXGxpbSBGIl0sWzQsNSwiRlMiXSxbMCwxLCJcXGV0YV97XFxsaW0gRn0iXSxbMSwyLCJcXGxpbSAoXFxlcHNfRikiXSxbMiwzLCJcXGxhbWJkYV9TIl0sWzAsMywiXFxsYW1iZGFfUyIsMix7ImN1cnZlIjo1fV0sWzAsMiwiMSIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
+\[\begin{tikzcd}
+	{\lim F} &&&& {\lim \Delta_{\lim F}} \\
+	\\
+	\\
+	\\
+	&&&& {\lim F} \\
+	&&&& FS
+	\arrow["{\eta_{\lim F}}", from=1-1, to=1-5]
+	\arrow["1"{description}, dashed, from=1-1, to=5-5]
+	\arrow["{\lambda_S}"', curve={height=30pt}, from=1-1, to=6-5]
+	\arrow["{\lim (\eps_F)}", from=1-5, to=5-5]
+	\arrow["{\lambda_S}", from=5-5, to=6-5]
+\end{tikzcd}\]
+
+
+
+The other triangle identity gives
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXERlbHRhX0YiXSxbMiwyLCJcXERlbHRhX0YiXSxbMiwwLCJcXERlbHRhX3tcXGxpbSBcXERlbHRhX0Z9Il0sWzAsMSwiMSIsMix7ImxldmVsIjoyfV0sWzAsMiwiXFxEZWx0YV97XFxldGFfRn0iLDAseyJsZXZlbCI6Mn1dLFsyLDEsIlxcZXBzX3tcXERlbHRhX0Z9IiwwLHsibGV2ZWwiOjJ9XV0=
+\[\begin{tikzcd}
+	{\Delta_F} && {\Delta_{\lim \Delta_F}} \\
+	\\
+	&& {\Delta_F}
+	\arrow["{\Delta_{\eta_F}}", Rightarrow, from=1-1, to=1-3, nfold]
+	\arrow["1"', Rightarrow, from=1-1, to=3-3, nfold]
+	\arrow["{\eps_{\Delta_F}}", Rightarrow, from=1-3, to=3-3, nfold]
+\end{tikzcd}\]
+Taking components, we get
+% https://q.uiver.app/#q=WzAsMyxbMCwwLCJGIl0sWzIsMCwiXFxsaW0gXFxEZWx0YV9GIl0sWzIsMiwiRiJdLFswLDEsIlxcZXRhX0YiXSxbMSwyLCJwX1MiXSxbMCwyLCIxIiwyXV0=
+\[\begin{tikzcd}
+	F && {\lim \Delta_F} \\
+	\\
+	&& F
+	\arrow["{\eta_F}", from=1-1, to=1-3]
+	\arrow["1"', from=1-1, to=3-3]
+	\arrow["{p_S}", from=1-3, to=3-3]
+\end{tikzcd}\]
+
+because $\eps_{\Delta_F}: \Delta_{\lim \Delta_F} \to \Delta_F$ has $(\eps_{\Delta_F})_S = p_S : \lim \Delta_F \to \Delta_F(S) = F$, which commutes by our construction of $p_S$ from our construction of $\eta$. So, the other triangle identity is satisfied. 
+
+Thus, we have an adjunction! \qed
+
+
+
+
+
+
+%	
+	
+	
+%	Hence, it also comes equipped with $\lambda_S: \lim F \to FS$ for each $S$. 
+	
+	
+	
+	
+	
+	
+	
+\end{solution}
+
+\end{document}
