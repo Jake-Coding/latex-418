@@ -156,45 +156,63 @@ footskip=.25in}
 	
 	Let $\Small$ be the empty category. Then, the empty product is the limit over $D: \Small \to \mc{C}$, which is a terminal object. 
 	
+	With regard to initial objects, I don't have an answer, but will give some thoughts...
 	
-	There is another interesting question, though, if we suppose we only have binary products...
+	If we have a unique isomorphism between $A$ and $B$, and $B$ is terminal, then $A$ is terminal, so they would both also be initial. That's the easy way out. I've not been able to prove this, and don't think its true. The other way would be to have some $\Hom(A, A)$ with a ton of morphisms and a unique morphism $A \to B$ (WLOG $B$ is the terminal object). To show that $A$ is initial, we'd need to show that the only morphism in that hom set is the identity. We can do that pretty easily if we have only isomorphisms (I take an even simpler example below).
+	
+	Take, for example, $A = \{1, 2\}, B = \{0\}$ with morphisms $g: A \to B$ that takes $g(1) = 0, g(2) = 0$ and $s: A \to A$ that takes $s(1) = 2, s(2) = 1$ (and the identities, of course). $B$ is a terminal element, (hence empty product), and $A$ and $B$ themselves are single products. Any product containing a copy of $A$ must be $A$, as otherwise, we don't get any projection maps $B\to A$, which are required for a product. We know $s \circ g = 1 \circ g$.
+
+	
+	This tells us, though, that there is no choice of $\pi_1$ and $\pi_2$ to make the binary product work. Indeed, if both are $1$, the choices $s, 1$ don't give a unique morphism. If they are both $s$, the same. If they are different (WLOG $\pi_1 = s, \pi_2 = 1$, then the choices $s, s$ or $1, 1$ don't yield a unique morphism). 
+	
+	I'd like to use this as motivation...
+	
+	Suppose that our category is locally small and admits all products. WLOG, as above, $B$ is terminal. Then, given any set $I$ of morphisms $A \to A$, we construct the product of $A$ over $I$, which must be $A$ to have projection maps, as above. (My notation will suggest that $I$ is countable. This is not necessarily the case). Then, we get projection maps $\pi_i$. If two projection maps are $1$, choose different maps for those two. This will break the product structure. So, we can have at most one map that is the identity. 
+	
+	Without supposing isomorphisms, though, I'm not sure I have an easy way to guarantee we can build some cone that breaks the product, which leads me to believe that we are not guaranteed an initial object. I don't have an example, yet, though---in $\Set$, at least, to have all products between only two objects we need both to be one element sets, and we get to the boring case where the objects are both initial and terminal in the full subcategory of $\Set$ with the two singletons. 
+	
+	My suspicion is that for a locally small 2 object category, we need some strange endomorphisms to get every product and not have an initial object, but it could well be possible. 
+	
+	Or, perhaps there's a very simple example I've overlooked. Who knows? Not me!
 	
 	
-	Suppose WLOG $A \times B = A$. 
 	
-	% https://q.uiver.app/#q=WzAsNCxbMSwwLCJBIl0sWzEsMSwiQSJdLFswLDIsIkEiXSxbMiwyLCJCIl0sWzAsMSwiZiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsxLDIsInBfMSJdLFsxLDMsInBfMiIsMl0sWzAsMiwiMV9BIiwyXSxbMCwzLCJwXzIiXV0=
-	\[\begin{tikzcd}
-		& A & \\
-		& A \\
-		A && B
-		\arrow["f", dashed, from=1-2, to=2-2]
-		\arrow["{1_A}"', from=1-2, to=3-1]
-		\arrow["{p_2}", from=1-2, to=3-3]
-		\arrow["{p_1}", from=2-2, to=3-1]
-		\arrow["{p_2}"', from=2-2, to=3-3]
-	\end{tikzcd}\]
 	
-	If $f \neq 1_A$, then $A$ cannot be initial or terminal. 
 	
-	So, for the sake of argument, suppose $f = 1_A$. Then $p_1 = 1_A$. This forces $p_2$ to be unique. 
 	
-	Let $f: B \to A$ be a morphism.
+	There is another interesting question, as well, if we suppose we only have binary products, that I will not answer here...
 	
-	% https://q.uiver.app/#q=WzAsNCxbMSwxLCJBIl0sWzAsMiwiQSJdLFsyLDIsIkIiXSxbMSwwLCJCIl0sWzAsMSwiMV9BIl0sWzAsMiwicF8yIiwyXSxbMywyLCIxX0IiXSxbMywwLCJmIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzMsMSwiZiIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dXQ==
-	\[\begin{tikzcd}
-		& B & \\
-		& A \\
-		A && B
-		\arrow["f", dashed, from=1-2, to=2-2]
-		\arrow["f"', dashed, from=1-2, to=3-1]
-		\arrow["{1_B}", from=1-2, to=3-3]
-		\arrow["{1_A}", from=2-2, to=3-1]
-		\arrow["{p_2}"', from=2-2, to=3-3]
-	\end{tikzcd}\]
+%	% https://q.uiver.app/#q=WzAsNCxbMSwyLCJBIl0sWzIsMywiQiJdLFswLDMsIkEiXSxbMSwwLCJBIl0sWzAsMiwiXFxwaV9BIiwxXSxbMCwxLCJnIiwxXSxbMywyLCIxX0EiLDJdLFszLDAsIlxcZXhpc3RzISIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFszLDEsImciLDFdXQ==
+%	\[\begin{tikzcd}
+%		& A & \\
+%		\\
+%		& A \\
+%		A && B
+%		\arrow["{\exists!}"{description}, dashed, from=1-2, to=3-2]
+%		\arrow["{1_A}"', from=1-2, to=4-1]
+%		\arrow["g"{description}, from=1-2, to=4-3]
+%		\arrow["{\pi_A}"{description}, from=3-2, to=4-1]
+%		\arrow["g"{description}, from=3-2, to=4-3]
+%	\end{tikzcd}\]
+%	
+%	In general, this also tells us that $
+%	
+%	Then, this tells us that there is a unique $f_1$ such that $\pi_A = \pi_A \circ f_1$. Taking inverses, we get that $f_1 = 1_A$. 
+%	% https://q.uiver.app/#q=WzAsNCxbMSwyLCJBIl0sWzIsMywiQiJdLFswLDMsIkEiXSxbMSwwLCJBIl0sWzAsMiwiXFxwaV9BIiwxXSxbMCwxLCJnIiwxXSxbMywyLCJcXHBpX0EiLDJdLFszLDAsIlxcZXhpc3RzISIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFszLDEsImciLDFdXQ==
+%	\[\begin{tikzcd}
+%		& A & \\
+%		\\
+%		& A \\
+%		A && B
+%		\arrow["{\exists!}"{description}, dashed, from=1-2, to=3-2]
+%		\arrow["{\pi_A}"', from=1-2, to=4-1]
+%		\arrow["g"{description}, from=1-2, to=4-3]
+%		\arrow["{\pi_A}"{description}, from=3-2, to=4-1]
+%		\arrow["g"{description}, from=3-2, to=4-3]
+%	\end{tikzcd}\]
 	
-	This tells us that $f$ is unique and a right inverse to $p_2$ ($p_2 \circ f = 1_B$). 
 	
-	Could it be a left inverse please :(
+
 	
 	
 	
