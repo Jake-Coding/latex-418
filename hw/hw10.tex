@@ -179,7 +179,91 @@ footskip=.25in}
 	\end{enumerate}
 \end{problem}
 \begin{solution}
-	and another solution. Hallelujah!
+	\begin{enumerate}
+		\item We need to define morphisms and check the axioms. 
+		
+		A morphism between $(a, f, c)$ and $(a', f', c')$ is a pair of morphisms $(\alpha: a \to a', \gamma: c\to c')$ such that the follow diagram commutes 
+		% https://q.uiver.app/#q=WzAsNCxbMCwwLCJGYSJdLFsxLDAsIkdjIl0sWzAsMSwiRmEnIl0sWzEsMSwiR2MnIl0sWzAsMSwiZiJdLFsyLDMsImYnIl0sWzAsMiwiRlxcYWxwaGEiLDJdLFsxLDMsIkdcXGdhbW1hIl1d
+		\[\begin{tikzcd}
+			Fa & Gc \\
+			{Fa'} & {Gc'}
+			\arrow["f", from=1-1, to=1-2]
+			\arrow["{F\alpha}"', from=1-1, to=2-1]
+			\arrow["{G\gamma}", from=1-2, to=2-2]
+			\arrow["{f'}", from=2-1, to=2-2]
+		\end{tikzcd}\]
+		
+		Composition of morphisms is given componentwise. In particular, 
+		
+		% https://q.uiver.app/#q=WzAsNixbMCwwLCJGYSJdLFsxLDAsIkdjIl0sWzAsMSwiRmEnIl0sWzEsMSwiR2MnIl0sWzAsMiwiRmEnJyJdLFsxLDIsIkdjJyciXSxbMCwxLCJmIl0sWzIsMywiZiciXSxbMCwyLCJGXFxhbHBoYSIsMl0sWzEsMywiR1xcZ2FtbWEiXSxbMiw0LCJGXFxhbHBoYSciLDJdLFs0LDUsImYnJyJdLFszLDUsIkdcXGdhbW1hJyJdXQ==
+		\[\begin{tikzcd}
+			Fa & Gc \\
+			{Fa'} & {Gc'} \\
+			{Fa''} & {Gc''}
+			\arrow["f", from=1-1, to=1-2]
+			\arrow["{F\alpha}"', from=1-1, to=2-1]
+			\arrow["{G\gamma}", from=1-2, to=2-2]
+			\arrow["{f'}", from=2-1, to=2-2]
+			\arrow["{F\alpha'}"', from=2-1, to=3-1]
+			\arrow["{G\gamma'}", from=2-2, to=3-2]
+			\arrow["{f''}", from=3-1, to=3-2]
+		\end{tikzcd}\]
+		
+		Associativity follows from adding another layer to our diagram, and identities are the pair $(1_a, 1_c)$, which obviously work. 
+		
+		\item Taking $\mc{C}$ to be the one object category $\{*\}$, and $G$ the functor taking $* \mapsto b \in \mc{A}$. Then, $F/G$ has objects $(a \in \mc{A}, f: Fa \to b, * \in \{*\})$ and morphisms $p: a \to a'$ such that % https://q.uiver.app/#q=WzAsNCxbMCwwLCJGYSJdLFsxLDAsImIiXSxbMCwxLCJGYSciXSxbMSwxLCJiIl0sWzAsMiwiRnAiLDJdLFswLDEsImYiLDJdLFsyLDMsImYnIl0sWzEsMywiMV9iIl1d
+		\[\begin{tikzcd}
+			Fa & b \\
+			{Fa'} & b
+			\arrow["f"', from=1-1, to=1-2]
+			\arrow["Fp"', from=1-1, to=2-1]
+			\arrow["{1_b}", from=1-2, to=2-2]
+			\arrow["{f'}", from=2-1, to=2-2]
+		\end{tikzcd}\] commutes. 
+		
+		There's only one choice for $*$, and so we reduce our triple to a double $(a, f)$. This is precisely the comma category $F/b$. 
+		
+		
+		
+		
+		Let $\mc{B} = \mc{A}, \mc{C} = \{*\}, F = 1_\mc{A}$ and $G$ the functor taking $* \mapsto b \in \mc{A}$. Then $F/G$ has objects $(a \in \mc{A}, f: a \to b, * \in \{*\})$ and morphisms $g: a \to a'$ such that 
+		% https://q.uiver.app/#q=WzAsNCxbMCwwLCJGYSJdLFsxLDAsImIiXSxbMCwxLCJGYSciXSxbMSwxLCJiIl0sWzAsMl0sWzAsMSwiZiIsMl0sWzIsMywiZiciXSxbMSwzLCIxX2IiXV0=
+		\[\begin{tikzcd}
+			a & b \\
+			{a'} & b
+			\arrow["f"', from=1-1, to=1-2]
+			\arrow["g"', from=1-1, to=2-1]
+			\arrow["{1_b}", from=1-2, to=2-2]
+			\arrow["{f'}", from=2-1, to=2-2]
+		\end{tikzcd}\]
+		commutes. This is the definition of the slice category $\mc{A} / b$. 
+		
+		\newcommand{\el}{\text{el}}
+		\item Let $X: \G^\op \to \Set$ be a presheaf. The category of elements $\el X$ has objects $(S \in \G, x \in X(S))$. We need to figure out in what sense $x$ is a morphism, what our functors $F$ and $G$ are, and then verify that we have a comma category. 
+		
+		
+		If $\mc{A} = \{*\}, F$ the functor selecting $\{*\} \in \Set$, $\mc{B} = \Set, \mc{C} = \G^\op, G = X$, we get elements $(* \in \{*\}, f: \{*\} \to X(S), S \in \G^\op)$. However, $f$ must be a function that selects a particular $x$ in $X(S)$, so we can replace $f$ with $x$ to get the same data. Moreover, there is only one choice of $*$, so we can forget it. Then, swapping the order of data in the parenthesis, we get the same data captured in $(S \in \G, x \in X(S))$. 
+		
+		Moreover, a morphism $(S, x) \to (S', x')$ is a morphism $g: S \to S'$ such that % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHsqXFx9Il0sWzEsMCwiWFMiXSxbMCwxLCJcXHsqXFx9Il0sWzEsMSwiWFMnIl0sWzAsMiwiMV97XFx7KlxcfX0iLDJdLFswLDEsImYiLDJdLFsyLDMsImYnIl0sWzEsMywiWGciXV0=
+		\[\begin{tikzcd}
+			{\{*\}} & XS \\
+			{\{*\}} & {XS'}
+			\arrow["f"', from=1-1, to=1-2]
+			\arrow["{1_{\{*\}}}"', from=1-1, to=2-1]
+			\arrow["Xg", from=2-2, to=1-2]
+			\arrow["{f'}", from=2-1, to=2-2]
+		\end{tikzcd}\] commutes, where $f$ is the morphism selecting $x$ and $f'$ the morphism selecting $x'$. The $Xg$ is flipped because we want to think in $\G$, but our morphisms are from $\G^\op$. Hence, we must have that $Xg \circ f' = f$. Plugging in $*$, we get that $Xg(x') = x$. This is precisely the category of elements of $X$!
+		
+		That is, the comma category $(* \mapsto \{*\}) / X$ is the same as $\el X$. 
+	\end{enumerate}
+	
+	
+	
+	
+
+
+
+
 \end{solution}
 
 
