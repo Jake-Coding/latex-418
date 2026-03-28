@@ -1,0 +1,186 @@
+\documentclass[12pt]{article}
+% -------------------
+% Packages
+% -------------------
+\usepackage{
+	amsmath,			% Math Environments
+	amssymb,			% Extended Symbols
+	amsthm,			    % Theorem Environments
+	cancel,			    % Use Cancels
+	enumerate,		    % Enumerate Environments
+	graphicx,			% Include Images
+	lastpage,			% Reference Lastpage
+	multicol,			% Use Multi-columns
+	multirow,			% Use Multi-rows
+	xcolor,			    % Use Colors
+	float,
+	geometry,
+	quiver
+	}
+
+% -------------------
+% Header & Footer
+% -------------------
+\usepackage{fancyhdr}
+
+\newcommand{\assignment}[1]{
+	\fancypagestyle{title}{
+		%Headers
+		\fancyhead[L]{Jake Bridge}
+		\fancyhead[C]{MATH 418}
+		\fancyhead[R]{HW #1}
+		\renewcommand{\headrulewidth}{0.2pt}
+		%Footers
+		\fancyfoot[L]{}
+		\fancyfoot[C]{}
+		\fancyfoot[R]{}
+		\renewcommand{\footrulewidth}{0.0pt}
+	}
+	\thispagestyle{title}
+}
+\fancypagestyle{pages}{
+	%Headers
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\renewcommand{\headrulewidth}{0.0pt}
+	%Footers
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{}
+	\renewcommand{\footrulewidth}{0.0pt}
+}
+\headheight=18pt
+\footskip=14pt
+
+\pagestyle{pages}
+
+% ---------------
+% Page Layout
+% ---------------
+\geometry{letterpaper,
+bindingoffset=0.2in,
+left=1in,
+right=1in,
+top=1in,
+bottom=1in,
+footskip=.25in}
+% -------------------
+% Font
+% -------------------
+%\usepackage[T1]{fontenc}
+%\usepackage{charter}
+
+%\usepackage[T1]{fontenc}
+%\usepackage{mathpazo}
+
+%\usepackage[bitstream-charter]{mathdesign}
+%\usepackage[T1]{fontenc}
+
+
+% -------------------
+% Commands
+% -------------------
+
+% Problem Labels
+\newcounter{problem}[section]
+\newenvironment{problem}[1][\theproblem]{\refstepcounter{problem}\noindent \textbf{Problem~#1.\quad}}{\vskip\smallskipamount}
+
+
+\newenvironment{solution}{\noindent \textbf{Solution.\quad}}{\vskip\bigskipamount}
+
+
+% Special Characters
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\ob}[1]{\text{ob}(#1)}
+\newcommand{\natt}{\Rightarrow}
+\newcommand{\iso}{\cong}
+\newcommand{\op}{\text{op}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Hom}{\textbf{Hom}}
+\newcommand{\Small}{\mathbb{S}}
+
+\newcommand{\eps}{\varepsilon}
+
+% Math Operators
+
+% Special Commands
+
+
+
+% DOC
+\begin{document}
+	\assignment{10}
+\newcommand{\G}{\mathbb{G}}
+\begin{problem}[104]
+	Recall that the category of directed graphs is the category of presheaves $[\G^\op, \Set]$ with $\G = % https://q.uiver.app/#q=WzAsMixbMCwwLCIwIl0sWzEsMCwiMSJdLFswLDEsIlxcdGF1IiwxLHsib2Zmc2V0IjoyfV0sWzAsMSwiXFxzaWdtYSIsMSx7Im9mZnNldCI6LTJ9XV0=
+	\begin{tikzcd}[cramped]
+		0 & 1
+		\arrow["\tau"{description}, shift right=1, from=1-1, to=1-2]
+		\arrow["\sigma"{description}, shift left=2, from=1-1, to=1-2]
+	\end{tikzcd}$
+	
+	\begin{enumerate}
+		\item Compute $H_0$ and $H_1$ explicitly. Make sure they make sense.
+		\item Compute $H_1 \times H_1$. Is it a square?
+	\end{enumerate}
+\end{problem}
+
+
+\begin{solution}
+	$H_\bullet: \G \to [\G^\op, \Set]$, so $H_0: \G^\op \to \Set$ is given by $H_0(-) = \G(-, 0)$. 
+	
+	In particular, $H_0(0) = \{1_0\}, H_0(1) = \emptyset$. Thus, because $H_0(0 \to 1)$ has an empty set as its domain (remember to op!),  $H_0(\sigma)$ is the empty function, as is $H_0(\tau)$. This "looks like" a lone vertex unconnected to anything.
+	
+	Similarly, $H_1(-) = \G(-, 1)$. Then, $H_1(0) = \{\sigma, \tau\}, H_1(1) = \{1_1\}, H_1(\sigma) : \G(1, 1) \to \G(0, 1)$ must be given by prescomposition by $\sigma$, and similar for $\tau$. In particular, because the only morphism in the domain is $1_1$, $H_1(\sigma)(1_1) = \sigma$, and $H_1(\tau)(1_1) = \tau$. This "looks like" a lone edge with a unique source and target.
+	
+	As we've discussed, $H_1 \times H_1$ as a product (hence limit) can be built from its limit (product) on its components. 
+	
+	We write $H_1(0) \times H_1(0)$ as a cartesian product as $\{\sigma, \tau\} \times \{\sigma, \tau\} = $\[\{(\sigma, \tau), (\tau, \sigma), (\sigma, \sigma), (\tau, \tau)\}\]
+	
+	We interpret this as the set of vertices of our graph.
+	
+	We also write $H_1(1) \times H_1(1) = \{1_1\} \times \{1_1\} = \{(1_1, 1_1)\}$. This is our set of edge (singular).
+	
+	To find where the edge starts, we take $(H_1(\sigma), H_1(\sigma))(1_1, 1_1) = (\sigma, \sigma)$. To find where the edge ends, we can do the same thing but with $\tau$ and get $(\tau, \tau)$. 
+	
+	% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHNpZ21hXFxzaWdtYSJdLFsyLDAsIlxcc2lnbWFcXHRhdSJdLFswLDEsIlxcdGF1XFxzaWdtYSJdLFsyLDEsIlxcdGF1XFx0YXUiXSxbMCwzXV0=
+	\[\begin{tikzcd}
+		{\sigma\sigma} && {\sigma\tau} \\
+		{\tau\sigma} && {\tau\tau}
+		\arrow[from=1-1, to=2-3]
+	\end{tikzcd}\]
+	
+	This is not a square. 
+	
+	
+
+\end{solution}
+
+
+
+
+
+\begin{problem}[106]
+	Let $F: \mc{A} \to \mc{B}$ and $G: \mc{C} \to \mc{B}$ be functors. The comma category $F/G$ has objects $(a \in \mc{A}, f: Fa \to Gc, c \in \mc{C})$. 
+	
+	\begin{enumerate}
+		\item Finish the definition of the comma category
+		\item How are the other comma categories we've defined special cases of this?
+		\item Prove that the category of elements of a presheaf is a comma category
+	\end{enumerate}
+\end{problem}
+\begin{solution}
+	and another solution. Hallelujah!
+\end{solution}
+
+
+\end{document}
