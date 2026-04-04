@@ -1,0 +1,201 @@
+\documentclass[12pt]{article}
+% -------------------
+% Packages
+% -------------------
+\usepackage{
+	amsmath,			% Math Environments
+	amssymb,			% Extended Symbols
+	amsthm,			    % Theorem Environments
+	cancel,			    % Use Cancels
+	enumerate,		    % Enumerate Environments
+	graphicx,			% Include Images
+	lastpage,			% Reference Lastpage
+	multicol,			% Use Multi-columns
+	multirow,			% Use Multi-rows
+	xcolor,			    % Use Colors
+	float,
+	geometry,
+	quiver
+	}
+
+% -------------------
+% Header & Footer
+% -------------------
+\usepackage{fancyhdr}
+
+\newcommand{\assignment}[1]{
+	\fancypagestyle{title}{
+		%Headers
+		\fancyhead[L]{Jake Bridge}
+		\fancyhead[C]{MATH 418}
+		\fancyhead[R]{HW #1}
+		\renewcommand{\headrulewidth}{0.2pt}
+		%Footers
+		\fancyfoot[L]{}
+		\fancyfoot[C]{}
+		\fancyfoot[R]{}
+		\renewcommand{\footrulewidth}{0.0pt}
+	}
+	\thispagestyle{title}
+}
+\fancypagestyle{pages}{
+	%Headers
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\renewcommand{\headrulewidth}{0.0pt}
+	%Footers
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{}
+	\renewcommand{\footrulewidth}{0.0pt}
+}
+\headheight=18pt
+\footskip=14pt
+
+\pagestyle{pages}
+
+% ---------------
+% Page Layout
+% ---------------
+\geometry{letterpaper,
+bindingoffset=0.2in,
+left=1in,
+right=1in,
+top=1in,
+bottom=1in,
+footskip=.25in}
+% -------------------
+% Font
+% -------------------
+%\usepackage[T1]{fontenc}
+%\usepackage{charter}
+
+%\usepackage[T1]{fontenc}
+%\usepackage{mathpazo}
+
+%\usepackage[bitstream-charter]{mathdesign}
+%\usepackage[T1]{fontenc}
+
+
+% -------------------
+% Commands
+% -------------------
+
+% Problem Labels
+\newcounter{problem}[section]
+\newenvironment{problem}[1][\theproblem]{\refstepcounter{problem}\noindent \textbf{Problem~#1.\quad}}{\vskip\smallskipamount}
+
+
+\newenvironment{solution}{\noindent \textbf{Solution.\quad}}{\vskip\bigskipamount}
+
+
+% Special Characters
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\ob}[1]{\text{ob}(#1)}
+\newcommand{\natt}{\Rightarrow}
+\newcommand{\iso}{\cong}
+\newcommand{\op}{\text{op}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Hom}{\textbf{Hom}}
+\newcommand{\Small}{\mathbb{S}}
+
+\newcommand{\eps}{\varepsilon}
+
+% Math Operators
+
+% Special Commands
+
+
+
+% DOC
+\begin{document}
+	\assignment{11}
+
+\begin{problem}
+	Explain your favorite lim/colim result
+\end{problem}
+\begin{solution}
+	My goodness! So many options... I'm not sure I have a favorite result, primarily because I don't think I understand the consequences (far-reaching or immediate) of some of the representability and adjointness results. As such, I'm going to try and use this homework to really understand the result that limit cones correspond to representable functors. 
+	
+	With that in mind, the result I'd like to talk about is 
+	the following:
+	
+	\begin{enumerate}
+		\item Cones $(C, f_S: C \to DS)$ are in bijection with natural transformations $\nu^f : \Delta_C \natt D$
+		\item Such a cone is a limit cone if and only if the natural transformation $N$ with components
+		 \[N_B : \mc{C}(B, C) \to [\Small, \mc{C}](\Delta_B, D)\]
+		with $N_B(g: B \to C) = \nu^f \circ \Delta_g$ is an isomorphism
+	\end{enumerate}
+	
+	I'll first provide a proof of the above result (although we've already done so in class) and then talk about the representability results that use it in the hope of coming a bit closer to an understanding of what they mean.
+	
+	\begin{proof}
+	
+		\begin{enumerate}
+			\item 
+			Checking source and targets, $\Delta_C: \Small \to \mc{C}$, and same with $D$. So, each $\nu^f$ has components $\nu^f_S: \Delta_C(S) \to DS$ s.t.
+			
+			% https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXERlbHRhX0MoUykgPSBDIl0sWzIsMCwiQyA9IFxcRGVsdGFfQyhUKSJdLFswLDIsIkRTIl0sWzIsMiwiRFQiXSxbMiwzLCJEZyJdLFswLDEsIlxcRGVsdGFfQyhnKSA9IDFfQyJdLFswLDIsIlxcbnVeZl9TIiwxXSxbMSwzLCJcXG51XmZfVCIsMV1d
+			\[\begin{tikzcd}
+				{\Delta_C(S) = C} && {C = \Delta_C(T)} \\
+				\\
+				DS && DT
+				\arrow["{\Delta_C(g) = 1_C}", from=1-1, to=1-3]
+				\arrow["{\nu^f_S}"{description}, from=1-1, to=3-1]
+				\arrow["{\nu^f_T}"{description}, from=1-3, to=3-3]
+				\arrow["Dg", from=3-1, to=3-3]
+			\end{tikzcd}\]
+			commutes. This is a triangle in disguise, particularly the triangle defining a cone! Given a cone, we can do the same thing in reverse and get a natural transformation. Hence, the first part is done!
+			
+			\item We've rather boldly asserted that $N_B$ is a natural transformation, so let's double check...
+			
+			Let $h: B' \to B$ (there's some contravariance afoot).
+			
+			Then,
+			% https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXG1je0N9KEIsIEMpIl0sWzMsMCwiXFxtY3tDfShCJywgQykiXSxbMCwzLCJbXFxTbWFsbCwgXFxtY3tDfV0oXFxEZWx0YV9CLCBEKSJdLFszLDMsIltcXFNtYWxsLCBcXG1je0N9XShcXERlbHRhX3tCJ30sIEQpIl0sWzEsMSwiZzogQiBcXHRvIEMiXSxbMSwyLCJcXG51XmYgXFxjaXJjXFxEZWx0YV9nIl0sWzIsMSwiZ1xcY2lyYyBoIl0sWzIsMiwiXFxudV5mIFxcY2lyY1xcRGVsdGFfe2cgXFxjaXJjIGh9Il0sWzAsMSwiLSBcXGNpcmMgaCJdLFsxLDMsIk5fe0InfSIsMl0sWzIsMywiLSBcXGNpcmMgXFxEZWx0YV9oIl0sWzAsMiwiTl9CIiwyXSxbNCw2LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzYsNywiIiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs0LDUsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNSw3LCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV1d
+			\[\begin{tikzcd}
+				{\mc{C}(B, C)} &&& {\mc{C}(B', C)} \\
+				& {g: B \to C} & {g\circ h} \\
+				& {\nu^f \circ\Delta_g} & {\nu^f \circ\Delta_{g \circ h}} \\
+				{[\Small, \mc{C}](\Delta_B, D)} &&& {[\Small, \mc{C}](\Delta_{B'}, D)}
+				\arrow["{- \circ h}", from=1-1, to=1-4]
+				\arrow["{N_B}"', from=1-1, to=4-1]
+				\arrow["{N_{B'}}"', from=1-4, to=4-4]
+				\arrow[maps to, from=2-2, to=2-3]
+				\arrow[maps to, from=2-2, to=3-2]
+				\arrow[maps to, from=2-3, to=3-3]
+				\arrow[maps to, from=3-2, to=3-3]
+				\arrow["{- \circ \Delta_h}", from=4-1, to=4-4]
+			\end{tikzcd}\]
+			commutes by functorality of $\Delta\_$. 
+			
+			Now, suppose that we have a \color{blue} limit cone $(L, \pi_S)$ \color{red} natural transformation $\nu^\pi$ with components $\pi_S$. \color{black} Then, for any other \color{blue} cone $(B, f_S)$ \color{red} natural transformation $\nu^f$ \color{black}, there exists a unique \color{blue} morphism $a: B \to L$ \color{red} nat transformation $\Delta_a: \Delta_B \to \Delta_L$ \color{black} such that \color{blue} $f_S = \pi_S \circ a$ for all $S$ \color{red} $\nu^f = \nu^\pi \circ \Delta_a$\color{black}. 
+			
+			Reading just the blue gives us the definition of a limit cone. Reading just the red is a bit stranger, but characterizes $N_B$ in that any cone $\nu^f$ is uniquely expressible as $N_B(a)$ for some $a$. That is, if $N_B$ encodes a limit cone $\nu^\pi$, then for any cone $\nu^f$ there is a unique $a$ such that $N_B^{-1}(\nu^f) = a$ and such a notion is well defined. Then, $N_B$ is a natural isomorphism! Conversely, if $N_B$ isn't invertible, then its either not injective (we lose uniqueness of the factorization) or not surjective (there is some cone that doesn't factor).
+			
+		\end{enumerate}
+	\end{proof}
+	
+	This result is interesting on its own as it provides an interpretation as a representability result. A cone $\nu^\pi: \Delta_L \natt D$ is a limit if and only if its induced mappings $N_B$ is an isomorphism. That is, that every cone in $\mc{C}$ over $D$ with vertex $B$ corresponds uniquely to a morphism from $B \to L$. Put another way, every cone with vertex $B$ factors uniquely through $L$... 
+	
+	The representability comes when we flip arrows---our factoring morphisms $B \to L$ in $\mc{C}$ look like morphisms $L \to B$ in $\mc{C}^\op$. Then, $\mc{C}^\op(L, -)$ represents the functor that takes a potential vertex $B$ and spits out all the cones with that vertex. 
+	
+	Neat!
+	
+%	The use of this is that $\mc{C}^\op(\lim D, B) = \mc{C}(B, \lim D) \iso [\Small, \mc{C}](\Delta_B, D) \iso 
+	
+	
+\end{solution}
+
+
+
+\end{document}
