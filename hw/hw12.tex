@@ -1,0 +1,351 @@
+\documentclass[12pt]{article}
+% -------------------
+% Packages
+% -------------------
+\usepackage{
+	amsmath,			% Math Environments
+	amssymb,			% Extended Symbols
+	amsthm,			    % Theorem Environments
+	cancel,			    % Use Cancels
+	enumerate,		    % Enumerate Environments
+	graphicx,			% Include Images
+	lastpage,			% Reference Lastpage
+	multicol,			% Use Multi-columns
+	multirow,			% Use Multi-rows
+	xcolor,			    % Use Colors
+	float,
+	geometry,
+	quiver
+	}
+
+% -------------------
+% Header & Footer
+% -------------------
+\usepackage{fancyhdr}
+
+\newcommand{\assignment}[1]{
+	\fancypagestyle{title}{
+		%Headers
+		\fancyhead[L]{Jake Bridge}
+		\fancyhead[C]{MATH 418}
+		\fancyhead[R]{HW #1}
+		\renewcommand{\headrulewidth}{0.2pt}
+		%Footers
+		\fancyfoot[L]{}
+		\fancyfoot[C]{}
+		\fancyfoot[R]{}
+		\renewcommand{\footrulewidth}{0.0pt}
+	}
+	\thispagestyle{title}
+}
+\fancypagestyle{pages}{
+	%Headers
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\renewcommand{\headrulewidth}{0.0pt}
+	%Footers
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{}
+	\renewcommand{\footrulewidth}{0.0pt}
+}
+\headheight=18pt
+\footskip=14pt
+
+\pagestyle{pages}
+
+% ---------------
+% Page Layout
+% ---------------
+\geometry{letterpaper,
+bindingoffset=0.2in,
+left=1in,
+right=1in,
+top=1in,
+bottom=1in,
+footskip=.25in}
+% -------------------
+% Font
+% -------------------
+%\usepackage[T1]{fontenc}
+%\usepackage{charter}
+
+%\usepackage[T1]{fontenc}
+%\usepackage{mathpazo}
+
+%\usepackage[bitstream-charter]{mathdesign}
+%\usepackage[T1]{fontenc}
+
+
+% -------------------
+% Commands
+% -------------------
+
+% Problem Labels
+\newcounter{problem}[section]
+\newenvironment{problem}[1][\theproblem]{\refstepcounter{problem}\noindent \textbf{Problem~#1.\quad}}{\vskip\smallskipamount}
+
+
+\newenvironment{solution}{\noindent \textbf{Solution.\quad}}{\vskip\bigskipamount}
+
+
+% Special Characters
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\ob}[1]{\text{ob}(#1)}
+\newcommand{\natt}{\Rightarrow}
+\newcommand{\iso}{\cong}
+\newcommand{\op}{\text{op}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Hom}{\textbf{Hom}}
+\newcommand{\Small}{\mathbb{S}}
+
+\newcommand{\eps}{\varepsilon}
+
+% Math Operators
+
+% Special Commands
+
+
+
+% DOC
+\begin{document}
+	\assignment{12}
+
+\begin{problem}[111]
+	Let $\mc{C}$ be a category, and consider the functor category $[\mc{C}, \mc{C}]$. Prove that composition of functors is the tensor product for a strict monoidal structure on this category.
+\end{problem}
+\begin{solution}
+	We take the unit to be $1_\mc{C}$ with $l = 1, r = 1, a = 1$. I'll write down every axiom and say something along the lines of "yep, that's obvious." 
+	
+	Firstly, note that the identities $l, r, a$ are obviously natural, and moreover do what we asked them to by (for $l$ and $r$) definition of the identity functor and (for $a$) associativity of functor composition. 
+	
+	We would need to check the associativity pentagon, but that's another consequence of associativity of functor composition. The same goes for the the identity triangle. In essence, the entire category works monoidally because we can just remove the parentheses on everything, notice that we can get rid of any identity functors, and then associativity of functor composition tells us that we can put back our parentheses however.  \qed
+
+\end{solution}
+
+
+
+
+
+
+
+\begin{problem}[115]
+	Let $(\mc{V}, \otimes, I, a, l, r)$ be a monoidal category, and suppose we have some cateogry $\mc{C}$ and an isomorphism $F: \mc{V} \iso \mc{C}$. Construct a monoidal structure, the "transferred monoidal structure," on $\mc{C}$ such that $F$ is a strict monoidal functor and isomorphism of monoidal categories. Prove that $\mc{C}$ is strict iff $\mc{V}$ is. 
+\end{problem}
+\begin{solution}
+	
+	This solution looks long, but could be much shorter if I gave up earlier on drawing all the diagrams that commute in the exact same way. 
+	
+	I'll begin by claiming that $\mc{C}$ has the monoidal structure $(\mc{C}, \otimes', FI, a', l', r')$ where if $A, A' \in \mc{C}, A \otimes' A' = F( F^{-1}A \otimes F^{-1}A')$, and similarly on morphisms. We also define $a'_{X, Y, Z} = F(a_{F^{-1}X, F^{-1}X, F^{-1}Z})$, and $l$ and $r$ identically. 
+	
+	I'll check naturality of $a'$ and $l'$, and leave $r'$ because it's the same as $l'$. I will use juxtaposition usually for tensor products but sometimes for composition. It should be relatively obvious---if there's an $F^{-1}$ or $F$ on the left of something, that's composition. Otherwise, it's tensoring. 
+	
+% https://q.uiver.app/#q=WzAsOCxbMCwwLCIoWFkpWiJdLFsyLDAsIlgoWVopIl0sWzAsMiwiKFgnWScpWiciXSxbMiwyLCJYJyhZJ1onKSJdLFswLDMsIihGXnstMX1YRl57LTF9WSlGXnstMX1aIl0sWzIsMywiRl57LTF9WChGXnstMX1ZRl57LTF9WikiXSxbMCw1LCIoRl57LTF9WCdGXnstMX1ZJylGXnstMX1aJyJdLFsyLDUsIkZeey0xfVgnKEZeey0xfVknRl57LTF9WicpIl0sWzAsMSwiYSciXSxbMCwyLCIoZlxcb3RpbWVzJyBnKVxcb3RpbWVzJyBoIiwyXSxbMSwzLCJmIFxcb3RpbWVzJyhnIFxcb3RpbWVzJyBoKSJdLFsyLDMsImEnIiwyXSxbNCw1LCJhIl0sWzQsNiwiKEZeey0xfWZcXG90aW1lcyBGXnstMX1nKVxcb3RpbWVzIEZeey0xfWgiLDJdLFs2LDcsImEiLDJdLFs1LDcsIkZeey0xfWZcXG90aW1lcyAoRl57LTF9ZyBcXG90aW1lcyBGXnstMX1oKSJdXQ==
+\[\begin{tikzcd}
+	{(XY)Z} && {X(YZ)} \\
+	\\
+	{(X'Y')Z'} && {X'(Y'Z')} \\
+	{(F^{-1}XF^{-1}Y)F^{-1}Z} && {F^{-1}X(F^{-1}YF^{-1}Z)} \\
+	\\
+	{(F^{-1}X'F^{-1}Y')F^{-1}Z'} && {F^{-1}X'(F^{-1}Y'F^{-1}Z')}
+	\arrow["{a'}", from=1-1, to=1-3]
+	\arrow["{(f\otimes' g)\otimes' h}"', from=1-1, to=3-1]
+	\arrow["{f \otimes'(g \otimes' h)}", from=1-3, to=3-3]
+	\arrow["{a'}"', from=3-1, to=3-3]
+	\arrow["a", from=4-1, to=4-3]
+	\arrow["{(F^{-1}f\otimes F^{-1}g)\otimes F^{-1}h}"', from=4-1, to=6-1]
+	\arrow["{F^{-1}f\otimes (F^{-1}g \otimes F^{-1}h)}", from=4-3, to=6-3]
+	\arrow["a"', from=6-1, to=6-3]
+\end{tikzcd}\]
+
+The top square is the square we need to check. The top square is equal, by definition, to $F$ applied to the bottom square. The bottom square commutes because it is a naturality square of $a$ in $\mc{V}$. Functors preserve diagrams, and so the top square also commutes. 
+
+Now, for $l$, I'll write the subscripts explicitly...
+
+% https://q.uiver.app/#q=WzAsOCxbMCwwLCJGSSBYIl0sWzIsMCwiWCJdLFsyLDIsIlgnIl0sWzAsMiwiRklYJyJdLFs0LDAsIklGXnstMX1YIl0sWzYsMCwiRl57LTF9WCJdLFs0LDIsIklGXnstMX1YJyJdLFs2LDIsIkZeey0xfVgnIl0sWzAsMSwibCdfeCJdLFsxLDIsImYiXSxbMCwzLCIxX3tGSX1mIiwyXSxbMywyLCJsX3t4J30iLDJdLFs0LDUsImxfe0Zeey0xfVh9Il0sWzQsNiwiMV9JRl57LTF9ZiIsMl0sWzYsNywibF97Rl57LTF9WCd9IiwyXSxbNSw3LCJGXnstMX1mIl1d
+\[\begin{tikzcd}
+	{FI X} && X && {IF^{-1}X} && {F^{-1}X} \\
+	\\
+	{FIX'} && {X'} && {IF^{-1}X'} && {F^{-1}X'}
+	\arrow["{l'_x}", from=1-1, to=1-3]
+	\arrow["{1_{FI}f}"', from=1-1, to=3-1]
+	\arrow["f", from=1-3, to=3-3]
+	\arrow["{l_{F^{-1}X}}", from=1-5, to=1-7]
+	\arrow["{1_IF^{-1}f}"', from=1-5, to=3-5]
+	\arrow["{F^{-1}f}", from=1-7, to=3-7]
+	\arrow["{l_{x'}}"', from=3-1, to=3-3]
+	\arrow["{l_{F^{-1}X'}}"', from=3-5, to=3-7]
+\end{tikzcd}\]
+
+We would like the left square to commute. Again, by definition, the left square is just $F$ applied to the right square. The right square is a naturality square for $l$ in $\mc{V}$, and so commutes. The right unit follows identically.
+
+The pentagon and triangle axioms follow the exact same technique. I'll explicitly write out the triangle one...
+
+% https://q.uiver.app/#q=WzAsNixbMCwwLCIoWEZJKVkiXSxbMiwwLCJYKEZJWSkiXSxbMSwyLCJYWSJdLFswLDMsIihGXnstMX1YSSlGXnstMX1ZIl0sWzIsMywiRl57LTF9WChJRl57LTF9WSkiXSxbMSw1LCJGXnstMX1YRl57LTF9WSJdLFswLDEsImEnX3tYLCBGSSwgWX0iLDJdLFsxLDIsIjFfWGwnX3tZfSIsMl0sWzAsMiwicidfWDFfWSJdLFszLDQsImFfe0Zeey0xfVgsIEksIEZeey0xfVl9IiwyXSxbNCw1LCIxX3tGXnstMX1YfWxfe0Zeey0xfVl9IiwxXSxbMyw1LCJyX3tGXnstMX1YfTFfe0Zeey0xfVl9IiwxXV0=
+\[\begin{tikzcd}
+	{(XFI)Y} && {X(FIY)} \\
+	\\
+	& XY \\
+	{(F^{-1}XI)F^{-1}Y} && {F^{-1}X(IF^{-1}Y)} \\
+	\\
+	& {F^{-1}XF^{-1}Y}
+	\arrow["{a'_{X, FI, Y}}"', from=1-1, to=1-3]
+	\arrow["{r'_X1_Y}", from=1-1, to=3-2]
+	\arrow["{1_Xl'_{Y}}"', from=1-3, to=3-2]
+	\arrow["{a_{F^{-1}X, I, F^{-1}Y}}"', from=4-1, to=4-3]
+	\arrow["{r_{F^{-1}X}1_{F^{-1}Y}}"{description}, from=4-1, to=6-2]
+	\arrow["{1_{F^{-1}X}l_{F^{-1}Y}}"{description}, from=4-3, to=6-2]
+\end{tikzcd}\]
+
+One last time... we want the top diagram. The top diagram is $F$ applied to the bottom diagram. The bottom diagram is the triangle axiom in $\mc{V}$, hence commutes. 
+
+The pentagon follows identically, but with a lot more subscripts.
+
+Hence, we have a monoidal structure on $\mc{C}$. Moreover, $(F, 1, 1)$ is a monoidal functor. We know we have a functor $F$. We also have that the unit object in $\mc{C}$ is $FI$, which is equal to $FI$, and so $F_0 = 1$. Moreover, we have that $FX \otimes' FY := F(X \otimes Y)$, and so $F_2$ is also the identity! Then, the axioms for a monoidal functor follow trivially. For instance, we would need that the big square/hexagon thing has $F_2 \circ 1F_2 \circ a' = Fa \circ F_2 \circ F_2 1$ (with all the subscripts properly matching). But, because $F_2 = 1$, this is the same as $a' = Fa$, which is what we had defined earlier! The unit triangle/squares do the same thing. Thus, $(F, 1, 1)$ defines a strict monoidal functor. 
+
+Lastly, we must show that $\mc{C}$ is strict if and only if $\mc{V}$ is. If $\mc{V}$ is strict, then, $a = 1, l = 1, r = 1$. Then, though, because $F$ is a functor, it preserves identities, and so $a' = Fa, l' = Fl, r' = Fr$ would also all be identities, and hence $\mc{C}$ would be strict. Conversely, apply the same logic but use that $F^{-1}$ is another functor, so if $\mc{C}$ is strict, then $a = F^{-1}a', l = F^{-1}l', r = F^{-1}r'$ would also be identities!
+
+
+
+\end{solution}
+
+
+
+
+
+
+
+\begin{problem}[119]
+	Let $(\mc{V}, \otimes, I, a, l, r)$ be a monoidal category, and $(v, m, i)$ a monoid in $\mc{V}$. Construct a monoidal structure on the slice cateogry $\mc{V}/v$, and determine what the monoids are in it. 
+\end{problem}
+\begin{solution}
+	This solution is actually quite long... and I still don't check everything. There are a lot of symbols to keep track of, and I primarily try and derive all of the important equalities (by naturality and monoid properties) that lets one easily verify all the naturality squares and axioms and check that our morphisms are actually morphisms in $\mc{V}/v$. 
+	
+	The slice category has objects $(c, f: c \to v)$ and morphisms $(c, f) \xrightarrow{g} (c', f')$ given by % % https://q.uiver.app/#q=WzAsMyxbMSwxLCJ2Il0sWzAsMCwiYSJdLFswLDEsImEnIl0sWzEsMCwiZiIsMV0sWzEsMiwiZyIsMV0sWzIsMCwiZiciLDFdXQ==
+	\[\begin{tikzcd}
+		c & \\
+		{c'} & v
+		\arrow["g"{description}, from=1-1, to=2-1]
+		\arrow["f"{description}, from=1-1, to=2-2]
+		\arrow["{f'}"{description}, from=2-1, to=2-2]
+	\end{tikzcd}\]
+	
+	We can define a tensor product 
+	
+	\[(c, f) \otimes' (c', f') := (c \otimes c', m \circ f \otimes f')\]
+	
+	and unit object $(I, i)$. 
+	
+	Observe that \[((c, f) \otimes' (c', f')) \otimes' (c'', f'') = (c \otimes c', m \circ f \otimes f') \otimes (c'' \otimes f'') = ((c \otimes c') \otimes c'', m \circ (m \circ f \otimes f') \otimes f'') \]
+	
+	However, as we associate the objects $c$ to get $c \otimes (c' \otimes c'')$
+	
+% https://q.uiver.app/#q=WzAsNyxbMCwwLCIoYyBcXG90aW1lcyBjJykgXFxvdGltZXMgYycnIl0sWzMsMCwiYyBcXG90aW1lcyAoYycgXFxvdGltZXMgYycnKSJdLFswLDIsIih2IFxcb3RpbWVzIHYpIFxcb3RpbWVzIHYiXSxbMywyLCJ2IFxcb3RpbWVzICh2IFxcb3RpbWVzIHYpIl0sWzAsNSwidiBcXG90aW1lcyB2Il0sWzMsMywidiBcXG90aW1lcyB2Il0sWzMsNSwidiJdLFswLDEsImEiLDFdLFswLDIsIihmIFxcb3RpbWVzIGYnKSBcXG90aW1lcyBmJyciLDFdLFsxLDMsImYgXFxvdGltZXMgKGYnIFxcb3RpbWVzIGYnJykiLDFdLFsyLDMsImEiLDFdLFsyLDQsIm0gMSIsMV0sWzMsNSwiMW0iLDFdLFs1LDYsIm0iLDFdLFs0LDYsIm0iLDFdXQ==
+\[\begin{tikzcd}
+	{(c \otimes c') \otimes c''} &&& {c \otimes (c' \otimes c'')} \\
+	\\
+	{(v \otimes v) \otimes v} &&& {v \otimes (v \otimes v)} \\
+	&&& {v \otimes v} \\
+	\\
+	{v \otimes v} &&& v
+	\arrow["a"{description}, from=1-1, to=1-4]
+	\arrow["{(f \otimes f') \otimes f''}"{description}, from=1-1, to=3-1]
+	\arrow["{f \otimes (f' \otimes f'')}"{description}, from=1-4, to=3-4]
+	\arrow["a"{description}, from=3-1, to=3-4]
+	\arrow["{m 1}"{description}, from=3-1, to=6-1]
+	\arrow["1m"{description}, from=3-4, to=4-4]
+	\arrow["m"{description}, from=4-4, to=6-4]
+	\arrow["m"{description}, from=6-1, to=6-4]
+\end{tikzcd}\]
+	
+	This diagram, (naturality of $a$ followed by the monoid definition), tells us that the morphisms associate as $m \circ f \otimes (m \circ f' \otimes f'')$. Note that  
+	
+		\[(c, f) \otimes' ((c', f') \otimes' (c'', f'')) = (c, f) \otimes' (c' \otimes c'', m \circ f' \otimes f'') = (c \otimes (c' \otimes c''), m \circ f \otimes (m \circ f' \otimes f'')) \]
+	
+	This tells us that $m$ commutes with $1$ under $a$ and so, if we were to unravel the definitions and use this, we get that $a'$ is a morphism in the slice category.
+		
+%		and so associativity is sensible. In particular, our associator is an actual morphism in the slice category. In particular, we need to show that our construction of the associator is natural in $(c, f)$. If I'm not mistaken, I believe the following diagram does this:
+%		
+%	% https://q.uiver.app/#q=WzAsOSxbMCwwLCIoYyBcXG90aW1lcyBjJykgXFxvdGltZXMgYycnIl0sWzUsMCwiYyBcXG90aW1lcyAoYycgXFxvdGltZXMgYycnKSJdLFswLDUsIihkIFxcb3RpbWVzIGQnKSBcXG90aW1lcyBkJyciXSxbNSw1LCJkIFxcb3RpbWVzIChkJyBcXG90aW1lcyBkJycpIl0sWzIsMSwiKHZ2KXYiXSxbMywxLCJ2KHZ2KSJdLFsyLDMsInZ2Il0sWzMsNCwidiJdLFszLDMsInZ2Il0sWzAsMiwiKGggXFxvdGltZXMgaCcpIFxcb3RpbWVzIGgnJyIsMV0sWzEsMywiaCBcXG90aW1lcyAoaCcgXFxvdGltZXMgaCcnKSIsMV0sWzIsMywiYSIsMV0sWzAsMSwiYSIsMV0sWzAsNCwiKGYgXFxvdGltZXMgZicpIFxcb3RpbWVzIGYnJyIsMV0sWzEsNSwiZiBcXG90aW1lcyAoZicgXFxvdGltZXMgZicnKSIsMV0sWzQsNSwiYSIsMV0sWzMsNSwiZyBcXG90aW1lcyAoZycgXFxvdGltZXMgZycnKSIsMV0sWzIsNCwiKGcgXFxvdGltZXMgZycpIFxcb3RpbWVzIGcnJyIsMV0sWzQsNiwibTEiLDFdLFs2LDcsIm0iLDFdLFs1LDgsIjFtIiwxXSxbOCw3LCJtIiwxXV0=
+%	\[\begin{tikzcd}
+%		{(c \otimes c') \otimes c''} &&&&& {c \otimes (c' \otimes c'')} \\
+%		&& {(vv)v} & {v(vv)} \\
+%		\\
+%		&& vv & vv \\
+%		&&& v \\
+%		{(d \otimes d') \otimes d''} &&&&& {d \otimes (d' \otimes d'')}
+%		\arrow["a"{description}, from=1-1, to=1-6]
+%		\arrow["{(f \otimes f') \otimes f''}"{description}, from=1-1, to=2-3]
+%		\arrow["{(h \otimes h') \otimes h''}"{description}, from=1-1, to=6-1]
+%		\arrow["{f \otimes (f' \otimes f'')}"{description}, from=1-6, to=2-4]
+%		\arrow["{h \otimes (h' \otimes h'')}"{description}, from=1-6, to=6-6]
+%		\arrow["a"{description}, from=2-3, to=2-4]
+%		\arrow["m1"{description}, from=2-3, to=4-3]
+%		\arrow["1m"{description}, from=2-4, to=4-4]
+%		\arrow["m"{description}, from=4-3, to=5-4]
+%		\arrow["m"{description}, from=4-4, to=5-4]
+%		\arrow["{(g \otimes g') \otimes g''}"{description}, from=6-1, to=2-3]
+%		\arrow["a"{description}, from=6-1, to=6-6]
+%		\arrow["{g \otimes (g' \otimes g'')}"{description}, from=6-6, to=2-4]
+%	\end{tikzcd}\]
+		
+		Following this sort of argument (associate first in objects using the associator from $\mc{V}$, then use the morphisms from the definition of the slice category to get to a bunch of copies of $v$, then use the monoid structure of $v$ to get down to one copy of $v$), I claim that the pentagon identity is satisfied (although, admittedly, I have not convinced myself to actually write out the diagram to show it)
+		
+		
+		I'll now define the left and right units. (Really just the left one. Right follows identically.) 
+		
+		The left unit $l'$ is induced by the left unit in $\mc{V}$. Observe that $(I, i) \otimes (c, f) = (I \otimes c, m \circ i \otimes f)$. 
+		
+		% https://q.uiver.app/#q=WzAsNSxbMCwwLCJJIFxcb3RpbWVzIGMiXSxbMCwyLCJjIl0sWzIsMCwiSSBcXG90aW1lcyB2Il0sWzQsMCwidnYiXSxbMiwyLCJ2Il0sWzAsMSwibCJdLFswLDIsIjEgXFxvdGltZXMgZiIsMl0sWzIsMywiaSBcXG90aW1lcyAxIiwyXSxbMyw0LCJtIiwyXSxbMiw0LCJsIiwyXSxbMSw0LCJmIl1d
+		\[\begin{tikzcd}
+			{I \otimes c} && {I \otimes v} && vv \\
+			\\
+			c && v
+			\arrow["{1 \otimes f}"', from=1-1, to=1-3]
+			\arrow["l", from=1-1, to=3-1]
+			\arrow["{i \otimes 1}"', from=1-3, to=1-5]
+			\arrow["l"', from=1-3, to=3-3]
+			\arrow["m"', from=1-5, to=3-3]
+			\arrow["f", from=3-1, to=3-3]
+		\end{tikzcd}\]
+		The left square is the naturality of $l$. The right triangle is the monoid left unit axiom. Hence, we get that $m \circ i \otimes f = f \circ l$. That is, the left unit $l'$ of $\mc{V}/v$ is natural and satisfies the slice category morphism rules. 
+		
+		
+		We can also show that we satisfy the triangle axiom, but that is more symbol juggling, and ends up using all the equalities I've outlined above. So, we have a monoidal category! 
+		
+		A monoid in $\mc{V}/v$ is some object $(w, \omega: w \to v)$ with a morphism from $(w \otimes w, m \circ \omega \otimes \omega) \xrightarrow{\mu} (w, \omega)$ and $(I, i) \xrightarrow{\iota} (w, \omega)$. 
+		
+		The conditions in the slice category tell us that we must have 
+		% https://q.uiver.app/#q=WzAsNyxbNCwwLCJ3Il0sWzQsMiwidiJdLFs2LDAsIncgXFxvdGltZXMgdyJdLFswLDAsIkkiXSxbMiwyLCJ2Il0sWzIsMCwidyJdLFs2LDIsInYgXFxvdGltZXMgdiJdLFsyLDAsIlxcbXUiLDFdLFswLDEsIlxcb21lZ2EiLDFdLFszLDQsImkiLDFdLFszLDUsIlxcaW90YSIsMV0sWzUsNCwiXFxvbWVnYSIsMV0sWzIsNiwiXFxvbWVnYSBcXG90aW1lcyBcXG9tZWdhIiwxXSxbNiwxLCJtIiwxXV0=
+		\[\begin{tikzcd}
+			I && w && w && {w \otimes w} \\
+			\\
+			&& v && v && {v \otimes v}
+			\arrow["\iota"{description}, from=1-1, to=1-3]
+			\arrow["i"{description}, from=1-1, to=3-3]
+			\arrow["\omega"{description}, from=1-3, to=3-3]
+			\arrow["\omega"{description}, from=1-5, to=3-5]
+			\arrow["\mu"{description}, from=1-7, to=1-5]
+			\arrow["{\omega \otimes \omega}"{description}, from=1-7, to=3-7]
+			\arrow["m"{description}, from=3-7, to=3-5]
+		\end{tikzcd}\]
+		
+		commuting. These, however, are precisely the axioms for a monoid homomorphism in $\mc{V}$!
+		
+		Hence, monoids in $\mc{V}/v$ are monoids $(w, \mu, \iota)$ in $\mc{V}$ equipped with monoid homomorphisms to $(v, m, i)$ \qed
+		
+		
+
+\end{solution}
+
+
+\end{document}
