@@ -126,7 +126,7 @@ footskip=.25in}
 \begin{solution}
 	We take the unit to be $1_\mc{C}$ with $l = 1, r = 1, a = 1$. I'll write down every axiom and say something along the lines of "yep, that's obvious." 
 	
-	Firstly, note that the identities $l, r, a$ are obviously natural, and moreover do what we asked them to by (for $l$ and $r$) definition of the identity functor and (for $a$) associativity of functor composition. 
+	Firstly, note that the identities $l, r, a$ are obviously natural, and moreover do what we asked them to by definition of the identity functor (for $l$ and $r$)  and associativity of functor composition (for $a$). 
 	
 	We would need to check the associativity pentagon, but that's another consequence of associativity of functor composition. The same goes for the the identity triangle. In essence, the entire category works monoidally because we can just remove the parentheses on everything, notice that we can get rid of any identity functors, and then associativity of functor composition tells us that we can put back our parentheses however.  \qed
 
@@ -145,7 +145,7 @@ footskip=.25in}
 	
 	This solution looks long, but could be much shorter if I gave up earlier on drawing all the diagrams that commute in the exact same way. 
 	
-	I'll begin by claiming that $\mc{C}$ has the monoidal structure $(\mc{C}, \otimes', FI, a', l', r')$ where if $A, A' \in \mc{C}, A \otimes' A' = F( F^{-1}A \otimes F^{-1}A')$, and similarly on morphisms. We also define $a'_{X, Y, Z} = F(a_{F^{-1}X, F^{-1}X, F^{-1}Z})$, and $l$ and $r$ identically. 
+	I'll begin by claiming that $\mc{C}$ has the monoidal structure $(\mc{C}, \otimes', FI, a', l', r')$ where if $A, A' \in \mc{C}, A \otimes' A' = F( F^{-1}A \otimes F^{-1}A')$, and similarly on morphisms. We also define $a'_{X, Y, Z} = F(a_{F^{-1}X, F^{-1}X, F^{-1}Z})$, and we define $l'$ and $r'$ identically. 
 	
 	I'll check naturality of $a'$ and $l'$, and leave $r'$ because it's the same as $l'$. I will use juxtaposition usually for tensor products but sometimes for composition. It should be relatively obvious---if there's an $F^{-1}$ or $F$ on the left of something, that's composition. Otherwise, it's tensoring. 
 	
@@ -267,11 +267,13 @@ Lastly, we must show that $\mc{C}$ is strict if and only if $\mc{V}$ is. If $\mc
 	\arrow["m"{description}, from=6-1, to=6-4]
 \end{tikzcd}\]
 	
-	This diagram, (naturality of $a$ followed by the monoid definition), tells us that the morphisms associate as $m \circ f \otimes (m \circ f' \otimes f'')$. Note that  
+	This diagram, (naturality of $a$ followed by a monoid axiom), tells us that as we associate $(c \otimes c') \otimes c'' \mapsto c \otimes (c' \otimes c'')$, the relevant morphisms into $v$ associate to become $m \circ f \otimes (m \circ f' \otimes f'')$. Note that  
 	
 		\[(c, f) \otimes' ((c', f') \otimes' (c'', f'')) = (c, f) \otimes' (c' \otimes c'', m \circ f' \otimes f'') = (c \otimes (c' \otimes c''), m \circ f \otimes (m \circ f' \otimes f'')) \]
 	
-	This tells us that $m$ commutes with $1$ under $a$ and so, if we were to unravel the definitions and use this, we get that $a'$ is a morphism in the slice category.
+	Hence, performing our naively-defined tensor composition on the slice category is compatible with naively performing association on the object part of the slice category. We just take association in the slice category to be this naive method of association. Naturality of $a'$ follows by naturality of $a$ and the previous argument about how morphisms associate. 
+	
+%	This tells us that $m$ commutes with $1$ under $a$ and so, if we were to unravel the definitions and use this, we get that $a'$ is a morphism in the slice category.
 		
 %		and so associativity is sensible. In particular, our associator is an actual morphism in the slice category. In particular, we need to show that our construction of the associator is natural in $(c, f)$. If I'm not mistaken, I believe the following diagram does this:
 %		
@@ -320,9 +322,9 @@ Lastly, we must show that $\mc{C}$ is strict if and only if $\mc{V}$ is. If $\mc
 		The left square is the naturality of $l$. The right triangle is the monoid left unit axiom. Hence, we get that $m \circ i \otimes f = f \circ l$. That is, the left unit $l'$ of $\mc{V}/v$ is natural and satisfies the slice category morphism rules. 
 		
 		
-		We can also show that we satisfy the triangle axiom, but that is more symbol juggling, and ends up using all the equalities I've outlined above. So, we have a monoidal category! 
+		We can also show that we satisfy the triangle axiom, but that is more symbol juggling, and ends up using all the equalities I've outlined above. Suffice it to say, we have a monoidal category! 
 		
-		A monoid in $\mc{V}/v$ is some object $(w, \omega: w \to v)$ with a morphism from $(w \otimes w, m \circ \omega \otimes \omega) \xrightarrow{\mu} (w, \omega)$ and $(I, i) \xrightarrow{\iota} (w, \omega)$. 
+		A monoid in $\mc{V}/v$ is some object $(w, \omega: w \to v)$ with morphisms \[(w \otimes w, m \circ \omega \otimes \omega) \xrightarrow{\mu} (w, \omega) \text{ and } (I, i) \xrightarrow{\iota} (w, \omega)\]
 		
 		The conditions in the slice category tell us that we must have 
 		% https://q.uiver.app/#q=WzAsNyxbNCwwLCJ3Il0sWzQsMiwidiJdLFs2LDAsIncgXFxvdGltZXMgdyJdLFswLDAsIkkiXSxbMiwyLCJ2Il0sWzIsMCwidyJdLFs2LDIsInYgXFxvdGltZXMgdiJdLFsyLDAsIlxcbXUiLDFdLFswLDEsIlxcb21lZ2EiLDFdLFszLDQsImkiLDFdLFszLDUsIlxcaW90YSIsMV0sWzUsNCwiXFxvbWVnYSIsMV0sWzIsNiwiXFxvbWVnYSBcXG90aW1lcyBcXG9tZWdhIiwxXSxbNiwxLCJtIiwxXV0=
