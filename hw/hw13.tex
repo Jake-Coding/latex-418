@@ -1,0 +1,277 @@
+\documentclass[12pt]{article}
+% -------------------
+% Packages
+% -------------------
+\usepackage{
+	amsmath,			% Math Environments
+	amssymb,			% Extended Symbols
+	amsthm,			    % Theorem Environments
+	cancel,			    % Use Cancels
+	enumerate,		    % Enumerate Environments
+	graphicx,			% Include Images
+	lastpage,			% Reference Lastpage
+	multicol,			% Use Multi-columns
+	multirow,			% Use Multi-rows
+	xcolor,			    % Use Colors
+	float,
+	geometry,
+	quiver
+	}
+
+% -------------------
+% Header & Footer
+% -------------------
+\usepackage{fancyhdr}
+
+\newcommand{\assignment}[1]{
+	\fancypagestyle{title}{
+		%Headers
+		\fancyhead[L]{Jake Bridge}
+		\fancyhead[C]{MATH 418}
+		\fancyhead[R]{HW #1}
+		\renewcommand{\headrulewidth}{0.2pt}
+		%Footers
+		\fancyfoot[L]{}
+		\fancyfoot[C]{}
+		\fancyfoot[R]{}
+		\renewcommand{\footrulewidth}{0.0pt}
+	}
+	\thispagestyle{title}
+}
+\fancypagestyle{pages}{
+	%Headers
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\renewcommand{\headrulewidth}{0.0pt}
+	%Footers
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{}
+	\renewcommand{\footrulewidth}{0.0pt}
+}
+\headheight=18pt
+\footskip=14pt
+
+\pagestyle{pages}
+
+% ---------------
+% Page Layout
+% ---------------
+\geometry{letterpaper,
+bindingoffset=0.2in,
+left=1in,
+right=1in,
+top=1in,
+bottom=1in,
+footskip=.25in}
+% -------------------
+% Font
+% -------------------
+%\usepackage[T1]{fontenc}
+%\usepackage{charter}
+
+%\usepackage[T1]{fontenc}
+%\usepackage{mathpazo}
+
+%\usepackage[bitstream-charter]{mathdesign}
+%\usepackage[T1]{fontenc}
+
+
+% -------------------
+% Commands
+% -------------------
+
+% Problem Labels
+\newcounter{problem}[section]
+\newenvironment{problem}[1][\theproblem]{\refstepcounter{problem}\noindent \textbf{Problem~#1.\quad}}{\vskip\smallskipamount}
+
+
+\newenvironment{solution}{\noindent \textbf{Solution.\quad}}{\vskip\bigskipamount}
+
+
+% Special Characters
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\ob}[1]{\text{ob}(#1)}
+\newcommand{\natt}{\Rightarrow}
+\newcommand{\iso}{\cong}
+\newcommand{\op}{\text{op}}
+
+\newcommand{\Set}{\textbf{Set}}
+\newcommand{\Hom}{\textbf{Hom}}
+\newcommand{\Small}{\mathbb{S}}
+
+\newcommand{\eps}{\varepsilon}
+
+\newcommand{\colim}{\text{co}\lim}
+\newcommand{\el}{\text{el}}
+
+% Math Operators
+
+% Special Commands
+
+
+
+% DOC
+\begin{document}
+	\assignment{13}
+
+
+\newcommand{\F}{\mathbb{F}}
+\begin{problem}[33]
+	Let $V$ be a v.s. over $\mathbb{F}$ and prove that $V \mapsto V^{**}$ is the object part of a functor $(-)^{**}: \textbf{Vect} \to \textbf{Vect}$. Show that $e: V \to V^{**}$ with $e(v)(f) := f(v)$ is a natural transformation, and an isomorphism iff $V$ is finite dimensional.
+\end{problem}
+
+\begin{solution}
+	
+	Let $A: V \to W$ be a linear map. We define $A^{**}: V^{**} \to W^{**}$ as \[A^{**}(g: W^{*} \to \F) = g \circ A^*\] Note that $(g \circ A^*) \circ f = g \circ (f \circ A)$. We will show that this defines a functor. 
+	
+
+	
+
+
+	
+	Let $I$ be the identity map on $V$. It is clear that the identity map $1_{V^{**}}$ on $V^{**}$ is the map sending a linear functional $f : V^* \to \F$ to itself. In particular, $I'(g)(f) = g \circ f$. However, $I^{**}(g)(f) = g \circ f$, so $I^{**} = 1_{V^{**}}$. 
+	
+	Notice briefly that $(AB)^*(f) = f \circ A \circ B = B^*(f \circ A) = B^*A^*f$. 
+	Then, $(AB)^{**}(g) = g \circ (AB)^* = g \circ B^*A^* = A^{**}(g \circ B^*) = A^{**}B^{**}g$. That is, $(AB)^{**} = A^{**}B^{**}$, so we have a functor!
+	
+	
+	Note that if $g$ is an evaluation map, say at $v$, then we get that $A^{**}(g)(f) = (f \circ A)(v) = f(Av)$, so $A^{**}(g)$ is the evaluation map at $Av$. That is precisely the statement of naturality of $e$ with respect to $A$:
+% https://q.uiver.app/#q=WzAsOCxbMCwwLCJWIl0sWzMsMCwiVyJdLFswLDMsIlZeeyoqfSJdLFszLDMsIldeeyoqfSJdLFsxLDEsInYiXSxbMiwxLCJBdiJdLFsyLDIsIkFeeyoqfShlKHYpKSA9IGUoQXYpIl0sWzEsMiwiZSh2KSJdLFswLDIsImUiXSxbMSwzLCJlIl0sWzAsMSwiQSIsMV0sWzIsMywiQV57Kip9IiwxXSxbNCw1LCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzUsNiwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs0LDcsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNyw2LCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV1d
+\[\begin{tikzcd}
+	V &&& W \\
+	& v & Av \\
+	& {e(v)} & {A^{**}(e(v)) = e(Av)} \\
+	{V^{**}} &&& {W^{**}}
+	\arrow["A"{description}, from=1-1, to=1-4]
+	\arrow["e", from=1-1, to=4-1]
+	\arrow["e", from=1-4, to=4-4]
+	\arrow[maps to, from=2-2, to=2-3]
+	\arrow[maps to, from=2-2, to=3-2]
+	\arrow[maps to, from=2-3, to=3-3]
+	\arrow[maps to, from=3-2, to=3-3]
+	\arrow["{A^{**}}"{description}, from=4-1, to=4-4]
+\end{tikzcd}\]
+
+
+Note that the kernel of $e$ is the set of $v$ for which $e(v)(f) = 0$ for all $f$. Rewriting, we would have that $f(v) = 0 \forall f$. The only $v$ for which this holds is $0$, and so $e$ is injective automatically. In the finite dimensional case between spaces of the same dimension (as V and V** are, by elementary linear algebra), injectivity implies bijectivity, and so we have an isomorphism. 
+
+In the infinite dimensional case, algebraic dual spaces are strictly larger (dimensionally) than the original spaces, ($\dim V^* = |\F|^{\dim V} > \dim V$) and so $e$ cannot be an isomorphism. \qed
+
+
+
+\end{solution}
+
+
+
+
+
+\begin{problem}[108]
+	Apply the "free cocompletion" stuff to the case $\Small = 1$, the terminal category.
+\end{problem}
+\begin{solution}
+
+The free cocompletion stuff says that 
+%for $X : \Small^\op \to \Set$, that \[X \iso \colim (\el X \xrightarrow{p} \Small \xrightarrow{H_\bullet} [\Small^\op, \Set])\]
+if $\mc{C}$ is cocomplete and $F: \Small \to \mc{C}$, then there is an essentially unique colimit-preserving functor $\hat{F}: [\Small^\op, \Set] \to \mc{C}$ with $\hat{F} \circ H_\bullet \iso F$. 
+
+I won't write $^\op$, as $1^\op = 1$. 
+
+Luckily, the terminal category is pretty nice... $F: 1 \to \mc{C}$ is a functor selecting our favorite object $C \in \mc{C}$ and the identity morphism on $C$. Moreover, we know that $H_\bullet(1) = H_1 = \Small(-, 1)$. In particular, the only thing we can do is $H_1(1) = \{1_1\}$. 
+
+So, we can just define $\hat{F}$ to be the constant functor on $C$. For instance, if we have $G \in [1, \Set]$ which maps $1$ to any set $S$, which we don't really care about, then  $\hat{F}(G) = C$, $\hat{F}(\alpha: G \natt H) = 1_{C}$. Then, $\hat{F}$ is trivially a functor, and also preserves all colimits---we know that $\Delta \dashv \lim$, and so $\Delta$ is a left adjoint, and left adjoints preserve colimits.  So, we must show that $\Delta_C \circ 1(-, 1) \iso C$ and $\Delta_C\circ 1(-, 1_1) \iso 1_C$. However, the first equation simplifies to $C \iso C$, and the second $1_C \iso 1_C$. So, we have a colimit preserving functor with the necessary properties. 
+
+The last step is that our functor must be essentially unique. If there were another functor $K: [1, \Set] \to \mc{C}$, the only information we need would be that $K \circ H_1 \iso C$ (as that is really the only data we have!). Then, because $H_1$ doesn't carry any new information, we conclude that $K \iso \Delta_C$. 
+
+In particular, the free cocompletion of the terminal category is a collection of all the functors from $1 \to \Set$. These are just functors that choose sets, and so to freely get all colimits on one object, we need sets. 
+
+
+
+\end{solution}
+
+
+
+
+
+
+
+\begin{problem}[120]
+	Suppose that $(\mc{V}, \otimes, I, a, l, r), (\mc{V}', \otimes', I', a', l', r')$ are monoidal categories, and $F: \mc{V} \to \mc{V}'$ is a strict monoidal functor that is an equivalence. Suppose that $G: \mc{V}' \to \mc{V}$ is a functor such that $GF \iso 1_\mc{V}$ and $FG \iso 1_{\mc{V}'}$. Prove that $G$ can be equipped with natural isomorphisms $G_2, G_0$ such that $G$ is monoidal, but that those $G_2, G_0$ can sometimes NOT be the identity-- that is, it's not always possible to make $G$ strict monoidal. 
+\end{problem}
+\begin{solution}
+
+Let's start by defining $G_0: I \iso GI'$. By strictness, we can take $I \xrightarrow{\eta_I} GFI = GI'$. 
+
+
+Similarly, we can define $G_2$ as % https://q.uiver.app/#q=WzAsNCxbMiwwLCJHRihHeCBcXG90aW1lcyBHeSkiXSxbMywwLCJHKEZHeCBcXG90aW1lcycgRkd5KSJdLFs1LDAsIkcoeCBcXG90aW1lcycgeSkiXSxbMCwwLCJHeCBcXG90aW1lcyBHeSJdLFswLDEsIj0iLDEseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJub25lIn0sImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMywwLCJcXGV0YSJdLFsxLDIsIkcoXFxlcHMgXFxvdGltZXMgXFxlcHMpIl1d
+\[\begin{tikzcd}
+	{Gx \otimes Gy} && {GF(Gx \otimes Gy)} & {G(FGx \otimes' FGy)} && {G(x \otimes' y)}
+	\arrow["\eta", from=1-1, to=1-3]
+	\arrow["{=}"{description}, draw=none, from=1-3, to=1-4]
+	\arrow["{G(\eps \otimes \eps)}", from=1-4, to=1-6]
+\end{tikzcd}\]
+where the equality follows by strictness. This is natural because it is composed of natural isomorphisms and functors.
+
+The monoidality(?) of $G$ is a bit messy. I've done the left unit axiom in some detail below. 
+
+% https://q.uiver.app/#q=WzAsMTgsWzAsMCwiSVxcb3RpbWVzIEd4Il0sWzMsMCwiR0knIFxcb3RpbWVzIEd4Il0sWzMsMiwiRyhJJ1xcb3RpbWVzIHgpIl0sWzMsNCwiR3giXSxbMCw1LCJJXFxvdGltZXMgR3giXSxbMiw1LCJHRklcXG90aW1lcyBHeCJdLFszLDUsIkdJJyBcXG90aW1lcyBHeCJdLFszLDYsIkdGKEdJJyBcXG90aW1lcyBHeCkiXSxbMyw3LCJHKEZHSScgXFxvdGltZXMnIEZHeCkiXSxbMyw4LCJHKEknIFxcb3RpbWVzJ3gpIl0sWzMsOSwiR3giXSxbMCwxMCwiRihJIFxcb3RpbWVzIEd4KSA9IEknIFxcb3RpbWVzJyBGR3giXSxbMywxMCwiRkdJJyBcXG90aW1lcycgRkd4Il0sWzMsMTIsIkZHKEknIFxcb3RpbWVzJyB4KSJdLFszLDEzLCJGR3giXSxbMSwxMywieCJdLFsxLDEyLCJJJyBcXG90aW1lcycgeCJdLFswLDEzLCJGR3giXSxbMCwxLCJHXzAxIl0sWzEsMiwiR18yIl0sWzIsMywiR2wnIl0sWzAsMywibCIsMl0sWzQsNSwiXFxldGExIl0sWzUsNiwiPSIsMSx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6Im5vbmUifSwiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFs2LDcsIlxcZXRhIiwxXSxbNyw4LCI9IiwxLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzgsOSwiRyhcXGVwcyBcXG90aW1lc1xcZXBzKSJdLFs5LDEwLCJHbCciXSxbNCwxMCwibCIsMl0sWzExLDEyLCJcXGV0YSAxIiwyXSxbMTIsMTMsIkZHXzIiLDJdLFsxMywxNCwiRkdsJyIsMl0sWzE0LDE1LCJcXGVwc194IiwyXSxbMTYsMTUsImwnIl0sWzEzLDE2LCJcXGVwc194Il0sWzExLDE3LCJGbCcgIl0sWzE3LDE1LCJcXGVwc194IiwyXSxbMTIsMTYsIlxcZXBzX3tJJ30gXFxvdGltZXMgXFxlcHNfeCIsMV0sWzExLDE2LCIxIFxcb3RpbWVzJyBcXGVwc194IiwxXV0=
+\[\begin{tikzcd}
+	{I\otimes Gx} &&& {GI' \otimes Gx} \\
+	\\
+	&&& {G(I'\otimes x)} \\
+	\\
+	&&& Gx \\
+	{I\otimes Gx} && {GFI\otimes Gx} & {GI' \otimes Gx} \\
+	&&& {GF(GI' \otimes Gx)} \\
+	&&& {G(FGI' \otimes' FGx)} \\
+	&&& {G(I' \otimes'x)} \\
+	&&& Gx \\
+	{F(I \otimes Gx) = I' \otimes' FGx} &&& {FGI' \otimes' FGx} \\
+	\\
+	& {I' \otimes' x} && {FG(I' \otimes' x)} \\
+	FGx & x && FGx
+	\arrow["{G_01}", from=1-1, to=1-4]
+	\arrow["l"', from=1-1, to=5-4]
+	\arrow["{G_2}", from=1-4, to=3-4]
+	\arrow["{Gl'}", from=3-4, to=5-4]
+	\arrow["\eta \otimes 1", from=6-1, to=6-3]
+	\arrow["l"', from=6-1, to=10-4]
+	\arrow["{=}"{description}, draw=none, from=6-3, to=6-4]
+	\arrow["\eta"{description}, from=6-4, to=7-4]
+	\arrow["{=}"{description}, draw=none, from=7-4, to=8-4]
+	\arrow["{G(\eps \otimes\eps)}", from=8-4, to=9-4]
+	\arrow["{Gl'}", from=9-4, to=10-4]
+	\arrow["{\eta_{I'}\otimes' 1}"', from=11-1, to=11-4]
+	\arrow["{1 \otimes' \eps_x}"{description}, from=11-1, to=13-2]
+	\arrow["{Fl }", from=11-1, to=14-1]
+	\arrow["{\eps_{I'} \otimes \eps_x}"{description}, from=11-4, to=13-2]
+	\arrow["{FG_2}"', from=11-4, to=13-4]
+	\arrow["{l'}", from=13-2, to=14-2]
+	\arrow["{\eps_x}", from=13-4, to=13-2]
+	\arrow["{FGl'}"', from=13-4, to=14-4]
+	\arrow["{\eps_x}"', from=14-1, to=14-2]
+	\arrow["{\eps_x}"', from=14-4, to=14-2]
+\end{tikzcd}\]
+
+The top diagram is the generic axiom. The second one has our constructions. The third one applies $F$ to the first one and introduces a number of commuting diagrams (up to isomorphism). The left trapezoid is naturality of $l'$ (notice $Fl \iso l'$). The upper triangle is by the equivalence. The right triangle commutes by our definition of $G_2$, and the bottom square is naturality of $\eps$, all up to isomorphism. Because $F$ is an equivalence, it preserves diagrams in "reverse" (if $FD$ commutes, then $D$ commutes, as we could apply $G$ at the front again, then take $\eta^{-1}$ to get back to the identity). This gets rid of the isomorphisms because we will be left with the identity, and then everything should commute (I think!). The same sort of arguments-- applying $F$ and using the same sorts of axioms from $F$ to show that the diagram commutes, then applying $G$ and taking $\eta^{-1}$ to get a commutative diagram that gives the axiom for $G$ should be all we need. 
+
+Thus, $G$ is monoidal. 
+
+For an example where we cannot make $G$ strictly monoidal, consider $\mc{V}$ to be the terminal category $\{*\}$ with trivial tensor product and $\mc{A}$ to be the indiscrete category on two objects with tensor product $00 = 0, 01 = 0, 10 = 0, 11 = 1$ (boolean "and") Then, $\mc{A}$ has unit $1$ and unique $a, l, r$ such that every diagram commutes (in particular, the axioms).
+
+Then $F: \mc{A} \to \mc{V}$ is a strict monoidal functor, but $G: \mc{V} \to \mc{A}$ sending $*\mapsto 1$ has $G* \neq 0$, even though $G* \iso 0$. We know that $F, G$ form an equivalence of categories, and so we have found a counterexample!
+
+
+
+\end{solution}
+
+
+\end{document}
