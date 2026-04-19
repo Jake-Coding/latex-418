@@ -261,13 +261,13 @@ The monoidality(?) of $G$ is a bit messy. I've done the left unit axiom in some 
 	\arrow["{\eps_x}"', from=14-4, to=14-2]
 \end{tikzcd}\]
 
-The top diagram is the generic axiom. The second one has our constructions. The third one applies $F$ to the first one and introduces a number of commuting diagrams (up to isomorphism). The left trapezoid is naturality of $l'$ (notice $Fl \iso l'$). The upper triangle is by the equivalence. The right triangle commutes by our definition of $G_2$, and the bottom square is naturality of $\eps$, all up to isomorphism. Because $F$ is an equivalence, it preserves diagrams in "reverse" (if $FD$ commutes, then $D$ commutes, as we could apply $G$ at the front again, then take $\eta^{-1}$ to get back to the identity). This gets rid of the isomorphisms because we will be left with the identity, and then everything should commute (I think!). The same sort of arguments-- applying $F$ and using the same sorts of axioms from $F$ to show that the diagram commutes, then applying $G$ and taking $\eta^{-1}$ to get a commutative diagram that gives the axiom for $G$ should be all we need. 
+The top diagram is the generic axiom. The second one has our constructions. The third one applies $F$ to the first one and introduces a number of commuting diagrams. The left trapezoid is naturality of $l'$ (notice $Fl = l'$). The upper triangle is by the equivalence. The right triangle commutes by our definition of $G_2$, and the bottom square is naturality of $\eps$. Because $F$ is an equivalence, it preserves diagrams in "reverse" (if $FD$ commutes, then $D$ commutes, as we could apply $G$ at the front again, then take $\eta^{-1}$ to get back to the identity). We can use the same sort of arguments---applying $F$ and using the same sorts of axioms from $F$ to show that the diagram commutes, then applying $G$ and taking $\eta^{-1}$ to get a commutative diagram that gives the axiom for $G$---and we're done! 
 
 Thus, $G$ is monoidal. 
 
 For an example where we cannot make $G$ strictly monoidal, consider $\mc{V}$ to be the terminal category $\{*\}$ with trivial tensor product and $\mc{A}$ to be the indiscrete category on two objects with tensor product $00 = 0, 01 = 0, 10 = 0, 11 = 1$ (boolean "and") Then, $\mc{A}$ has unit $1$ and unique $a, l, r$ such that every diagram commutes (in particular, the axioms).
 
-Then $F: \mc{A} \to \mc{V}$ is a strict monoidal functor, but $G: \mc{V} \to \mc{A}$ sending $*\mapsto 1$ has $G* \neq 0$, even though $G* \iso 0$. We know that $F, G$ form an equivalence of categories, and so we have found a counterexample!
+Then $F: \mc{A} \to \mc{V}$ is a strict monoidal functor, but $G: \mc{V} \to \mc{A}$ sending $*\mapsto 0$ has $G* \neq 1$, even though $G* \iso 1$. We know that $F, G$ form an equivalence of categories, and so we have found a counterexample!
 
 
 
